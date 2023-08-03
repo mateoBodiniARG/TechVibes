@@ -1,45 +1,32 @@
 import React from 'react'
 import ItemList from './ItemList'
+import ItemDetailContainer from './ItemDetailContainer'
+import { useParams } from 'react-router-dom'
 
 const ItemListContainer = () => {
   
-  const productos = [
-    { id: 1, nombre: "Producto A", description: "Desc prodcuto A", stock: 5 },
-    { id: 2, nombre: "Producto B", description: "Desc prodcuto B", stock: 9 },
-    { id: 3, nombre: "Producto C", description: "Desc prodcuto C", stock: 2 },
-  ];
-
-  const getProductos = () => {
-    return new Promise((resolve, reject) => {
-      if (productos.length === 0) {
-        reject(new Error("No se hay productos"));
-      }
-      setTimeout(() => {
-        resolve(productos);
-      }, 3000);
-    });
-  };
-
-  console.log(getProductos());
-
-  async function fetchingProducts() {
-    try {
-      const productosFetched = await getProductos();
-      console.log(productosFetched);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  fetchingProducts();
-
+  const {category} = useParams()
+ 
+  
+  getProductos()
+  .then((res)=>{
+    console.log(res)
+  })
+  .catch((error)=>{
+    console.log(error)
+  })
+  
+  
     return (
-      <div>
-        <p className='text-white font-bold flex justify-center content-center mt-1 text-lg'></p>
+      <>
+        <h1 className="text-center text-white font-semibold text-4xl my-3">Products available</h1>
         <ItemList
         productos = {productos}
         />
-      </div>
+        <ItemDetailContainer
+        productos = {productos}
+        />
+      </>
   )
 }
 
