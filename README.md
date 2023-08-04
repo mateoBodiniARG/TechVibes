@@ -2,5 +2,4 @@
 Ecommerce for the coderhouse react course. W/ Tailwind - React JS
 
 Preview:
-https://github.com/mateoBodiniARG/TechVibes/assets/83024999/39fe252b-ef47-444e-83dc-efa1df8a221a
-
+![GifTechVibes](https://github.com/mateoBodiniARG/TechVibes/assets/83024999/665215f7-ad19-4f36-8375-78dea0e3f875)
