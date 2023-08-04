@@ -1,9 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import CartWidget from "./CartWidget";
-// import Profile from "./Profile";
 import { Link } from "react-router-dom";
-
 const NavBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -14,7 +12,7 @@ const NavBar = () => {
   return (
     <nav className="bg-gray-900 border-b-2 border-gray-800 max-w-full">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
-        <a href="#" className="flex items-center">
+        <div className="flex items-center">
           <Link to={"/"}>
             <img
               src="https://static.vecteezy.com/system/resources/previews/013/643/507/large_2x/colorfull-modern-letter-in-3d-style-text-effect-free-png.png"
@@ -22,14 +20,12 @@ const NavBar = () => {
               alt="TechVibes logo"
             />
           </Link>
-
           <Link to={"/"}>
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
-            TechVibes
-          </span>
+            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
+              TechVibes
+            </span>
           </Link>
-        </a>
-
+        </div>
         <div className="flex md:order-2 gap-2">
           <button
             type="button"
@@ -56,7 +52,6 @@ const NavBar = () => {
             </svg>
             <span className="sr-only">Search</span>
           </button>
-
           <div
             className={`relative ${
               isSearchOpen ? "block" : "hidden"
@@ -112,13 +107,11 @@ const NavBar = () => {
               />
             </svg>
           </button>
-
-          <Link to={'/cart'}>
+          <Link to={"/cart"}>
             <div className="cartWidget ml-1 text-white">
               <CartWidget />
             </div>
           </Link>
-
         </div>
         <div
           className={`items-center justify-between ${
@@ -151,40 +144,15 @@ const NavBar = () => {
               placeholder="Search..."
             />
           </div>
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border  rounded-lg  md:flex-row md:space-x-4 md:mt-0 md:border-0 bg-gray-800 md:bg-gray-900 border-gray-700">
-            <li>
-            <Link to={`/category/${'Monitors'}`}>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent  md:p-0 md:text-blue-500"
-                aria-current="page"
-              >
-                Monitors
-              </a>
-              </Link>
+          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border text-white rounded-lg  md:flex-row md:space-x-4 md:mt-0 md:border-0 bg-gray-800 md:bg-gray-900 border-gray-700">
+            <li className="hover:text-blue-500">
+              <Link to={"/category/Coolers"}>Coolers</Link>
             </li>
-
-            <li>
-              <Link to={`/category/${'cat2'}`}>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4  rounded md:p-0 md:hover:text-blue-500 text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"
-              >
-                Graphics cards
-              </a>
-              </Link>
+            <li className="hover:text-blue-500">
+              <Link to={"/category/Keyboards"}>Keyboards</Link>
             </li>
-            <li>
-
-              <Link to={`/category/${'cat3'}`}>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4  rounded  md:p-0 text-white md:hover:text-blue-500 hover:bg-gray-700 hover:text-white md:hover:bg-transparent border-gray-700"
-              >
-                Keyboards
-              </a>
-              </Link>
-              
+            <li className="hover:text-blue-500">
+              <Link to={"/category/Graphics Cards"}>Graphics Cards</Link>
             </li>
           </ul>
         </div>
