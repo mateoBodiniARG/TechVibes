@@ -1,7 +1,7 @@
 # TechVibes
 
-#### What is techvibes?
-TechVibes is an exciting project for the CoderHouse React course on an ecommerce focused on selling PC components and peripherals. With a mission to create a platform that gives users access to a wide range of technology products that enhance their computing experience. From the latest generation processors to high performance keyboards and mice.
+#### Que es TechVibes?
+TechVibes es un emocionante proyecto para el curso de React de CoderHouse sobre un ecommerce centrado en la venta de componentes y periféricos de PC. Con la misión de crear una plataforma que brinde a los usuarios acceso a una amplia gama de productos tecnológicos que potencien su experiencia informática. Desde procesadores de última generación hasta teclados y ratones de alto rendimiento.
 Preview:
 ![GifTechVibes](https://github.com/mateoBodiniARG/TechVibes/assets/83024999/665215f7-ad19-4f36-8375-78dea0e3f875)
 
