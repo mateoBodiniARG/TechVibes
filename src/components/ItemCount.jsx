@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const ItemCount = ({producto}) => {
 
   
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart} = useContext(CartContext);
 
   const [contador, setContador] = useState(0);
 
@@ -19,12 +19,26 @@ const ItemCount = ({producto}) => {
     } else setContador(contador - 1);
   };
 
-  const addToCart = () => {
-    const cartAux = cart
-    for (let index = 0; index < contador; index++) {
-        cartAux.push(producto)
+ const addToCart = () => {
+    const cartAux = [...cart];
+
+    if (cartAux.some(item => item.id === producto.id)) {
+      const cartActualizado = cartAux.map(item => {
+        if (item.id === producto.id) {
+          item.cantComprar = contador;
+        }
+        return item;
+      });
+
+      setCart(cartActualizado);
+    } else {
+      for (let index = 0; index < contador; index++) {
+        cartAux.push(producto);
+      }
+      setCart(cartAux);
     }
-    setCart(cartAux)
+
+    setContador(0);
   };
 
   

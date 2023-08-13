@@ -1,8 +1,6 @@
 import React from "react";
 import ItemCount from "./ItemCount";
 const ItemDetail = ({ producto }) => {  
-
-
   return (
     <div className="flex items-center justify-center h-screen bg-gray-900">
       <div className="container mx-auto px-4 py-8 rounded-lg shadow-2xl">

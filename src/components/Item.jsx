@@ -8,12 +8,10 @@ const Item = ({ id, nombre, desc, stock, price, discount, img, category }) => {
       <div className="mt-1 flex flex-col border border-gray-600 bg-gray-800 rounded-xl">
         <Link to={`/item/${id}`}>
           <div className="relative overflow-hidden rounded-xl">
-            <a href="#">
-              <img className="object-cover" src={img} alt="product image" />
-              <span className="absolute top-2 left-2 rounded-full bg-black px-2 text-sm font-medium text-white">
-                {category}
-              </span>
-            </a>
+            <img className="object-cover" src={img} alt="product image" />
+            <span className="absolute top-2 left-2 rounded-full bg-black px-2 text-sm font-medium text-white">
+              {category}
+            </span>
           </div>
         </Link>
 

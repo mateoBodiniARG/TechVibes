@@ -7,9 +7,9 @@ const CartWidget = () => {
   const { cart, setCart } = useContext(CartContext);
 
   useEffect(() => {
-    console.log(cart);
+    
   }, [cart]);
-
+  
   return (
     <>
       <div className="navCart p-1 rounded-md text-3xl cursor-pointer flex text-center">
