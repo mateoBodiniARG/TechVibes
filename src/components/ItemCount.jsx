@@ -19,27 +19,20 @@ const ItemCount = ({producto}) => {
     } else setContador(contador - 1);
   };
 
- const addToCart = () => {
+  const addToCart = () => {
     const cartAux = [...cart];
-
-    if (cartAux.some(item => item.id === producto.id)) {
-      const cartActualizado = cartAux.map(item => {
-        if (item.id === producto.id) {
-          item.cantComprar = contador;
-        }
-        return item;
-      });
-
-      setCart(cartActualizado);
+    const yaExiste = cartAux.findIndex(item => item.id === producto.id);
+  
+    if (yaExiste !== -1) {
+      cartAux[yaExiste].cantComprar += contador;
     } else {
-      for (let index = 0; index < contador; index++) {
-        cartAux.push(producto);
-      }
-      setCart(cartAux);
+      const nuevoItem = { ...producto, cantComprar: contador };
+      cartAux.push(nuevoItem);
     }
-
-    setContador(0);
+  
+    setCart(cartAux);
   };
+  
 
   
 
