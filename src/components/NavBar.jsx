@@ -152,7 +152,7 @@ const NavBar = () => {
               <Link to={"/category/Keyboards"}>Keyboards</Link>
             </li>
             <li className="hover:text-blue-500">
-              <Link to={"/category/Graphics Cards"}>Graphics Cards</Link>
+              <Link to={"/category/Graphic Card"}>Graphics Cards</Link>
             </li>
           </ul>
         </div>

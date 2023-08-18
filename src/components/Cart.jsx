@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { CartContext } from "../context/ShoppingCartContext";
 import ItemsCart from "./ItemsCart";
 import { MdDeleteForever } from "react-icons/md";
-import { productos } from "./data/AsyncMock";
 const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
 
@@ -47,7 +46,6 @@ const Cart = () => {
                 img={producto.img}
                 category={producto.category}
                 cantComprar={producto.cantComprar}
-                productos={productos}
               />
             </div>
           );

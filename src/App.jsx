@@ -5,22 +5,27 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cart from "./components/Cart";
 import ShoppingCartContext from "./context/ShoppingCartContext";
 import { productos  } from './components/data/AsyncMock'
+import SendOrder from "./components/SendOrder";
+
 function App() {
   return (
     <>
       <BrowserRouter>
         <ShoppingCartContext>
+
           <nav>
             <NavBar />
           </nav>
           <Routes>
             <Route path="/" element={<ItemListContainer />} />
             <Route path="/cart" element={<Cart productos={productos}/>} />
-            <Route path="/category/:category" element={<ItemListContainer />} />
+            <Route path="/category/:categoryId" element={<ItemListContainer />} />
             <Route path="/item/:id" element={<ItemDetailContainer />} />
           </Routes>
         </ShoppingCartContext>
       </BrowserRouter>
+
+      {/* <SendOrder/> */}
     </>
   );
 }

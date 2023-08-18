@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from "react";
-import ItemDetail from "./ItemDetail";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 
-//Arreglar id,
-const ItemDetailContainer = () => {
-  const {id}= useParams()
-  console.log(id)
+const Document = () => {
   const [product, setProduct] = useState([]);
   console.log(product);
   
   useEffect(() => {
     const db = getFirestore();
 
-    const oneItem = doc(db, "Productos", `${id}`);
+    const oneItem = doc(db, "Productos", "3grLhhB90SMsVMZCjvKW");
     getDoc(oneItem).then((snapshot) => {
       if (snapshot.exists()) {
         const docs = snapshot.data();
@@ -21,15 +16,18 @@ const ItemDetailContainer = () => {
       }
     });
   }, []);
-  
-
- 
 
   return (
-    <div>
-      <ItemDetail producto={product} />
+    <div className="text-white">
+      <h1>Producto</h1>
+      {
+        <div>
+            <h3>Producto: {product.nombre}</h3>
+            <h4>Categoria: {product.categoryId}</h4>
+        </div>
+      }
     </div>
   );
 };
 
-export default ItemDetailContainer;
+export default Document;

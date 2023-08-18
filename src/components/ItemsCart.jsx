@@ -16,7 +16,7 @@ const ItemsCart = ({
   category,
   cantComprar,
   productos,
-}) => {
+}) => { 
   const { cart, setCart } = useContext(CartContext);
 
   const deleteProduct = () => {
