@@ -32,13 +32,13 @@ const ItemCount = ({producto}) => {
   
     setCart(cartAux);
   };
-  
+  console.log(producto)
 
   
 
   return (
     <section className="flex gap-7">
-      <div className="bg-indigo-700 border rounded-md grid grid-cols-3 place-items-center h-10 overflow-hidden w-40 border-indigo-600 ">
+      <div className="bg-indigo-700 border rounded-md grid grid-cols-3 place-items-center h-12 overflow-hidden w-40 border-indigo-600 ">
         <button
           className={"disabled:cursor-not-allowed text-white "}
           onClick={restar}
@@ -65,8 +65,9 @@ const ItemCount = ({producto}) => {
 
       <div className="flex justify-center items-center gap-7">
         <button
-          className="bg-blue-500 transition ease-in hover:bg-gray-200 hover:text-black text-white font-semibold h-10 w-40 rounded-lg"
+          className="bg-blue-500 transition ease-in hover:bg-gray-200 hover:text-black text-white font-semibold h-12 w-40 rounded-lg disabled:cursor-not-allowed disabled:hover:bg-slate-500"
           onClick={addToCart}
+          disabled={contador === 0}
         >
           Add to cart
         </button>

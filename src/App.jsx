@@ -4,7 +4,6 @@ import NavBar from "./components/NavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cart from "./components/Cart";
 import ShoppingCartContext from "./context/ShoppingCartContext";
-import { productos  } from './components/data/AsyncMock'
 import SendOrder from "./components/SendOrder";
 
 function App() {
@@ -18,7 +17,7 @@ function App() {
           </nav>
           <Routes>
             <Route path="/" element={<ItemListContainer />} />
-            <Route path="/cart" element={<Cart productos={productos}/>} />
+            <Route path="/cart" element={<Cart/>} />
             <Route path="/category/:categoryId" element={<ItemListContainer />} />
             <Route path="/item/:id" element={<ItemDetailContainer />} />
           </Routes>

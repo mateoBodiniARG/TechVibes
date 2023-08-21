@@ -10,9 +10,9 @@ const Item = ({ id, nombre, desc, stock, price, discount, img, categoryId }) => 
         <Link to={`/item/${id}`}>
           <div className="relative overflow-hidden rounded-xl">
             <img className="object-cover" src={img} alt="product image" />
-            <span className="absolute top-2 left-2 rounded-full bg-black px-2 text-sm font-medium text-white">
+            {/* <span className="absolute top-2 left-2 rounded-full bg-black px-2 text-sm font-medium text-white">
               {categoryId}
-            </span>
+            </span> */}
           </div>
         </Link>
 

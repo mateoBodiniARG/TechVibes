@@ -146,13 +146,13 @@ const NavBar = () => {
           </div>
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border text-white rounded-lg  md:flex-row md:space-x-4 md:mt-0 md:border-0 bg-gray-800 md:bg-gray-900 border-gray-700">
             <li className="hover:text-blue-500">
-              <Link to={"/category/Coolers"}>Coolers</Link>
+              <Link to={"/category/Headsets"}>Headsets</Link>
             </li>
             <li className="hover:text-blue-500">
               <Link to={"/category/Keyboards"}>Keyboards</Link>
             </li>
             <li className="hover:text-blue-500">
-              <Link to={"/category/Graphic Card"}>Graphics Cards</Link>
+              <Link to={"/category/Gaming Chairs"}>Gaming Chairs</Link>
             </li>
           </ul>
         </div>

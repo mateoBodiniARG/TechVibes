@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import ItemDetail from "./ItemDetail";
 import { useParams } from "react-router-dom";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import Loading from "./Loading";
 
 //Arreglar id,
 const ItemDetailContainer = () => {
   const {id}= useParams()
   console.log(id)
   const [product, setProduct] = useState([]);
-  console.log(product);
+  const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     const db = getFirestore();
@@ -17,12 +18,15 @@ const ItemDetailContainer = () => {
     getDoc(oneItem).then((snapshot) => {
       if (snapshot.exists()) {
         const docs = snapshot.data();
-        setProduct(docs);
+        setProduct({id:snapshot.id, ...docs});
+        setLoading(false)
       }
     });
   }, []);
   
-
+  if(loading){
+    return <Loading/>
+  }
  
 
   return (
