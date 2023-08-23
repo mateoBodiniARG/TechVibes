@@ -4,10 +4,9 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import Loading from "./Loading";
 
-//Arreglar id,
+
 const ItemDetailContainer = () => {
   const {id}= useParams()
-  console.log(id)
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true)
   

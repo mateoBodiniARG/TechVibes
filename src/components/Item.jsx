@@ -3,7 +3,6 @@ import { MdOutlineDescription } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const Item = ({ id, nombre, desc, stock, price, discount, img, categoryId }) => {
-  console.log(id)
   return (
     <section className="p-2 ">
       <div className="mt-1 flex flex-col border border-gray-600 bg-gray-800 rounded-xl">

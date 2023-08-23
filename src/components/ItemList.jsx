@@ -5,7 +5,6 @@ const ItemList = ({ productos }) => {
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 mx-auto max-w-screen-xl">
       {productos.map((producto) => {
-        console.log(producto)
         return (
           <div key={producto.nombre}>
             <Item

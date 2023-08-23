@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import CartWidget from "./CartWidget";
 import { Link } from "react-router-dom";
+import ProfileWidget from "./ProfileWidget";
 const NavBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -107,6 +108,13 @@ const NavBar = () => {
               />
             </svg>
           </button>
+
+          <Link to={"/profile"}>
+            <div className="cartWidget ml-1 text-white">
+              <ProfileWidget />
+            </div>
+          </Link>
+
           <Link to={"/cart"}>
             <div className="cartWidget ml-1 text-white">
               <CartWidget />

@@ -2,18 +2,21 @@ import React, { useContext } from "react";
 import { CartContext } from "../context/ShoppingCartContext";
 import ItemsCart from "./ItemsCart";
 import { MdDeleteForever } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { BsCartX } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import Fade from "react-reveal/Fade";
+import { AiOutlineHome } from "react-icons/ai";
 
 const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
-
   const cartEmpty = cart.length === 0;
 
   const clearCart = () => {
     setCart([]);
   };
+
+  let cartTotal = 0;
+  cart.forEach((item) => (cartTotal += item.price * item.cantComprar));
 
   return (
     <section className="h-screen">
@@ -42,29 +45,40 @@ const Cart = () => {
         <section>
           {cartEmpty ? (
             <div className="items-center flex justify-center flex-col h-screen">
-              <span className="text-indigo-900 text-5xl bg-indigo-300 p-3 rounded-xl"> <BsCartX/> </span>
-              <p className="font-semibold text-4xl text-indigo-200 mt-4">Your cart is empty</p>
-              <Link to={"/"}>
-              <p className="text-white text-xl mt-5 bg-indigo-600 cursor-pointer px-2 py-2 rounded-xl transition ease-in hover:bg-indigo-400 hover:text-black ">Back to home</p>
-              </Link>
+              <Fade top>
+                <span className="text-indigo-900 text-5xl bg-indigo-300 p-3 rounded-xl">
+                  <BsCartX />
+                </span>
+                <p className="font-semibold text-4xl text-indigo-200 mt-4">
+                  Your cart is empty
+                </p>
+                <Link to={"/"}>
+                  <p className="flex items-center gap-2 text-white text-xl mt-5 bg-indigo-600 cursor-pointer px-2 py-2 rounded-xl transition ease-in hover:bg-indigo-400 hover:text-black ">
+                    <AiOutlineHome className="w-6 h-6" /> Back to home
+                  </p>
+                </Link>
+              </Fade>
             </div>
           ) : (
             cart.map((producto) => (
               <div key={producto.nombre}>
-                <ItemsCart
-                  id={producto.id}
-                  nombre={producto.nombre}
-                  desc={producto.description}
-                  stock={producto.stock}
-                  price={producto.price}
-                  discount={producto.discount}
-                  img={producto.img}
-                  category={producto.category}
-                  cantComprar={producto.cantComprar}
-                />
+                <ItemsCart {...producto} />
               </div>
             ))
           )}
+          <section className="flex justify-center ">
+            <div className="mt-8 p-5 bg-white rounded-lg w-full">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold">Total:</h2>
+                <span className="text-xl font-bold">${cartTotal}</span>
+              </div>
+              <Link to={"/finalizePurchase"}>
+                <button className="w-full py-2 bg-indigo-800 text-white rounded-lg hover:bg-indigo-600 transition ease-in">
+                  Finalize Purchase
+                </button>
+              </Link>
+            </div>
+          </section>
         </section>
       </section>
     </section>

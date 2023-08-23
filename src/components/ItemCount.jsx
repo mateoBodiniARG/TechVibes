@@ -3,16 +3,18 @@ import { IoAddSharp } from "react-icons/io5";
 import { RiSubtractFill } from "react-icons/ri";
 import { CartContext } from "../context/ShoppingCartContext";
 import { useEffect } from "react";
+import { toast } from 'react-toastify';
 const ItemCount = ({producto}) => {
 
   
   const { cart, setCart} = useContext(CartContext);
-
   const [contador, setContador] = useState(0);
 
   const sumar = () => {
-    setContador(contador + 1);
+      setContador(contador + 1);
   };
+
+  
   const restar = () => {
     if (contador <= 0) {
       alert("Ha llegado al numero minimo de productos");
@@ -29,10 +31,12 @@ const ItemCount = ({producto}) => {
       const nuevoItem = { ...producto, cantComprar: contador };
       cartAux.push(nuevoItem);
     }
-  
     setCart(cartAux);
+    toast.success('Product successfully added!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
   };
-  console.log(producto)
 
   
 
