@@ -16,7 +16,7 @@ const Item = ({ id, nombre, desc, stock, price, discount, img, categoryId }) => 
         </Link>
 
         <div className="mt-4 px-5 pb-5">
-          <h5 className="text-xl text-center tracking-wide text-slate-300 font-medium truncate">
+          <h5 className="text-xl text-center tracking-wide text-slate-300 truncate font-medium">
             {nombre}
           </h5>
           <div className="mt-2 mb-5 flex items-center justify-center">

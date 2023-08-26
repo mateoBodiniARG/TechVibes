@@ -11,10 +11,9 @@ const SendOrder = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addDoc(ordersCollection, order).then(({id}) =>
-    setOrderId(id)) 
+    addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
 
-    sendOrder()
+    sendOrder();
   };
 
   const order = {
@@ -26,9 +25,17 @@ const SendOrder = () => {
 
   const sendOrder = () => {
     const order = {
-      buyer: { name: "Samuel", apellido: "Bile", email: "samu@coder.com" },
-      items: [{ name: "Producto A", price: 1000 }],
-      total: 1000,
+      buyer: {
+        name: name,
+        phone: phone ,
+        email: email,
+      },
+
+      items: cart.map((item) => ({
+        name: item.nombre,
+        price: item.price,
+      })),
+      total: cart.reduce((total, item) => total + item.price * item.cantComprar, 0),
     };
     const ordersCollection = collection(db, "orders");
 
@@ -50,8 +57,8 @@ const SendOrder = () => {
         />
         <button type="submit">Enviar informacion</button>
       </form>
-     
-      <p>Numero de orden: {orderId}</p>
+
+      <Modal/>
     </div>
   );
 };

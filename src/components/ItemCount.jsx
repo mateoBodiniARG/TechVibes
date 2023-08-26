@@ -4,17 +4,14 @@ import { RiSubtractFill } from "react-icons/ri";
 import { CartContext } from "../context/ShoppingCartContext";
 import { useEffect } from "react";
 import { toast } from 'react-toastify';
-const ItemCount = ({producto}) => {
-
-  
-  const { cart, setCart} = useContext(CartContext);
+const ItemCount = ({ producto }) => {
+  const { cart, setCart } = useContext(CartContext);
   const [contador, setContador] = useState(0);
 
   const sumar = () => {
-      setContador(contador + 1);
+    setContador(contador + 1);
   };
 
-  
   const restar = () => {
     if (contador <= 0) {
       alert("Ha llegado al numero minimo de productos");
@@ -24,20 +21,21 @@ const ItemCount = ({producto}) => {
   const addToCart = () => {
     const cartAux = [...cart];
     const yaExiste = cartAux.findIndex(item => item.id === producto.id);
-  
+
     if (yaExiste !== -1) {
       cartAux[yaExiste].cantComprar += contador;
     } else {
       const nuevoItem = { ...producto, cantComprar: contador };
       cartAux.push(nuevoItem);
     }
+
     setCart(cartAux);
+    localStorage.setItem("cart", JSON.stringify(cartAux)); 
     toast.success('Product successfully added!', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });
   };
-
   
 
   return (

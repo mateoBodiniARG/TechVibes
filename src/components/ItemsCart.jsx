@@ -33,15 +33,6 @@ const ItemsCart = ({
   };
 
 
-  // const sumar = () => {
-  //   setContador(contador + 1);
-  // };
-
-  // const restar = () => {
-  //   if (contador <= 1) {
-  //     alert("No puedes tener menos de 1 producto");
-  //   } else setContador(contador - 1);
-  // };
 
   const updateCartSum = () => {
     const cartAuxActualizado = [...cart];
@@ -67,9 +58,9 @@ const ItemsCart = ({
   }
   return (
     <section className="my-4">
-      <div className="flex border rounded-xl bg-gray-900 p-6 container text-white">
+      <div className="flex border rounded-xl bg-gray-900 p-6 mm:p-2 container text-white">
         <Link to={`/item/${id}`}>
-          <div className="w-32 h-32 overflow-hidden rounded-xl">
+          <div className="mm:w-20 mm:h-20 w-32 h-32 overflow-hidden rounded-xl">
             <img
               className="object-cover w-full h-full rounded-2xl"
               src={img}
@@ -80,7 +71,6 @@ const ItemsCart = ({
 
         <div className="ml-4">
           <h5 className="text-xl font-semibold mb-2">{nombre}</h5>
-
           <div className="flex items-center mb-2">
             <span className="text-2xl font-bold text-indigo-100">${price}</span>
             <p className="text-lg text-gray-400 ml-2">
