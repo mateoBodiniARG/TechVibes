@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { motion } from "framer-motion";
 import { CartContext } from "../context/ShoppingCartContext";
 import ItemsCart from "./ItemsCart";
 import { MdDeleteForever } from "react-icons/md";
@@ -18,13 +19,19 @@ const Cart = () => {
   let cartTotal = 0;
   cart.forEach((item) => (cartTotal += item.price * item.cantComprar));
 
+  const buttonVariants = {
+    hover: { scale: 1.05 },
+  };
+
   return (
     <div>
       <div className="flex justify-around mb-3 mt-3 items-center">
         <div className="mm:text-2xl text-3xl text-white font-semibold">
           <h1>Product cart</h1>
         </div>
-        <a
+        <motion.a
+          variants={buttonVariants}
+          whileHover="hover"
           className="relative inline-block mm:text-base text-lg group cursor-pointer"
           onClick={clearCart}
         >
@@ -39,9 +46,14 @@ const Cart = () => {
             className="absolute bottom-0 right-0 w-full h-12 mm:-mb-0 mm:-mr-1 -mb-1 -mr-2 transition-all duration-200 ease-linear bg-black rounded-lg group-hover:mb-0 group-hover:mr-0"
             data-rounded="rounded-lg"
           ></span>
-        </a>
+        </motion.a>
       </div>
-      <section className="mt-5 text-center mm:flex mm:justify-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mx-auto max-w-5xl px-3">
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="mt-5 text-center mm:flex mm:justify-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mx-auto max-w-5xl px-3"
+      >
         <section>
           {cartEmpty ? (
             <div className="items-center flex justify-center flex-col h-screen">
@@ -83,7 +95,7 @@ const Cart = () => {
             </div>
           </section>
         </section>{" "}
-      </section>
+      </motion.section>
     </div>
   );
 };

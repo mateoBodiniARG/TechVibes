@@ -5,8 +5,6 @@ const Modal = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      
-
       {showModal && (
         <div
           id="popup-modal"

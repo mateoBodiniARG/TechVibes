@@ -163,7 +163,7 @@ const NavBar = () => {
               <Link to={"/category/Keyboards"}>Keyboards</Link>
             </li>
             <li className="mdMAX:border-2 border-gray-700 bg-slate-900 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
-              <Link to={"/category/GamingChairs"}>Gaming Chairs</Link>
+              <Link to={"/category/Gaming Chairs"}>Gaming Chairs</Link>
             </li>
           </ul>
         </div>
