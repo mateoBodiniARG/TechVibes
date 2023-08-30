@@ -5,7 +5,8 @@ TechVibes es un emocionante proyecto para el curso de React de CoderHouse sobre 
 Como futuro TechVibes tiene el objetivo de introducir mas productos para vender y ampliar el volumen de ventas. De momento es una demo.
 
 
-### Algunas consideraciones sobre TechVibes
+### Algunas consideraciones sobre TechVibes:
+
 ###### Librerias usadas
 *   `React-router-dom`
 *   `TailwindCSS`
