@@ -1,6 +1,6 @@
 import React from "react";
 import ItemCount from "./ItemCount";
-const ItemDetail = ({ producto }) => {  
+const ItemDetail = ({ producto }) => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="container mx-auto px-4 py-8 rounded-2xl shadow-2xl bg-gray-800">
@@ -15,17 +15,9 @@ const ItemDetail = ({ producto }) => {
             <h1 className="text-3xl font-bold text-white uppercase">
               {producto.nombre}
             </h1>
-            <p className="text-gray-300 font-semibold text-lg">{producto.description}</p>
-
-            {/*---------------------------------- En un futuro hacer uso de este codigo para el manejo del stock ----------------------------------*/}
-            {/* <div className="flex gap-1 mt-11 items-center mb-4">
-              <span className="text-gray-400 font-semibold text-base flex">
-                Stock disponible:
-              </span>
-              <span className="text-gray-200 font-bold text-xl">
-                {producto.stock}
-              </span>
-            </div> */}
+            <p className="text-gray-300 font-semibold text-lg">
+              {producto.description}
+            </p>
 
             <div className="flex">
               <span className="text-4xl text-green-400 font-bold">
@@ -36,7 +28,7 @@ const ItemDetail = ({ producto }) => {
               </span>
             </div>
             <div className="flex justify-center items-center mt-4 gap-7">
-                <ItemCount producto={producto}/>
+              <ItemCount producto={producto} />
             </div>
           </div>
         </div>

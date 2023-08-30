@@ -227,8 +227,8 @@ const FinalizePurchase = () => {
                   </motion.button>
 
                   {orderId && isModalVisible && (
-                    <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-filter backdrop-blur-sm">
-                      <div className="bg-black opacity-10 fixed inset-0 z-40"></div>
+                    <div className="fixed inset-0 flex items-center justify-center ">
+                      <div className="bg-black opacity-40 fixed inset-0 z-40"></div>
                       <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
