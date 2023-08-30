@@ -19,9 +19,7 @@ const Cart = () => {
   let cartTotal = 0;
   cart.forEach((item) => (cartTotal += item.price * item.cantComprar));
 
-  const buttonVariants = {
-    hover: { scale: 1.05 },
-  };
+ 
 
   return (
     <div>
@@ -30,7 +28,6 @@ const Cart = () => {
           <h1>Product cart</h1>
         </div>
         <motion.a
-          variants={buttonVariants}
           whileHover="hover"
           className="relative inline-block mm:text-base text-lg group cursor-pointer"
           onClick={clearCart}
