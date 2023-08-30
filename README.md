@@ -14,9 +14,9 @@ Como futuro TechVibes tiene el objetivo de introducir mas productos para vender 
 *   `React-reveal`
 
  Algunas funcionalidades que hay dentro de TechVibes
-* Navegar por las cateogorias existentes _**(Headsets,Keyboards, Gaming Chairs)**_
-* Interaccion con el carrito, como por ejemplo, _**eliminar, agregar, modificar**_ los productos. Tambien el usuario podra _**vaciar por completo el carrito**_
-* Visualizar _**los detalles**_ de cada producto con el boton _"See description"_
+* 🔎 Navegar por las cateogorias existentes _**(Headsets,Keyboards, Gaming Chairs)**_
+* 🛒 Interaccion con el carrito, como por ejemplo, _**eliminar, agregar, modificar**_ los productos. Tambien el usuario podra _**vaciar por completo el carrito**_
+* 📖 Visualizar _**los detalles**_ de cada producto con el boton _"See description"_
 
  Preview:
 ![GifTechVibesV2](https://github.com/mateoBodiniARG/TechVibes/assets/83024999/ed8158b7-1f99-4a36-b65f-d9d78c13c723)
