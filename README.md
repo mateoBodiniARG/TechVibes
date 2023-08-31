@@ -1,21 +1,21 @@
 # TechVibes
 
 #### Que es TechVibes?
-TechVibes es un emocionante proyecto para el curso de React de CoderHouse sobre un ecommerce centrado en la venta de componentes y periféricos de PC. Con la misión de crear una plataforma que brinde a los usuarios acceso a una amplia gama de productos tecnológicos que potencien su experiencia informática. Desde procesadores de última generación hasta teclados y ratones de alto rendimiento.
+TechVibes es un emocionante proyecto para el curso de React de CoderHouse sobre un ecommerce centrado en la venta de de auriculares, teclados y sillas gamers. Con la misión de crear una plataforma que brinde a los usuarios acceso a una amplia gama de productos tecnológicos que potencien su experiencia informática. Desde teclados de última generación hasta headsets y sillas de alto rendimiento.
+Como futuro TechVibes tiene el objetivo de introducir mas productos para vender y ampliar el volumen de ventas. De momento es una demo.
+
+
+### Algunas consideraciones sobre TechVibes
+ Librerias usadas
+*   `React-router-dom`
+*   `TailwindCSS`
+*   `React Icons`
+*   `React-reveal`
+
+###### Algunas funcionalidades que hay dentro de TechVibes
+* Navegar por las cateogorias existentes _**(Headsets,Keyboards, Gaming Chairs)**_
+* Interaccion con el carrito, como por ejemplo, _**eliminar, agregar, modificar**_ los productos. Tambien el usuario podra _**vaciar por completo el carrito**_
+* Visualizar _**los detalles**_ de cada producto con el boton _"See description"_
 
 #### Preview:
-![GifTechVibes](https://github.com/mateoBodiniARG/TechVibes/assets/83024999/665215f7-ad19-4f36-8375-78dea0e3f875)
-
-### Se debe entregar:
-###### Rutas a configurar
-* ✅ `‘/’` navega a `<ItemListContainer />`
-* ✅ `‘/category/:id’`  `<ItemListContainer />`
-* ✅ `‘/item/:id’` navega a `<ItemDetailContainer />`
-
-###### Links a configurar
-* ✅ Clickear en el brand debe navegar a `‘/’`
-* ✅Clickear un Item.js debe navegar a `/item/:id`
-* ✅Clickear en una categoría del navbar debe navegar a `/category/:categoryId` 
-
-##### Para finalizar: 
-✅ Deberá integrar los parámetros de tus async-mocks para reaccionar a `:itemId y :categoryId` ¡utilizando *efectos y los hooks* de parámetros que vimos en clase! Si te encuentras en una categoría deberías poder detectar la navegación a otra categoría y volver a cargar los productos que correspondan a dicha categoría.
+![GifTechVibesV2](https://github.com/mateoBodiniARG/TechVibes/assets/83024999/ed8158b7-1f99-4a36-b65f-d9d78c13c723)
