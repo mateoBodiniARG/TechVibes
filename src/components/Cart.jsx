@@ -5,7 +5,6 @@ import ItemsCart from "./ItemsCart";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { BsCartX } from "react-icons/bs";
-import Fade from "react-reveal/Fade";
 import { AiOutlineHome } from "react-icons/ai";
 
 const Cart = () => {
@@ -54,7 +53,6 @@ const Cart = () => {
         <section>
           {cartEmpty ? (
             <div className="items-center flex justify-center flex-col h-screen">
-              <Fade top>
                 <span className="text-indigo-900 text-5xl bg-indigo-300 p-3 rounded-xl">
                   <BsCartX />
                 </span>
@@ -66,7 +64,6 @@ const Cart = () => {
                     <AiOutlineHome className="w-6 h-6" /> Back to home
                   </p>
                 </Link>
-              </Fade>
             </div>
           ) : (
             cart.map((producto) => (
