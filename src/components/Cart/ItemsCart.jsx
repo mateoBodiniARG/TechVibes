@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { CartContext } from "../context/ShoppingCartContext";
+import { CartContext } from "../../context/ShoppingCartContext";
 import { Link } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { IoAddSharp } from "react-icons/io5";

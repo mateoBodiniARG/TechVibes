@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import CartWidget from "./CartWidget";
+import CartWidget from "../Cart/CartWidget";
 import { Link } from "react-router-dom";
-import ProfileWidget from "./ProfileWidget";
 const NavBar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -55,11 +54,10 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="items-center flex md:order-2 gap-2 mm:gap-11">
-
-          <Link to={"/profile"}>
-            <div className="cartWidget ml-1 text-white">
-              <ProfileWidget />
-            </div>
+          <Link to={"/login"}>
+            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
+              Ingrese al sistema
+            </button>
           </Link>
 
           <Link to={"/cart"}>
@@ -67,15 +65,14 @@ const NavBar = () => {
               <CartWidget />
             </div>
           </Link>
-         
         </div>
+
         <div
           className={`items-center justify-between ${
             isSearchOpen ? "block" : "hidden"
           } w-full md:flex md:w-auto md:order-1`}
           id="navbar-search"
         >
-  
           <ul className="mdMAX:border-2 flex flex-col md:flex-row md:space-x-4 md:mt-0 mt-4 font-medium text-white bg-gray-800 md:bg-gray-900 border-gray-700 rounded-lg">
             <li className="mdMAX:border-2 border-gray-700 bg-slate-900 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
               <Link to={"/category/Headsets"}>Headsets</Link>
@@ -85,6 +82,10 @@ const NavBar = () => {
             </li>
             <li className="mdMAX:border-2 border-gray-700 bg-slate-900 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
               <Link to={"/category/Gaming Chairs"}>Gaming Chairs</Link>
+            </li>
+
+            <li className="md:hidden bg-green-500 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
+              <Link to={"/category/Gaming Chairs"}>Ingresar al sistema</Link>
             </li>
           </ul>
         </div>

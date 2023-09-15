@@ -1,8 +1,7 @@
 import { useState, useContext } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import { RiSubtractFill } from "react-icons/ri";
-import { CartContext } from "../context/ShoppingCartContext";
-import { useEffect } from "react";
+import { CartContext } from "../../context/ShoppingCartContext";
 import { toast } from "react-toastify";
 const ItemCount = ({ producto }) => {
   const { cart, setCart } = useContext(CartContext);

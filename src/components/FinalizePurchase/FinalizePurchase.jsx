@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
-import { CartContext } from "../context/ShoppingCartContext";
+import { CartContext } from "../../context/ShoppingCartContext";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";

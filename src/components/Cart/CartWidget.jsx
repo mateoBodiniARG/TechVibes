@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { CartContext } from "../context/ShoppingCartContext";
+import { CartContext } from "../../context/ShoppingCartContext";
 
 const CartWidget = () => {
   const { cart } = useContext(CartContext);

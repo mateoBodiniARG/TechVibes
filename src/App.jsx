@@ -1,14 +1,14 @@
-import ItemDetailContainer from "./components/ItemDetailContainer";
-import ItemListContainer from "./components/ItemListContainer";
-import NavBar from "./components/NavBar";
+import ItemDetailContainer from "./components/ItemDetail/ItemDetailContainer";
+import ItemListContainer from "./components/ItemList/ItemListContainer";
+import NavBar from "./components/Navbar/NavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Cart from "./components/Cart";
+import Cart from "./components/Cart/Cart";
 import ShoppingCartContext from "./context/ShoppingCartContext";
-import SendOrder from "./components/SendOrder";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Profile from "./components/Profile";
-import FinalizePurchase from "./components/FinalizePurchase";
+import FinalizePurchase from "./components/FinalizePurchase/FinalizePurchase";
+import Login from "./components/Login/Login";
+import Register from "./components/Registro/Register";
 
 function App() {
   return (
@@ -22,7 +22,8 @@ function App() {
           <Routes>
             <Route path="/" element={<ItemListContainer />} />
             <Route path="/cart" element={<Cart/>} />
-            <Route path="/profile" element={<Profile/>} />
+            <Route path="/Login" element={<Login/>} />
+            <Route path="/Register" element={<Register/>} />
             <Route path="/category/:categoryId" element={<ItemListContainer />} />
             <Route path="/item/:id" element={<ItemDetailContainer />} />
             <Route path="/finalizePurchase" element={<FinalizePurchase/>} />
@@ -31,7 +32,6 @@ function App() {
         </ShoppingCartContext>
       </BrowserRouter>
 
-      {/* <SendOrder/> */}
     </>
   );
 }
