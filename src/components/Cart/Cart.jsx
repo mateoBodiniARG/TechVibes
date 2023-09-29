@@ -48,9 +48,8 @@ const Cart = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="mt-5 text-center mm:flex mm:justify-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mx-auto max-w-5xl px-3"
       >
-        <section>
+        <section className="mt-5 text-center mm:flex mm:justify-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mx-auto max-w-5xl px-3">
           {cartEmpty ? (
             <div className="items-center flex justify-center flex-col h-screen">
                 <span className="text-indigo-900 text-5xl bg-indigo-300 p-3 rounded-xl">

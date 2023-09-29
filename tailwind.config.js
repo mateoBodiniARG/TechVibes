@@ -9,7 +9,9 @@ export default {
     extend: {
       screens: {
         'mm': { max: "390px" },
-        'mdMAX': { max: "768px" }
+        'mdMAX': { max: "768px" },
+        'm8': { min: "815px" },
+        'm8Max': { max: "814px" }
       },
     },
   },

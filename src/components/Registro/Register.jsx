@@ -1,93 +1,130 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 const Register = () => {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [mensaje, setMensaje] = useState("");
+  const [mensajeError, setMensajeError] = useState("");
+  const [mensajeCorrecto, setMensajeCorrecto] = useState("");
+  const [mensajeEmpty, setMensajeEmpty] = useState("");
+  const [duplicado, setDuplicado] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!nombre || !email || !password) {
+      setMensajeEmpty("Por favor, complete todos los campos.");
+      return;
+    }
 
     const formData = new URLSearchParams();
     formData.append("nombre", nombre);
     formData.append("email", email);
     formData.append("password", password);
-    
+
     try {
       const response = await fetch("http://localhost/registro.php", {
         method: "POST",
-        body: formData,
+        body: formData
       });
-      
+
       if (response.ok) {
-        const data = await response.json(); 
-        setMensaje(data.message); 
-      } else {
-        const errorData = await response.json(); 
-        setMensaje("Hubo un error al procesar el registro: " + errorData.message);
+        const data = await response.json();
+        setMensajeCorrecto(data.message);
+        setMensajeError("");
+        setMensajeEmpty("");
+        
+        if(response.ok && data.messageError){
+        setDuplicado(data.messageError);
+      }
       }
     } catch (error) {
       console.error("Error:", error);
-      setMensaje("Hubo un error al procesar el registro.");
+      setMensajeError(
+        "Hubo un error al procesar el registro vuelve a intentarlo mas tarde."
+      );
+      setMensajeCorrecto("");
     }
+    setEmail('')
+    setPassword('')
+    setNombre('')
   };
 
- 
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="max-w-md w-96 mx-auto p-6 bg-gray-800 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-white mb-4">
-          Registrese en el sistema
+          Regístrate en el sistema
         </h2>
         <form onSubmit={handleSubmit}>
-
           <div className="mb-4">
-            <label htmlFor="nombre" className="text-white block mb-1">
+            <label htmlFor="input-nombre" className="text-white block mb-1">
               Nombre
             </label>
             <input
               onChange={(e) => setNombre(e.target.value)}
               type="text"
-              id="nombre"
+              id="input-nombre"
               name="nombre"
-              placeholder="Tu correo electrónico"
+              value={nombre}
+              placeholder="Tu nombre"
               className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-500"
-              required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="text-white block mb-1">
+            <label htmlFor="input-email" className="text-white block mb-1">
               Correo Electrónico
             </label>
             <input
-            onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
-              id="email"
+              id="input-email"
               name="email"
+              value={email}
               placeholder="Tu correo electrónico"
               className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-500"
-              required
             />
           </div>
-
           <div className="mb-4">
-            <label htmlFor="password" className="text-white block mb-1">
+            <label htmlFor="input-password" className="text-white block mb-1">
               Contraseña
             </label>
             <input
-            onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
-              id="password"
+              id="input-password"
               name="password"
+              value={password}
               placeholder="Tu contraseña"
               className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-500"
-              required
             />
           </div>
+
+          {mensajeCorrecto && (
+            <p className="bg-green-200 text-green-800 font-semibold p-2 mb-5 rounded-md">
+              {mensajeCorrecto}
+            </p>
+          )}
+
+          {duplicado && !mensajeCorrecto && (
+            <p className="bg-red-200 text-red-800 font-semibold p-2 mb-5 rounded-md">
+              {duplicado}
+            </p>
+          )}
+
+          {mensajeEmpty && (
+            <p className="bg-red-200 text-red-800 font-semibold p-2 mb-5 rounded-md">
+              {mensajeEmpty}
+            </p>
+          )}
+
+          {mensajeError && (
+            <p className="bg-red-200 text-red-800 font-semibold p-2 mb-5 rounded-md">
+              {mensajeError}
+            </p>
+          )}
 
           <button
             type="submit"
@@ -100,7 +137,7 @@ const Register = () => {
           ¿Ya tienes una cuenta?
           <Link to={"/Login"}>
             <span className="font-bold ml-1 text-blue-500 hover:underline">
-              Inicia sesion
+              Inicia sesión
             </span>
           </Link>
         </p>

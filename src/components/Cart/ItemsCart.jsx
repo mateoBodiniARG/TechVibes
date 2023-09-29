@@ -69,7 +69,7 @@ const ItemsCart = ({
           </div>
         </Link>
 
-        <div className="ml-4">
+        <div className="ml-4 truncate overflow-hidden whitespace-nowrap text-ellipsis">
           <h5 className="text-xl font-semibold mb-2">{nombre}</h5>
           <div className="flex items-center mb-2">
             <span className="text-2xl font-bold text-indigo-100">${price}</span>
