@@ -1,15 +1,27 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import CartWidget from "../Cart/CartWidget";
 import { Link } from "react-router-dom";
-import { useAdmin } from "../../context/AdminContext"; 
+import { collection, addDoc, getFirestore } from "firebase/firestore";  
+import { useAdmin } from "../../context/AdminContext";
 
 const NavBar = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { isAdmin } = useAdmin(); 
+  const [burgerOpen, setburgerOpen] = useState(false);
+  const { isAdmin } = useAdmin();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const db = getFirestore();
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const buscarItems = (e) => {
+    e.preventDefault();
+
+    console.log("Buscando...", searchQuery);
+  };
 
   const toggleSearch = () => {
-    setIsSearchOpen((prevState) => !prevState);
+    setburgerOpen((prevState) => !prevState);
   };
 
   return (
@@ -30,9 +42,8 @@ const NavBar = () => {
             data-collapse-toggle="navbar-search"
             className="mr-4 bg-slate-800 inline-flex items-center p-2 w-9 h-9 justify-center text-sm text-gray-200 rounded-md m8:hidden"
             aria-controls="navbar-search"
-            aria-expanded={isSearchOpen}
+            aria-expanded={burgerOpen}
           >
-            <span className="sr-only">Open main menu</span>
             <svg
               className="w-5 h-5"
               aria-hidden="true"
@@ -80,11 +91,11 @@ const NavBar = () => {
 
         <div
           className={`items-center justify-between ${
-            isSearchOpen ? "block" : "hidden"
+            burgerOpen ? "block" : "hidden"
           } w-full m8:flex m8:w-auto m8:order-1`}
           id="navbar-search"
         >
-          <ul className="mdMAX:border-2 flex flex-col md:flex-row md:space-x-4 md:mt-0 font-medium text-white bg-gray-800 md:bg-gray-900 border-gray-700 rounded-lg">
+          <ul className="mdMAX:border-2 flex flex-col md:flex-row md:space-x-4 md:mt-0 font-medium text-white bg-gray-800 md:bg-gray-900 border-gray-700 rounded-lg items-center">
             <li className="mdMAX:border-2 border-gray-700 bg-slate-900 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
               <Link to={"/category/Headsets"}>Headsets</Link>
             </li>
@@ -97,6 +108,23 @@ const NavBar = () => {
 
             <li className="md:hidden bg-green-500 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
               <Link to={"/login"}>Ingresar al sistema</Link>
+            </li>
+            <li>
+              <form onSubmit={buscarItems} className="flex text-center items-center ">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  placeholder="Buscar productos"
+                  className="w-full p-1 text-gray-800 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-gray-500 transition duration-300 ease-in-out"
+                />
+                <button
+                  type="submit"
+                  className="bg-gray-800 text-gray-200 px-4 py-2 rounded-md ml-2 hover:bg-gray-700 transition duration-300 ease-in-out"
+                >
+                  Buscar
+                </button>
+              </form>
             </li>
           </ul>
         </div>

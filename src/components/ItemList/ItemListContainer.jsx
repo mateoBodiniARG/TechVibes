@@ -37,11 +37,13 @@ const ItemListContainer = () => {
     return <Loading/>
   }
 
+  
   return (
     <div>
       <h1 className="text-center text-white font-semibold text-4xl my-3">
         Products available
       </h1>
+
       <ItemList productos={productByCategory} />
     </div>
   );

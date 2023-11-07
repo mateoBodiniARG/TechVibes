@@ -12,7 +12,6 @@ import Register from "./components/Registro/Register";
 import { UserProvider } from "./context/UserContext";
 import Admin from "./components/Admin/Admin";
 import { AdminProvider } from "./context/AdminContext";
-import Logout from "./components/Logout/Logout";
 function App() {
   return (
     <>
@@ -34,7 +33,6 @@ function App() {
             <Route path="/category/:categoryId" element={<ItemListContainer />} />
             <Route path="/item/:id" element={<ItemDetailContainer />} />
             <Route path="/finalizePurchase" element={<FinalizePurchase/>} />
-            <Route path="/logout" element={<Logout/>} />
           </Routes>
           <ToastContainer/>
         </ShoppingCartContext>
