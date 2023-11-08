@@ -7,18 +7,6 @@ import { useAdmin } from "../../context/AdminContext";
 const NavBar = () => {
   const [burgerOpen, setburgerOpen] = useState(false);
   const { isAdmin } = useAdmin();
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const db = getFirestore();
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const buscarItems = (e) => {
-    e.preventDefault();
-
-    console.log("Buscando...", searchQuery);
-  };
 
   const toggleSearch = () => {
     setburgerOpen((prevState) => !prevState);
@@ -110,21 +98,6 @@ const NavBar = () => {
               <Link to={"/login"}>Ingresar al sistema</Link>
             </li>
             <li>
-              <form onSubmit={buscarItems} className="flex text-center items-center ">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={handleSearch}
-                  placeholder="Buscar productos"
-                  className="w-full p-1 text-gray-800 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-gray-500 transition duration-300 ease-in-out"
-                />
-                <button
-                  type="submit"
-                  className="bg-gray-800 text-gray-200 px-4 py-2 rounded-md ml-2 hover:bg-gray-700 transition duration-300 ease-in-out"
-                >
-                  Buscar
-                </button>
-              </form>
             </li>
           </ul>
         </div>
