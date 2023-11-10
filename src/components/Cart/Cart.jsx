@@ -6,10 +6,13 @@ import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { BsCartX } from "react-icons/bs";
 import { AiOutlineHome } from "react-icons/ai";
+import { useAuth } from "../../context/AuthContext";
 
 const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
   const cartEmpty = cart.length === 0;
+  const auth = useAuth();
+  const displayName = auth.user ? auth.user.displayName : null;
 
   const clearCart = () => {
     setCart([]);
@@ -17,8 +20,6 @@ const Cart = () => {
 
   let cartTotal = 0;
   cart.forEach((item) => (cartTotal += item.price * item.cantComprar));
-
- 
 
   return (
     <div>
@@ -52,17 +53,17 @@ const Cart = () => {
         <section className="mt-5 text-center mm:flex mm:justify-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mx-auto max-w-5xl px-3">
           {cartEmpty ? (
             <div className="items-center flex justify-center flex-col h-screen">
-                <span className="text-indigo-900 text-5xl bg-indigo-300 p-3 rounded-xl">
-                  <BsCartX />
-                </span>
-                <p className="font-semibold text-4xl text-indigo-200 mt-4">
-                  Your cart is empty
+              <span className="text-indigo-900 text-5xl bg-indigo-300 p-3 rounded-xl">
+                <BsCartX />
+              </span>
+              <p className="font-semibold text-4xl text-indigo-200 mt-4">
+                Sorry {displayName}, your cart is empty{" "}
+              </p>
+              <Link to={"/"}>
+                <p className="flex items-center gap-2 text-white text-xl mt-5 bg-indigo-600 cursor-pointer px-2 py-2 rounded-xl transition ease-in hover:bg-indigo-400 hover:text-black ">
+                  <AiOutlineHome className="w-6 h-6" /> Back to home
                 </p>
-                <Link to={"/"}>
-                  <p className="flex items-center gap-2 text-white text-xl mt-5 bg-indigo-600 cursor-pointer px-2 py-2 rounded-xl transition ease-in hover:bg-indigo-400 hover:text-black ">
-                    <AiOutlineHome className="w-6 h-6" /> Back to home
-                  </p>
-                </Link>
+              </Link>
             </div>
           ) : (
             cart.map((producto) => (

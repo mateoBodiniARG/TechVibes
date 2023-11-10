@@ -3,8 +3,11 @@ import { IoAddSharp } from "react-icons/io5";
 import { RiSubtractFill } from "react-icons/ri";
 import { CartContext } from "../../context/ShoppingCartContext";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
+
 const ItemCount = ({ producto }) => {
   const { cart, setCart } = useContext(CartContext);
+  const { user } = useAuth();
   const [contador, setContador] = useState(0);
 
   const sumar = () => {
@@ -18,6 +21,13 @@ const ItemCount = ({ producto }) => {
   };
 
   const addToCart = () => {
+    if (!user) {
+      toast.error("Debe ingresar para poder anadir productos al carrito", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+      return;
+    }
     const cartAux = [...cart];
     const yaExiste = cartAux.findIndex((item) => item.id === producto.id);
 

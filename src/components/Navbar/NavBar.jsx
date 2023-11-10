@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CartWidget from "../Cart/CartWidget";
-import { Link } from "react-router-dom";
-import { collection, addDoc, getFirestore } from "firebase/firestore";  
-import { useAdmin } from "../../context/AdminContext";
+import { Link, useNavigate } from "react-router-dom";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+// import { useAdmin } from "../../context/AdminContext";
+import { useAuth } from "../../context/AuthContext";
 
 const NavBar = () => {
   const [burgerOpen, setburgerOpen] = useState(false);
-  const { isAdmin } = useAdmin();
+  // const { isAdmin } = useAdmin();
+  // const { user, logOut } = useAuth();
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    await auth.logOut().then(() => {
+      navigate("/login");
+    });
+  };
+
+  useEffect(() => {
+    setburgerOpen(false);
+  }, [auth.user]);
 
   const toggleSearch = () => {
     setburgerOpen((prevState) => !prevState);
@@ -56,13 +70,16 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="items-center flex md:order-2 gap-2 mm:gap-11">
-          {isAdmin ? (
-            <Link to={"/logout"}>
-              <button className="m8Max:hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
-                Cerrar Sesión
-              </button>
-            </Link>
+          {auth.user ? (
+            // <Link to={"/login"}>
+            <button
+              onClick={(e) => handleLogOut(e)}
+              className="m8Max:hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+            >
+              Cerrar Sesión
+            </button>
           ) : (
+            // </Link>
             <Link to={"/login"}>
               <button className="m8Max:hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
                 Ingrese al sistema
@@ -94,11 +111,15 @@ const NavBar = () => {
               <Link to={"/category/Gaming Chairs"}>Gaming Chairs</Link>
             </li>
 
-            <li className="md:hidden bg-green-500 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
-              <Link to={"/login"}>Ingresar al sistema</Link>
-            </li>
-            <li>
-            </li>
+            {auth.user ? (
+              <li className="md:hidden mdMAX:border-2 border-gray-700 bg-red-500 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
+                <button onClick={() => handleLogOut()}>Cerrar Sesión</button>
+              </li>
+            ) : (
+              <li className="md:hidden bg-green-500 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
+                <Link to={"/login"}>Ingresar al sistema</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

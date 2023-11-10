@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../main.jsx";
 import { createContext, useContext } from "react";
 import {
@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 export const authContext = createContext();
@@ -20,6 +21,19 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const suscrito = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) {
+        console.log("no hay usuario suscrito");
+        setUser(null);
+      } else {
+        setUser(currentUser);
+      }
+    });
+    return suscrito;
+  }, []);
+
   // -----------------------------Registro----------------------------------------------------
   const registro = async (email, password) => {
     const response = await createUserWithEmailAndPassword(
@@ -50,6 +64,7 @@ export function AuthProvider({ children }) {
   const logOut = async () => {
     const response = await signOut(auth);
     console.log(response);
+    setUser(null);
   };
   // ----------------------------------------------------------------------------------------
 
@@ -60,6 +75,7 @@ export function AuthProvider({ children }) {
         login,
         loginWithGoogle,
         logOut,
+        user,
       }}
     >
       {children}
