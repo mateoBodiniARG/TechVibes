@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import CartWidget from "../Cart/CartWidget";
 import { Link, useNavigate } from "react-router-dom";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
-// import { useAdmin } from "../../context/AdminContext";
 import { useAuth } from "../../context/AuthContext";
 
 const NavBar = () => {
   const [burgerOpen, setburgerOpen] = useState(false);
-  // const { isAdmin } = useAdmin();
-  // const { user, logOut } = useAuth();
   const auth = useAuth();
   const navigate = useNavigate();
 

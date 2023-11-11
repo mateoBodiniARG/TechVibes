@@ -22,51 +22,76 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
-    const suscrito = onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) {
-        console.log("no hay usuario suscrito");
-        setUser(null);
-      } else {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
         setUser(currentUser);
+      } else {
+        setUser(null);
       }
     });
-    return suscrito;
+
+    return () => {
+      unsubscribe();
+      console.log("unsubscribe");
+    };
   }, []);
 
-  // -----------------------------Registro----------------------------------------------------
   const registro = async (email, password) => {
-    const response = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    console.log(response);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const newUser = userCredential.user;
+      setUser(newUser);
+      return newUser;
+    } catch (error) {
+      console.error("Error al registrar el usuario:", error.message);
+      throw error;
+    }
   };
-  // ----------------------------------------------------------------------------------------
 
-  // -----------------------------Login con email y contraseña--------------------------------
   const login = async (email, password) => {
-    const response = await signInWithEmailAndPassword(auth, email, password);
-    console.log(response);
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const currentUser = userCredential.user;
+      setUser(currentUser);
+      return currentUser;
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error.message);
+      throw error;
+    }
   };
-  // ----------------------------------------------------------------------------------------
 
-  // ----------------------Login con google--------------------------------------------------
   const loginWithGoogle = async () => {
-    const responseGoogle = new GoogleAuthProvider();
-    const response = await signInWithPopup(auth, responseGoogle);
-    console.log(response);
+    try {
+      const responseGoogle = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, responseGoogle);
+      const currentUser = userCredential.user;
+      setUser(currentUser);
+      return currentUser;
+    } catch (error) {
+      console.error("Error al iniciar sesión con Google:", error.message);
+      throw error;
+    }
   };
-  // ----------------------------------------------------------------------------------------
 
-  // --------------------------LogOut--------------------------------------------------------
   const logOut = async () => {
-    const response = await signOut(auth);
-    console.log(response);
-    setUser(null);
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error.message);
+      throw error;
+    }
   };
-  // ----------------------------------------------------------------------------------------
 
   return (
     <authContext.Provider
