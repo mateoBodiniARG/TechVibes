@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "../main.jsx";
 import { createContext, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -9,6 +11,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import { set } from "react-hook-form";
 
 export const authContext = createContext();
 
@@ -22,9 +25,12 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const db = getFirestore();
+  const navigate = useNavigate();
 
+  // Controlador de cambios de autenticación
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
       } else {
@@ -34,20 +40,23 @@ export function AuthProvider({ children }) {
 
     return () => {
       unsubscribe();
-      console.log("unsubscribe");
     };
-  }, []);
+  }, [db, navigate]);
 
   const registro = async (email, password) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      const infoUsuario = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      const newUser = userCredential.user;
-      setUser(newUser);
-      return newUser;
+      const nuevoUsuario = infoUsuario.user;
+      setUser(nuevoUsuario);
+      console.log(infoUsuario.user.uid);
+
+      const docRef = doc(db, `users/${infoUsuario.user.uid}`);
+      setDoc(docRef, { correo: email, admin: false });
+      return nuevoUsuario;
     } catch (error) {
       console.error("Error al registrar el usuario:", error.message);
       throw error;
@@ -56,13 +65,26 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
+      const infoUsuario = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
-      const currentUser = userCredential.user;
-      setUser(currentUser);
+      const currentUser = infoUsuario.user;
+      // Verificar el rol del usuario antes de actualizar el estado 'user'
+      const docRef = doc(db, `users/${currentUser.uid}`);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists() && docSnap.data().admin) {
+        // Si el usuario es administrador, redirige a la ruta de administrador
+        setUser(currentUser);
+        navigate("/admin");
+      } else {
+        // Si no es administrador, redirige a otra ruta (puedes ajustar esto según tus necesidades)
+        setUser(currentUser);
+        navigate("/");
+      }
+
       return currentUser;
     } catch (error) {
       console.error("Error al iniciar sesión:", error.message);
@@ -72,9 +94,9 @@ export function AuthProvider({ children }) {
 
   const loginWithGoogle = async () => {
     try {
-      const responseGoogle = new GoogleAuthProvider();
-      const userCredential = await signInWithPopup(auth, responseGoogle);
-      const currentUser = userCredential.user;
+      const respuestaGoogle = new GoogleAuthProvider();
+      const infoUsuario = await signInWithPopup(auth, respuestaGoogle);
+      const currentUser = infoUsuario.user;
       setUser(currentUser);
       return currentUser;
     } catch (error) {

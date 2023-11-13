@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
   const [emailRegistro, setEmailReggistro] = useState("");
   const [passwordRegistro, setPasswordRegistro] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     auth.registro(emailRegistro, passwordRegistro);
+    navigate("/");
   };
 
   return (
@@ -49,7 +53,7 @@ const Register = () => {
           <button
             type="submit"
             className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
-            onClick={() => handleSubmit()}
+            onClick={(e) => handleSubmit(e)}
           >
             Registrarse
           </button>

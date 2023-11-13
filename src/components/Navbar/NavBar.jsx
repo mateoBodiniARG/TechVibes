@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
 import CartWidget from "../Cart/CartWidget";
 import { Link, useNavigate } from "react-router-dom";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
+import LoadingV2 from "../Loading/LoadingV2";
 
 const NavBar = () => {
   const [burgerOpen, setburgerOpen] = useState(false);
   const auth = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const handleLogOut = async () => {
-    await auth.logOut().then(() => {
+    setLoading(true);
+    try {
+      await auth.logOut();
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error.message);
+    } finally {
       navigate("/login");
-    });
+    }
   };
 
   useEffect(() => {
     setburgerOpen(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1300);
   }, [auth.user]);
 
   const toggleSearch = () => {
@@ -67,30 +76,34 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="items-center flex md:order-2 gap-2 mm:gap-11">
-          {auth.user ? (
-            // <Link to={"/login"}>
-            <button
-              onClick={(e) => handleLogOut(e)}
-              className="m8Max:hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
-            >
-              Cerrar Sesión
-            </button>
-          ) : (
-            // </Link>
-            <Link to={"/login"}>
-              <button className="m8Max:hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
-                Ingrese al sistema
-              </button>
-            </Link>
-          )}
-
+          <div>
+            {loading ? (
+              <LoadingV2 />
+            ) : (
+              <>
+                {auth.user ? (
+                  <button
+                    onClick={(e) => handleLogOut(e)}
+                    className="m8Max:hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+                  >
+                    Cerrar Sesión
+                  </button>
+                ) : (
+                  <Link to={"/login"}>
+                    <button className="m8Max:hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
+                      Ingrese al sistema
+                    </button>
+                  </Link>
+                )}
+              </>
+            )}
+          </div>
           <Link to={"/cart"}>
             <div className="cartWidget ml-1 text-white">
               <CartWidget />
             </div>
           </Link>
         </div>
-
         <div
           className={`items-center justify-between ${
             burgerOpen ? "block" : "hidden"
