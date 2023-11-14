@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { CartContext } from "../../context/ShoppingCartContext";
 import ItemsCart from "./ItemsCart";
 import { MdDeleteForever } from "react-icons/md";

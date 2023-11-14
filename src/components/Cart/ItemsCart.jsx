@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { RxCross1 } from "react-icons/rx";
 import { IoAddSharp } from "react-icons/io5";
 import { RiSubtractFill } from "react-icons/ri";
-import { toast } from 'react-toastify';
-
+import { toast } from "react-toastify";
 
 const ItemsCart = ({
   id,
@@ -26,36 +25,34 @@ const ItemsCart = ({
     const cartAux = [...cart];
     const cartActualizado = cartAux.filter((item) => item.id !== id);
     setCart(cartActualizado);
-    toast.success('Item deleted to cart successfully!', {
+    toast.success("Item eliminado con exito!", {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });
   };
-
-
 
   const updateCartSum = () => {
     const cartAuxActualizado = [...cart];
     const itemIndex = cartAuxActualizado.findIndex((item) => item.id === id);
 
     if (itemIndex !== -1) {
-      cartAuxActualizado[itemIndex].cantComprar = contador + 1
+      cartAuxActualizado[itemIndex].cantComprar = contador + 1;
 
       setCart(cartAuxActualizado);
       setContador(contador + 1);
     }
   };
 
-  const updateCartRest = () =>{
+  const updateCartRest = () => {
     const cartAuxActualizado = [...cart];
     const itemIndex = cartAuxActualizado.findIndex((item) => item.id === id);
 
-    if(itemIndex !== -1){
-      cartAuxActualizado[itemIndex].cantComprar = contador - 1
-      setCart(cartAuxActualizado)
+    if (itemIndex !== -1) {
+      cartAuxActualizado[itemIndex].cantComprar = contador - 1;
+      setCart(cartAuxActualizado);
       setContador(contador - 1);
     }
-  }
+  };
   return (
     <section className="my-4">
       <div className="flex border rounded-xl bg-gray-900 p-6 mm:p-2 container text-white">
@@ -73,9 +70,7 @@ const ItemsCart = ({
           <h5 className="text-xl font-semibold mb-2">{nombre}</h5>
           <div className="flex items-center mb-2">
             <span className="text-2xl font-bold text-indigo-100">${price}</span>
-            <p className="text-lg text-gray-400 ml-2">
-              x {cantComprar} u.
-            </p>
+            <p className="text-lg text-gray-400 ml-2">x {cantComprar} u.</p>
           </div>
 
           <div className="flex items-center gap-2 bg-indigo-600 w-32 justify-between  rounded-lg">
@@ -85,9 +80,8 @@ const ItemsCart = ({
                   ? "cursor-not-allowed text-gray-400"
                   : "text-white hover:text-gray-400"
               } bg-indigo-600 rounded-md h-8 w-8 flex justify-center items-center`}
-              onClick={()=>{
-                updateCartRest(); 
-                
+              onClick={() => {
+                updateCartRest();
               }}
               disabled={contador === 1}
             >
@@ -101,7 +95,7 @@ const ItemsCart = ({
             <button
               className="text-white bg-indigo-600 rounded-md h-8 w-8 flex justify-center items-center hover:text-gray-400"
               onClick={() => {
-                updateCartSum(); 
+                updateCartSum();
               }}
             >
               <IoAddSharp className="h-4 w-4" />

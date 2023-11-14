@@ -22,7 +22,6 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    setburgerOpen(false);
     setTimeout(() => {
       setLoading(false);
     }, 1300);

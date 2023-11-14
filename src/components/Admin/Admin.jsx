@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import Loading from "../Loading/Loading";
+import { set } from "react-hook-form";
 
 const Admin = () => {
   const auth = useAuth();
@@ -24,17 +25,18 @@ const Admin = () => {
           navigate("/");
         }
       }
+      setLoading(false);
     };
 
-    rolAdmin();
+    if (auth.user === null) {
+      navigate("/");
+      setLoading(false);
+    } else {
+      rolAdmin();
+    }
   }, [auth.user, navigate, db]);
 
-  if (auth.user === null) {
-    navigate("/login");
-  }
-
   if (loading) {
-    // Muestra el componente de carga mientras se verifica el rol
     return <Loading />;
   }
 

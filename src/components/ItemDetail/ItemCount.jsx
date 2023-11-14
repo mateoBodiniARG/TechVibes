@@ -40,7 +40,7 @@ const ItemCount = ({ producto }) => {
 
     setCart(cartAux);
     localStorage.setItem("cart", JSON.stringify(cartAux));
-    toast.success("Product successfully added!", {
+    toast.success("Producto agregado con exito!", {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });

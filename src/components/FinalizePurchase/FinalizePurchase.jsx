@@ -4,7 +4,7 @@ import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { CartContext } from "../../context/ShoppingCartContext";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Link } from "react-router-dom";
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const FinalizePurchase = () => {
   const { cart, setCart } = useContext(CartContext);
@@ -74,7 +74,13 @@ const FinalizePurchase = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (name === "" || phone === "" || email === "" || !isValid || !phoneValid) {
+    if (
+      name === "" ||
+      phone === "" ||
+      email === "" ||
+      !isValid ||
+      !phoneValid
+    ) {
       setIsSubmitClicked(true);
       return;
     }
@@ -99,7 +105,9 @@ const FinalizePurchase = () => {
                   <IoIosCheckmarkCircleOutline className="w-8 h-8" />
                 </div>
                 <div className="block pl-2 font-semibold text-xl self-start">
-                  <h2 className="leading-relaxed">You are just one click away!</h2>
+                  <h2 className="leading-relaxed">
+                    You are just one click away!
+                  </h2>
                   <p className="text-sm text-gray-500 font-normal leading-relaxed">
                     Complete the fields to finalize the purchase.
                   </p>
