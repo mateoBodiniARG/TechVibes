@@ -7,6 +7,7 @@ import Loading from "../Loading/Loading";
 const Login = () => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
@@ -22,7 +23,11 @@ const Login = () => {
     try {
       setLoading(true);
       await auth.login(emailLogin, passwordLogin);
+      navigate("/");
     } catch (error) {
+      setError(
+        "Error al iniciar sesión. Verifica tu correo electrónico y contraseña."
+      );
       console.error("Error al iniciar sesión:", error.message);
     } finally {
       setLoading(false);
@@ -36,9 +41,14 @@ const Login = () => {
           <Loading />
         ) : (
           <div className="max-w-md w-96 mx-auto p-6 bg-gray-800 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-white mb-4">
+            <h2 className="text-2xl font-semibold text-white mb-4 text-center">
               Iniciar sesion
             </h2>
+            {error && (
+              <div className="p-2 mb-2 text-base text-red-500 font-medium text-center">
+                <p>{error}</p>
+              </div>
+            )}
             <form>
               <div className="mb-4">
                 <label htmlFor="email" className="text-white block mb-1">
