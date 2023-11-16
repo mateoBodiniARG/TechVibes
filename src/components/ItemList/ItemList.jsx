@@ -38,7 +38,7 @@ const ItemList = ({ productos }) => {
           </p>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 mx-auto max-w-screen-xl mm:flex flex-col">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 mx-auto max-w-screen-xl mm:flex flex-col mm2:flex">
           {copia.map((producto) => (
             <div key={producto.nombre}>
               <Item

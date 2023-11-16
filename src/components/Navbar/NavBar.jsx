@@ -35,14 +35,6 @@ const NavBar = () => {
     <nav className="bg-gray-900 border-b-2 border-gray-800 max-w-full">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mm:justify-center ">
         <div className="flex items-center">
-          <Link to={"/"}>
-            <img
-              src="https://static.vecteezy.com/system/resources/previews/013/643/507/large_2x/colorfull-modern-letter-in-3d-style-text-effect-free-png.png"
-              className="h-9 mr-3 m8Max:hidden w-full"
-              alt="TechVibes logo"
-            />
-          </Link>
-
           <button
             type="button"
             onClick={toggleSearch}
@@ -69,7 +61,7 @@ const NavBar = () => {
           </button>
 
           <Link to={"/"}>
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white m8Max:text-center">
+            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white m8Max:text-center uppercase">
               TechVibes
             </span>
           </Link>

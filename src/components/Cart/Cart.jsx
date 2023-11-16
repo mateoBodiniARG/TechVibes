@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import { CartContext } from "../../context/ShoppingCartContext";
 import ItemsCart from "./ItemsCart";
 import { MdDeleteForever } from "react-icons/md";
@@ -50,7 +50,7 @@ const Cart = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <section className="mt-5 text-center mm:flex mm:justify-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mx-auto max-w-5xl px-3">
+        <section className="mt-5 text-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mm:place-items-center mx-auto max-w-5xl px-3">
           {cartEmpty ? (
             <div className="items-center flex justify-center flex-col h-screen">
               <span className="text-indigo-900 text-5xl bg-indigo-300 p-3 rounded-xl">
@@ -75,19 +75,21 @@ const Cart = () => {
               </div>
             ))
           )}
-          <section className="flex justify-center mm:text-sm mm:overflow-hidden mm:max-w-xs">
-            <div className="mt-8 p-5 bg-gray-100 rounded-lg w-full">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-3xl font-semibold">Total:</h2>
-                <span className="text-3xl font-bold">${cartTotal}</span>
+          {cartEmpty ? null : (
+            <section className="mb-3 flex justify-center mm:text-sm mm:overflow-hidden mm:w-80">
+              <div className="mt-8 p-5 bg-gray-100 rounded-lg w-full">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-3xl font-semibold">Total:</h2>
+                  <span className="text-3xl font-bold">${cartTotal}</span>
+                </div>
+                <Link to={"/finalizePurchase"}>
+                  <button className="w-full py-2 bg-indigo-800 text-white rounded-lg hover:bg-indigo-600 transition ease-in">
+                    Finalize Purchase
+                  </button>
+                </Link>
               </div>
-              <Link to={"/finalizePurchase"}>
-                <button className="w-full py-2 bg-indigo-800 text-white rounded-lg hover:bg-indigo-600 transition ease-in">
-                  Finalize Purchase
-                </button>
-              </Link>
-            </div>
-          </section>
+            </section>
+          )}
         </section>{" "}
       </motion.section>
     </div>
