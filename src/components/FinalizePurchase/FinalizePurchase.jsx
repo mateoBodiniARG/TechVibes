@@ -4,7 +4,7 @@ import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { CartContext } from "../../context/ShoppingCartContext";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const FinalizePurchase = () => {
   const { cart, setCart } = useContext(CartContext);
