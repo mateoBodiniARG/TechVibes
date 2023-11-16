@@ -38,7 +38,7 @@ const NavBar = () => {
           <Link to={"/"}>
             <img
               src="https://static.vecteezy.com/system/resources/previews/013/643/507/large_2x/colorfull-modern-letter-in-3d-style-text-effect-free-png.png"
-              className="h-9 mr-3 m8Max:hidden"
+              className="h-9 mr-3 m8Max:hidden w-full"
               alt="TechVibes logo"
             />
           </Link>
@@ -97,11 +97,13 @@ const NavBar = () => {
               </>
             )}
           </div>
-          <Link to={"/cart"}>
-            <div className="cartWidget ml-1 text-white">
-              <CartWidget />
-            </div>
-          </Link>
+          <div className="items-center md:flex md:order-2 gap-2 mm:gap-11">
+            <Link to={"/cart"}>
+              <div className="cartWidget ml-1 text-white">
+                <CartWidget />
+              </div>
+            </Link>
+          </div>
         </div>
         <div
           className={`items-center justify-between ${
