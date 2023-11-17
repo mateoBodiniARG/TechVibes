@@ -8,16 +8,14 @@ import { useAuth } from "../../context/AuthContext";
 const ItemCount = ({ producto }) => {
   const { cart, setCart } = useContext(CartContext);
   const { user } = useAuth();
-  const [contador, setContador] = useState(0);
+  const [contador, setContador] = useState(1);
 
   const sumar = () => {
     setContador(contador + 1);
   };
 
   const restar = () => {
-    if (contador <= 0) {
-      alert("Ha llegado al numero minimo de productos");
-    } else setContador(contador - 1);
+    setContador(contador - 1);
   };
 
   const addToCart = () => {
@@ -52,11 +50,11 @@ const ItemCount = ({ producto }) => {
         <button
           className={"disabled:cursor-not-allowed text-white "}
           onClick={restar}
-          disabled={contador === 0}
+          disabled={contador === 1}
         >
           <RiSubtractFill
             className={` ${
-              contador === 0 ? "text-gray-400" : "text-white"
+              contador === 1 ? "text-gray-400" : "text-white"
             } hover:text-gray-400 h-6 w-6`}
           />
         </button>
@@ -77,7 +75,6 @@ const ItemCount = ({ producto }) => {
         <button
           className="bg-blue-500 transition ease-in hover:bg-gray-200 hover:text-black text-white font-semibold h-12 w-40 rounded-lg disabled:cursor-not-allowed disabled:hover:bg-slate-500"
           onClick={addToCart}
-          disabled={contador === 0}
         >
           Add to cart
         </button>
