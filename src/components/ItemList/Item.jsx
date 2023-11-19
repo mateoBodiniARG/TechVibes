@@ -2,16 +2,7 @@ import React from "react";
 import { MdOutlineDescription } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const Item = ({
-  id,
-  nombre,
-  desc,
-  stock,
-  price,
-  discount,
-  img,
-  categoryId,
-}) => {
+const Item = ({ id, nombre, stock, price, img }) => {
   return (
     <section className="p-2 ">
       <div className="mt-1 flex flex-col border border-gray-600 bg-gray-800 rounded-xl">
@@ -25,13 +16,18 @@ const Item = ({
           <h5 className="text-xl text-center tracking-wide text-slate-300 truncate font-medium">
             {nombre}
           </h5>
-          <div className="mt-2 mb-5 flex items-center justify-center">
+          <div className="mt-2 mb-5 flex items-center justify-center flex-col ">
             <p>
-              <span className="text-3xl font-bold text-slate-400">{price}</span>
-              <span className="text-sm text-red-600 line-through ml-2">
-                {discount}
-              </span>
+              <span className="text-3xl font-bold text-white">${price}</span>
             </p>
+            <span className="text-base pt-2 font-medium text-gray-500">
+              Stock:{" "}
+              <span
+                className={stock <= 10 ? "text-yellow-400" : "text-gray-300"}
+              >
+                {stock}
+              </span>
+            </span>
           </div>
           <Link
             to={`/item/${id}`}

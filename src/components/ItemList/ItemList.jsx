@@ -47,7 +47,6 @@ const ItemList = ({ productos }) => {
                 desc={producto.description}
                 stock={producto.stock}
                 price={producto.price}
-                discount={producto.discount}
                 img={producto.img}
                 categoryId={producto.categoryId}
               />
