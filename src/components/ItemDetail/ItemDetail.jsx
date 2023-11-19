@@ -23,8 +23,15 @@ const ItemDetail = ({ producto }) => {
               <span className="text-4xl text-green-400 font-bold mr-2">
                 ${producto.price}
               </span>
-              <span className="text-gray-500 text-base font-medium">
-                Stock: {producto.stock}
+              <span className="text-base pt-2 font-medium text-gray-500">
+                Stock:{" "}
+                <span
+                  className={
+                    producto.stock <= 10 ? "text-yellow-400" : "text-gray-300"
+                  }
+                >
+                  {producto.stock}
+                </span>
               </span>
             </div>
 

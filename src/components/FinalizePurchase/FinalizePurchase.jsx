@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { collection, addDoc, getFirestore, doc } from "firebase/firestore";
 import { CartContext } from "../../context/ShoppingCartContext";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const FinalizePurchase = () => {
   const { cart, setCart } = useContext(CartContext);
@@ -18,6 +18,8 @@ const FinalizePurchase = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const db = getFirestore();
+
+  const productosCollection = collection(db, "productos");
 
   const handleEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -42,8 +44,8 @@ const FinalizePurchase = () => {
     setPhoneValid(validPhone);
   };
 
-  const sendOrder = () => {
-    return new Promise((resolve, reject) => {
+  const sendOrder = async () => {
+    try {
       const orders = {
         buyer: {
           name: name,
@@ -60,15 +62,22 @@ const FinalizePurchase = () => {
         ),
       };
       const ordersColUser = collection(db, "usersOrders");
-      addDoc(ordersColUser, orders)
-        .then(({ id }) => {
-          resolve({ id });
-          setOrderId(id);
-        })
-        .catch((error) => {
-          reject(error);
+      const orderDoc = await addDoc(ordersColUser, orders);
+
+      const updateStockPromises = cart.map((item) => {
+        const docRef = doc(productosCollection, item.id);
+        return updateDoc(docRef, {
+          stock: item.stock - item.cantComprar,
         });
-    });
+      });
+
+      await Promise.all(updateStockPromises);
+
+      setOrderId(orderDoc.id);
+      return { id: orderDoc.id };
+    } catch (error) {
+      throw error;
+    }
   };
 
   const handleSubmit = (e) => {
