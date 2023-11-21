@@ -104,9 +104,12 @@ const NavBar = () => {
           id="navbar-search"
         >
           <ul className="mdMAX:border-2 flex flex-col md:flex-row md:space-x-4 md:mt-0 font-medium text-white bg-gray-800 md:bg-gray-900 border-gray-700 rounded-lg items-center">
-            <li className="mdMAX:border-2 border-gray-700 bg-slate-900 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
-              <Link to={"/category/Headsets"}>Headsets</Link>
-            </li>
+            <Link to={"/category/Headsets"} className="w-full h-full">
+              <li className="mdMAX:border-2 border-gray-700 bg-slate-700 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-slate-800 ease-in-out transition-all duration-300">
+                <span>Headsets</span>
+              </li>
+            </Link>
+
             <li className="mdMAX:border-2 border-gray-700 bg-slate-900 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
               <Link to={"/category/Keyboards"}>Keyboards</Link>
             </li>
