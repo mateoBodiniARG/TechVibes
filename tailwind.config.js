@@ -10,7 +10,9 @@ export default {
       screens: {
         mm: { max: "390px" },
         mm2: { max: "440px" },
+        mm3: { max: "540px" },
         mdMAX: { max: "768px" },
+        smMax: { max: "639px" },
         m8: { min: "815px" },
         m8Max: { max: "814px" },
         xl2: { max: "1280px" },

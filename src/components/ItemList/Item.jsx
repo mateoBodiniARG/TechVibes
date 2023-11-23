@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Item = ({ id, nombre, stock, price, img }) => {
   return (
-    <section className="p-2 ">
+    <section className="p-4 ">
       <div className="mt-1 flex flex-col border border-gray-600 bg-gray-800 rounded-xl">
         <Link to={`/item/${id}`}>
           <div className="relative overflow-hidden rounded-xl">

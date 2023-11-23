@@ -64,8 +64,9 @@ const ItemCount = ({ producto }) => {
         </span>
 
         <button
-          className="border-none text-white cursor-pointer grid place-content-center h-full outline-none text-base hover:text-gray-400"
+          className="border-none text-white cursor-pointer grid place-content-center h-full outline-none text-base hover:text-gray-400 disabled:cursor-not-allowed"
           onClick={sumar}
+          disabled={contador === producto.stock}
         >
           <IoAddSharp className="h-6 w-6" />
         </button>

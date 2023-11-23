@@ -67,7 +67,7 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="items-center flex md:order-2 gap-2 mm:gap-11">
-          <div>
+          <div className="mm:hidden">
             {loading ? (
               <LoadingV2 />
             ) : (
