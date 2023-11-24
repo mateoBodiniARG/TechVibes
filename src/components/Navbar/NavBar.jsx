@@ -3,6 +3,7 @@ import CartWidget from "../Cart/CartWidget";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import LoadingV2 from "../Loading/LoadingV2";
+import { motion } from "framer-motion";
 
 const NavBar = () => {
   const [burgerOpen, setburgerOpen] = useState(false);
@@ -32,103 +33,149 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-gray-900 border-b-2 border-gray-800 max-w-full">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mm:justify-center ">
-        <div className="flex items-center">
-          <button
-            type="button"
-            onClick={toggleSearch}
-            data-collapse-toggle="navbar-search"
-            className="mr-4 bg-slate-800 inline-flex items-center p-2 w-9 h-9 justify-center text-sm text-gray-200 rounded-md m8:hidden"
-            aria-controls="navbar-search"
-            aria-expanded={burgerOpen}
-          >
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
+    <nav>
+      <motion.nav
+        className="bg-gray-900 border-b-2 border-gray-800 max-w-full"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
+          <div className="flex items-center">
+            <motion.button
+              type="button"
+              onClick={toggleSearch}
+              data-collapse-toggle="navbar-search"
+              className="mr-4 bg-slate-800 inline-flex items-center p-2 w-9 h-9 justify-center text-sm text-gray-200 rounded-md m8:hidden"
+              aria-controls="navbar-search"
+              aria-expanded={burgerOpen}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </motion.button>
 
-          <Link to={"/"}>
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white m8Max:text-center uppercase">
-              TechVibes
-            </span>
-          </Link>
-        </div>
-        <div className="items-center flex md:order-2 gap-2 mm:gap-11">
-          <div className="mm:hidden">
-            {loading ? (
-              <LoadingV2 />
-            ) : (
-              <>
-                {auth.user ? (
+            <Link to={"/"}>
+              <span className="self-center text-2xl font-semibold whitespace-nowrap text-white m8Max:text-center uppercase">
+                TechVibes
+              </span>
+            </Link>
+          </div>
+          <div className="items-center flex md:order-2 gap-2 mm:gap-11">
+            <div className="mm3:hidden">
+              {loading ? (
+                <LoadingV2 />
+              ) : (
+                <>
+                  {auth.user ? (
+                    <motion.button
+                      onClick={(e) => handleLogOut(e)}
+                      className="m8Max:hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      Cerrar Sesión
+                    </motion.button>
+                  ) : (
+                    <Link to={"/login"}>
+                      <motion.button
+                        className="m8Max:hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        Inicie sesión
+                      </motion.button>
+                    </Link>
+                  )}
+                </>
+              )}
+            </div>
+            <div className="items-center md:flex md:order-2 gap-2 mm:gap-11">
+              <Link to={"/cart"}>
+                <div className="cartWidget ml-1 text-white">
+                  <CartWidget />
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div
+            className={`mt-4 ${
+              burgerOpen ? "block" : "hidden"
+            } w-full m8:flex m8:w-auto md:mt-0 md:block`}
+            id="navbar-search"
+          >
+            <ul className="flex flex-col md:flex-row md:space-x-4 md:mt-0 font-medium text-white bg-gray-800 md:bg-gray-900 border-gray-700 rounded-lg items-center">
+              <li className="w-full md:w-1/3">
+                <Link
+                  onClick={toggleSearch}
+                  to={"/category/Headsets"}
+                  className="md:border-2 border-gray-700 bg-slate-700 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 md:hover:text-white md:hover:bg-slate-800 ease-in-out transition-all duration-300 block"
+                >
+                  Headsets
+                </Link>
+              </li>
+
+              <li className="w-full md:w-1/3">
+                <Link
+                  onClick={toggleSearch}
+                  to={"/category/Keyboards"}
+                  className="md:border-2 border-gray-700 bg-slate-700 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 md:hover:text-white md:hover:bg-slate-800 ease-in-out transition-all duration-300 block"
+                >
+                  Keyboards
+                </Link>
+              </li>
+
+              <li className="w-full">
+                <Link
+                  onClick={toggleSearch}
+                  to={"/category/Gaming Chairs"}
+                  className="md:border-2 border-gray-700 bg-slate-700 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 md:hover:text-white md:hover:bg-slate-800 ease-in-out transition-all duration-300 block"
+                >
+                  Gaming Chairs
+                </Link>
+              </li>
+
+              {auth.user ? (
+                <li className="md:hidden w-full">
                   <button
-                    onClick={(e) => handleLogOut(e)}
-                    className="m8Max:hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
+                    onClick={() => handleLogOut()}
+                    className="md:border-2 border-gray-700 bg-red-500 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-red-600 transition-all duration-300 ease-in-out block"
                   >
                     Cerrar Sesión
                   </button>
-                ) : (
-                  <Link to={"/login"}>
-                    <button className="m8Max:hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out">
-                      Ingrese al sistema
-                    </button>
+                </li>
+              ) : (
+                <li className="md:hidden w-full">
+                  <Link
+                    onClick={toggleSearch}
+                    to={"/login"}
+                    className="md:border-2 border-gray-700 bg-green-500 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-green-600 transition-all duration-300 ease-in-out block"
+                  >
+                    Inicie sesión
                   </Link>
-                )}
-              </>
-            )}
-          </div>
-          <div className="items-center md:flex md:order-2 gap-2 mm:gap-11">
-            <Link to={"/cart"}>
-              <div className="cartWidget ml-1 text-white">
-                <CartWidget />
-              </div>
-            </Link>
+                </li>
+              )}
+            </ul>
           </div>
         </div>
-        <div
-          className={`items-center justify-between ${
-            burgerOpen ? "block" : "hidden"
-          } w-full m8:flex m8:w-auto m8:order-1`}
-          id="navbar-search"
-        >
-          <ul className="mdMAX:border-2 flex flex-col md:flex-row md:space-x-4 md:mt-0 font-medium text-white bg-gray-800 md:bg-gray-900 border-gray-700 rounded-lg items-center">
-            <Link to={"/category/Headsets"} className="w-full h-full">
-              <li className="mdMAX:border-2 border-gray-700 bg-slate-700 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-slate-800 ease-in-out transition-all duration-300">
-                <span>Headsets</span>
-              </li>
-            </Link>
-
-            <li className="mdMAX:border-2 border-gray-700 bg-slate-900 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
-              <Link to={"/category/Keyboards"}>Keyboards</Link>
-            </li>
-            <li className="mdMAX:border-2 border-gray-700 bg-slate-900 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
-              <Link to={"/category/Gaming Chairs"}>Gaming Chairs</Link>
-            </li>
-
-            {auth.user ? (
-              <li className="md:hidden mdMAX:border-2 border-gray-700 bg-red-500 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
-                <button onClick={() => handleLogOut()}>Cerrar Sesión</button>
-              </li>
-            ) : (
-              <li className="md:hidden bg-green-500 rounded-md m-2 hover:text-white md:py-2 md:px-4 py-3 px-6">
-                <Link to={"/login"}>Ingresar al sistema</Link>
-              </li>
-            )}
-          </ul>
-        </div>
-      </div>
+      </motion.nav>
     </nav>
   );
 };
