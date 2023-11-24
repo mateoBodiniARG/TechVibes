@@ -12,8 +12,8 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCa7lXSzI9-td6C4ElDpfsJGror-aYCgsk",
-  // authDomain: "techvibes-d125a.firebaseapp.com",
-  authDomain: "https://tech-vibes.vercel.app",
+  authDomain: "techvibes-d125a.firebaseapp.com",
+  // authDomain: "https://tech-vibes.vercel.app",
   projectId: "techvibes-d125a",
   storageBucket: "techvibes-d125a.appspot.com",
   messagingSenderId: "429311452238",
