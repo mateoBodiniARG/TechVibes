@@ -109,6 +109,9 @@ export function AuthProvider({ children }) {
       const currentUser = result.user;
       setUser(currentUser);
 
+      // Redirige a la página principal después de obtener el resultado
+      navigate("/");
+
       return currentUser;
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
