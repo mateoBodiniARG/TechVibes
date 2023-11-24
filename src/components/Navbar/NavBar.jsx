@@ -19,6 +19,7 @@ const NavBar = () => {
       console.error("Error al cerrar sesión:", error.message);
     } finally {
       navigate("/login");
+      toggleSearch();
     }
   };
 
@@ -155,7 +156,10 @@ const NavBar = () => {
               {auth.user ? (
                 <li className="md:hidden w-full">
                   <button
-                    onClick={() => handleLogOut()}
+                    onClick={() => {
+                      handleLogOut();
+                      toggleSearch();
+                    }}
                     className="md:border-2 border-gray-700 bg-red-500 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-red-600 transition-all duration-300 ease-in-out block"
                   >
                     Cerrar Sesión

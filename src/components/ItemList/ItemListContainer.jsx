@@ -3,6 +3,7 @@ import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Loading from "../Loading/Loading";
+import FavoriteItem from "../FavoriteProducts/FavoriteItem";
 
 const ItemListContainer = () => {
   const { categoryId } = useParams();
@@ -47,6 +48,7 @@ const ItemListContainer = () => {
         Products available
       </h1>
       <ItemList productos={productByCategory} />
+      <FavoriteItem productos={productByCategory} />
     </div>
   );
 };
