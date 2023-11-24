@@ -12,10 +12,14 @@ const Login = () => {
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [loading, setLoading] = useState(false);
+
   const handleGoogle = async () => {
-    await auth.loginWithGoogle().then(() => {
+    try {
+      await auth.loginWithGoogle();
       navigate("/");
-    });
+    } catch (error) {
+      console.error("Error al iniciar sesión con Google:", error.message);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -98,10 +102,11 @@ const Login = () => {
 
             <p className="mt-3 text-center text-white">
               ¿No tenés cuenta?
-              <Link to={"/register"}>
-                <span className="font-bold ml-1 text-blue-500 hover:underline">
-                  Registrate
-                </span>
+              <Link
+                to="/register"
+                className="font-bold ml-1 text-blue-500 hover:underline"
+              >
+                Registrate
               </Link>
             </p>
           </div>
