@@ -7,11 +7,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
+  signInWithPopup,
   signOut,
   onAuthStateChanged,
-  getAuth,
-  getRedirectResult,
-  signInWithRedirect,
 } from "firebase/auth";
 
 export const authContext = createContext();
@@ -81,7 +79,7 @@ export function AuthProvider({ children }) {
         setUser(currentUser);
         navigate("/admin");
       } else {
-        // Si no es administrador, redirige a otra ruta
+        // Si no es administrador, redirige a otra ruta (puedes ajustar esto según tus necesidades)
         setUser(currentUser);
         navigate("/");
       }
@@ -95,23 +93,10 @@ export function AuthProvider({ children }) {
 
   const loginWithGoogle = async () => {
     try {
-      const auth = getAuth();
-      const provider = new GoogleAuthProvider();
-
-      // Inicia el proceso de inicio de sesión con Google redirigiendo al usuario a la página de inicio de sesión de Google
-      await signInWithRedirect(auth, provider);
-
-      // Obtiene el resultado del inicio de sesión con Google después de la redirección
-      const result = await getRedirectResult(auth);
-
-      // El usuario está ahora autenticado
-      // accedemos a los datos del usuario usando result.user
-      const currentUser = result.user;
+      const respuestaGoogle = new GoogleAuthProvider();
+      const infoUsuario = await signInWithPopup(auth, respuestaGoogle);
+      const currentUser = infoUsuario.user;
       setUser(currentUser);
-
-      // Redirige a la página principal después de obtener el resultado
-      navigate("/");
-
       return currentUser;
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
