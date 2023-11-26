@@ -16,48 +16,60 @@ import { AdminProvider } from "./context/AdminContext";
 import { AuthProvider } from "./context/AuthContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import UserProfileSection from "./components/User/UserProfileSection";
-
+import UserInformation from "./components/User/UserInformation";
+import UserOrders from "./components/User/UserOrders";
+import { UserOrdersProvider } from "./context/userOrdersContext";
 function App() {
   return (
     <>
       <BrowserRouter>
         <AuthProvider>
-          <FavoritesProvider>
-            {" "}
-            {/* Envuelve la App con AuthProvider */}
-            <AdminProvider>
-              <UserProvider>
-                <ShoppingCartContext>
-                  <nav>
-                    <NavBar />
-                  </nav>
-                  <Routes>
-                    <Route path="/" element={<ItemListContainer />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/Login" element={<Login />} />
-                    <Route path="/admin" element={<Admin />} />
-                    <Route path="/Register" element={<Register />} />
-                    <Route path="/Favorite" element={<FavoriteItem />} />
-                    <Route
-                      path="/userProfile"
-                      element={<UserProfileSection />}
-                    />
+          <UserOrdersProvider>
+            <FavoritesProvider>
+              {" "}
+              {/* Envuelve la App con AuthProvider */}
+              <AdminProvider>
+                <UserProvider>
+                  <ShoppingCartContext>
+                    <nav>
+                      <NavBar />
+                    </nav>
+                    <Routes>
+                      <Route path="/" element={<ItemListContainer />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/Login" element={<Login />} />
+                      <Route path="/admin" element={<Admin />} />
+                      <Route path="/Register" element={<Register />} />
+                      <Route path="/Favorite" element={<FavoriteItem />} />
+                      <Route path="/UserOrders" element={<UserOrders />} />
+                      <Route
+                        path="/UserInformation"
+                        element={<UserInformation />}
+                      />
+                      <Route
+                        path="/userProfile"
+                        element={<UserProfileSection />}
+                      />
 
-                    <Route
-                      path="/category/:categoryId"
-                      element={<ItemListContainer />}
-                    />
-                    <Route path="/item/:id" element={<ItemDetailContainer />} />
-                    <Route
-                      path="/finalizePurchase"
-                      element={<FinalizePurchase />}
-                    />
-                  </Routes>
-                  <ToastContainer />
-                </ShoppingCartContext>
-              </UserProvider>
-            </AdminProvider>
-          </FavoritesProvider>
+                      <Route
+                        path="/category/:categoryId"
+                        element={<ItemListContainer />}
+                      />
+                      <Route
+                        path="/item/:id"
+                        element={<ItemDetailContainer />}
+                      />
+                      <Route
+                        path="/finalizePurchase"
+                        element={<FinalizePurchase />}
+                      />
+                    </Routes>
+                    <ToastContainer />
+                  </ShoppingCartContext>
+                </UserProvider>
+              </AdminProvider>
+            </FavoritesProvider>
+          </UserOrdersProvider>
         </AuthProvider>{" "}
         {/* Cierra AuthProvider */}
       </BrowserRouter>

@@ -5,6 +5,7 @@ import { CartContext } from "../../context/ShoppingCartContext";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { updateDoc } from "firebase/firestore";
 
 const FinalizePurchase = () => {
   const { cart, setCart } = useContext(CartContext);
@@ -19,7 +20,7 @@ const FinalizePurchase = () => {
 
   const db = getFirestore();
 
-  const productosCollection = collection(db, "productos");
+  const productosCollection = collection(db, "Productos");
 
   const handleEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -48,12 +49,13 @@ const FinalizePurchase = () => {
     try {
       const orders = {
         buyer: {
+          email: email,
           name: name,
           phone: phone,
-          email: email,
         },
-        items: cart.map((item) => ({
-          name: item.nombre,
+        products: cart.map((item) => ({
+          productName: item.nombre,
+          quantity: item.cantComprar,
           price: item.price,
         })),
         total: cart.reduce(
@@ -61,10 +63,12 @@ const FinalizePurchase = () => {
           0
         ),
       };
+
       const ordersColUser = collection(db, "usersOrders");
       const orderDoc = await addDoc(ordersColUser, orders);
 
       const updateStockPromises = cart.map((item) => {
+        console.log("Actualizando stock al item con ID:", item.id);
         const docRef = doc(productosCollection, item.id);
         return updateDoc(docRef, {
           stock: item.stock - item.cantComprar,

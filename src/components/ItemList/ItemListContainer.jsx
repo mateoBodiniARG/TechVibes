@@ -34,9 +34,7 @@ const ItemListContainer = () => {
     }
   }, [categoryId, products]);
 
-  useEffect(() => {
-    console.log(productByCategory);
-  }, [productByCategory]);
+  useEffect(() => {}, [productByCategory]);
 
   if (loading) {
     return <Loading />;
@@ -48,7 +46,6 @@ const ItemListContainer = () => {
         Products available
       </h1>
       <ItemList productos={productByCategory} />
-      <FavoriteItem productos={productByCategory} />
     </div>
   );
 };

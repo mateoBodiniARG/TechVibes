@@ -77,9 +77,8 @@ const NavBar = () => {
               </span>
             </Link>
           </div>
-          <div className="items-center flex md:order-2 gap-2 mm:gap-11">
-            {/* Mostrar el icono del usuario siempre */}
-            <div className="items-center md:flex md:order-2 gap-2 mm:gap-11">
+          <div className="items-center flex md:order-2 gap-2">
+            <div className="items-center md:flex md:order-2 gap-2 ">
               <Link
                 to={auth.user ? "/userProfile" : "/login"}
                 className="text-black"
@@ -91,7 +90,7 @@ const NavBar = () => {
                 </motion.div>
               </Link>
             </div>
-            <div className="items-center md:flex md:order-2 gap-2 mm:gap-11">
+            <div className="items-center md:flex md:order-2 gap-2 ">
               <Link to={"/cart"}>
                 <div className="ml-1">
                   <motion.div whileTap={{ scale: 0.9 }}>

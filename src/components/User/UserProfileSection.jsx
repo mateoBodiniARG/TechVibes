@@ -23,33 +23,34 @@ const UserProfileSection = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-md shadow-md">
+    <div className="p-6">
       <h1 className="text-2xl font-semibold text-white mb-4 text-center">
-        ¡Hola,{" "}
-        {auth.user ? auth.user.displayName : "No se ha encontrado el nombre"}!
+        ¡Hola, {auth.user ? auth.user.displayName : "Buscando ..."}!
       </h1>
       {auth.user ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link to="/favorite">
-            <div className="bg-teal-500  p-4 rounded-md shadow-md hover:bg-teal-800 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
+            <div className="bg-fuchsia-600  p-4 rounded-md shadow-md hover:bg-fuchsia-800 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
               <MdFavorite className="text-white text-3xl mb-1" />
               <p className="text-white font-semibold text-lg text-center">
                 Productos Favoritos
               </p>
             </div>
           </Link>
-          <div className="bg-blue-500 p-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
-            <AiOutlineShopping className="text-white text-3xl mb-1" />
-            <p className="text-white font-semibold text-lg text-center">
-              Ver Órdenes de Compra
-            </p>
-          </div>
-          <div className="bg-green-500 p-4 rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
+          <Link to={auth.user ? "/UserOrders" : "/login"}>
+            <div className="bg-blue-500 p-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
+              <AiOutlineShopping className="text-white text-3xl mb-1" />
+              <p className="text-white font-semibold text-lg text-center">
+                Mis compras
+              </p>
+            </div>
+          </Link>
+          {/* <div className="bg-green-500 p-4 rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
             <AiOutlineUser className="text-white text-3xl mb-1" />
             <p className="text-white font-semibold text-lg text-center">
               Información del Usuario
             </p>
-          </div>
+          </div> */}
           <div
             onClick={handleLogOut}
             className="bg-red-500 p-4 rounded-md shadow-md hover:bg-red-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center"

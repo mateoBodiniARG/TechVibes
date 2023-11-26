@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
 import { motion } from "framer-motion";
-import { CartContext } from "../../context/ShoppingCartContext";
 import ItemsCart from "./ItemsCart";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { BsCartX } from "react-icons/bs";
 import { AiOutlineHome } from "react-icons/ai";
 import { useAuth } from "../../context/AuthContext";
-
+import { CartContext } from "../../context/ShoppingCartContext";
+import { useContext } from "react";
 const Cart = () => {
   const { cart, setCart } = useContext(CartContext);
   const cartEmpty = cart.length === 0;
