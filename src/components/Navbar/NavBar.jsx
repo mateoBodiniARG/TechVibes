@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import CartWidget from "../Cart/CartWidget";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import LoadingV2 from "../Loading/LoadingV2";
 import { motion } from "framer-motion";
+import { AiOutlineUser } from "react-icons/ai";
 
 const NavBar = () => {
   const [burgerOpen, setburgerOpen] = useState(false);
@@ -36,7 +36,7 @@ const NavBar = () => {
   return (
     <nav>
       <motion.nav
-        className="bg-gray-900 border-b-2 border-gray-800 max-w-full"
+        className="bg-gray-900 border-b-2 border-gray-800 max-w-full m8Max:px-4 m8Max:py-2 "
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -78,40 +78,25 @@ const NavBar = () => {
             </Link>
           </div>
           <div className="items-center flex md:order-2 gap-2 mm:gap-11">
-            <div className="mm3:hidden">
-              {loading ? (
-                <LoadingV2 />
-              ) : (
-                <>
-                  {auth.user ? (
-                    <motion.button
-                      onClick={(e) => handleLogOut(e)}
-                      className="m8Max:hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      Cerrar Sesión
-                    </motion.button>
-                  ) : (
-                    <Link to={"/login"}>
-                      <motion.button
-                        className="m8Max:hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-300 ease-in-out"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        Inicie sesión
-                      </motion.button>
-                    </Link>
-                  )}
-                </>
-              )}
+            {/* Mostrar el icono del usuario siempre */}
+            <div className="items-center md:flex md:order-2 gap-2 mm:gap-11">
+              <Link
+                to={auth.user ? "/userProfile" : "/login"}
+                className="text-black"
+              >
+                <motion.div whileTap={{ scale: 0.9 }}>
+                  <div className="border-gray-900 bg-slate-200 p-2 rounded-xl">
+                    <AiOutlineUser className="w-6 h-6" />
+                  </div>
+                </motion.div>
+              </Link>
             </div>
             <div className="items-center md:flex md:order-2 gap-2 mm:gap-11">
               <Link to={"/cart"}>
-                <div className="cartWidget ml-1 text-white">
-                  <CartWidget />
+                <div className="ml-1">
+                  <motion.div whileTap={{ scale: 0.9 }}>
+                    <CartWidget />
+                  </motion.div>
                 </div>
               </Link>
             </div>
@@ -158,7 +143,6 @@ const NavBar = () => {
                   <button
                     onClick={() => {
                       handleLogOut();
-                      toggleSearch();
                     }}
                     className="md:border-2 border-gray-700 bg-red-500 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-red-600 transition-all duration-300 ease-in-out block"
                   >
@@ -183,4 +167,5 @@ const NavBar = () => {
     </nav>
   );
 };
+
 export default NavBar;

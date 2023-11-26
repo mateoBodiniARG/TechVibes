@@ -22,54 +22,54 @@ const ItemsCart = ({
   const [contador, setContador] = useState(cantComprar);
 
   const deleteProduct = () => {
-    const cartAux = [...cart];
-    const cartActualizado = cartAux.filter((item) => item.id !== id);
+    const cartActualizado = cart.filter((item) => item.id !== id);
     setCart(cartActualizado);
-    toast.success("Item eliminado con exito!", {
+    toast.success("Item eliminado con éxito!", {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });
   };
 
   const updateCartSum = () => {
-    const cartAuxActualizado = [...cart];
-    const itemIndex = cartAuxActualizado.findIndex((item) => item.id === id);
+    const cartActualizado = [...cart];
+    const itemIndex = cartActualizado.findIndex((item) => item.id === id);
 
     if (itemIndex !== -1) {
-      cartAuxActualizado[itemIndex].cantComprar = contador + 1;
+      cartActualizado[itemIndex].cantComprar = contador + 1;
 
-      setCart(cartAuxActualizado);
+      setCart(cartActualizado);
       setContador(contador + 1);
     }
   };
 
   const updateCartRest = () => {
-    const cartAuxActualizado = [...cart];
-    const itemIndex = cartAuxActualizado.findIndex((item) => item.id === id);
+    const cartActualizado = [...cart];
+    const itemIndex = cartActualizado.findIndex((item) => item.id === id);
 
     if (itemIndex !== -1) {
-      cartAuxActualizado[itemIndex].cantComprar = contador - 1;
-      setCart(cartAuxActualizado);
+      cartActualizado[itemIndex].cantComprar = contador - 1;
+      setCart(cartActualizado);
       setContador(contador - 1);
     }
   };
+
   return (
     <section className="my-4">
-      <div className="flex border rounded-xl bg-gray-900 p-6 mm:p-2 container text-white">
-        <Link to={`/item/${id}`}>
-          <div className="mm:w-20 mm:h-20 w-32 h-32 overflow-hidden rounded-xl">
+      <div className="flex bg-gray-800 text-white p-6 rounded-lg m8Max:">
+        <Link to={`/item/${id}`} className="flex-shrink-0">
+          <div className="w-32 h-32 overflow-hidden rounded-lg">
             <img
-              className="object-cover w-full h-full rounded-2xl"
+              className="object-cover w-full h-full rounded-lg"
               src={img}
               alt="product image"
             />
           </div>
         </Link>
 
-        <div className="ml-4 truncate overflow-hidden whitespace-nowrap text-ellipsis">
+        <div className="ml-4 flex-1 truncate overflow-hidden whitespace-nowrap">
           <h5 className="text-xl font-semibold mb-2">{nombre}</h5>
           <div className="flex items-center mb-2">
-            <span className="text-2xl font-bold text-indigo-100">${price}</span>
+            <span className="text-2xl font-bold">${price}</span>
             <p className="text-lg text-gray-400 ml-2">x {cantComprar} u.</p>
           </div>
 
@@ -85,7 +85,7 @@ const ItemsCart = ({
               }}
               disabled={contador === 1}
             >
-              <RiSubtractFill className="h-4 w-4" />
+              <RiSubtractFill className="h-5 w-5" />
             </button>
 
             <span className="text-lg font-semibold text-gray-100">
@@ -98,13 +98,16 @@ const ItemsCart = ({
                 updateCartSum();
               }}
             >
-              <IoAddSharp className="h-4 w-4" />
+              <IoAddSharp className="h-5 w-5" />
             </button>
           </div>
         </div>
 
-        <button className="ml-auto text-gray-700" onClick={deleteProduct}>
-          <RxCross1 className="h-9 w-9 hover:text-red-500 text-gray-300" />
+        <button className="ml-auto text-white">
+          <RxCross1
+            className="h-7 w-7 hover:text-red-500"
+            onClick={deleteProduct}
+          />
         </button>
       </div>
     </section>

@@ -8,7 +8,6 @@ const Login = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [loading, setLoading] = useState(false);
@@ -40,7 +39,7 @@ const Login = () => {
         {loading ? (
           <Loading />
         ) : (
-          <div className="max-w-md w-96 mx-auto p-6 bg-gray-800 rounded-lg shadow-lg">
+          <div className="max-w-md w-96 mx-auto p-6 bg-gray-800 rounded-lg shadow-lg m8Max:w-auto m8Max:m-2">
             <h2 className="text-2xl font-semibold text-white mb-4 text-center">
               Iniciar sesion
             </h2>

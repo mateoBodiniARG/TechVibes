@@ -12,13 +12,13 @@ const FavoriteItem = () => {
   };
 
   useEffect(() => {
-    const simularFetchAsync = () => {
+    const simulateFetchAsync = () => {
       setTimeout(() => {
         setLoading(false);
       }, 1500);
     };
 
-    simularFetchAsync();
+    simulateFetchAsync();
   }, []);
 
   return (
@@ -26,15 +26,17 @@ const FavoriteItem = () => {
       <h2 className="text-center text-3xl font-bold mb-4 text-white">
         PRODUCTOS FAVORITOS
       </h2>
-      <button
-        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all duration-300"
-        onClick={clearFavorites}
-      >
-        Clear Favorites
-      </button>
+      {favorites.length > 0 && (
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all duration-300 mb-4"
+          onClick={clearFavorites}
+        >
+          Clear Favorites
+        </button>
+      )}
       {loading ? (
         <Loading />
-      ) : (
+      ) : favorites.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {favorites.map((item) => (
             <div key={item.id}>
@@ -48,6 +50,10 @@ const FavoriteItem = () => {
             </div>
           ))}
         </div>
+      ) : (
+        <p className="text-center text-white flex justify-center ">
+          No hay productos agregados a favoritos.
+        </p>
       )}
     </div>
   );

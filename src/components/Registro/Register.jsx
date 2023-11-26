@@ -9,6 +9,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [emailRegistro, setEmailRegistro] = useState("");
   const [passwordRegistro, setPasswordRegistro] = useState("");
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -16,7 +17,7 @@ const Register = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await auth.registro(emailRegistro, passwordRegistro);
+      await auth.registro(userName, emailRegistro, passwordRegistro);
       navigate("/");
     } catch (error) {
       switch (error.code) {
@@ -42,15 +43,27 @@ const Register = () => {
           <Loading />
         ) : (
           <div className="max-w-md w-96 mx-auto p-6 bg-gray-800 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Regístrate en el sistema
-            </h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">Registro</h2>
             {error && (
-              <div className="p-2 mb-2 text-base text-red-500 font-medium text-center">
+              <div className="text-base text-red-500 font-medium text-center">
                 <p>{error}</p>
               </div>
             )}
             <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label htmlFor="input-name" className="text-white block mb-1">
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  id="input-name"
+                  name="name"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  placeholder="Tu nombre"
+                  className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-green-500"
+                />
+              </div>
               <div className="mb-4">
                 <label htmlFor="input-email" className="text-white block mb-1">
                   Correo Electrónico

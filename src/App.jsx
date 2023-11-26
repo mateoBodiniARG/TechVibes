@@ -15,6 +15,7 @@ import Admin from "./components/Admin/Admin";
 import { AdminProvider } from "./context/AdminContext";
 import { AuthProvider } from "./context/AuthContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
+import UserProfileSection from "./components/User/UserProfileSection";
 
 function App() {
   return (
@@ -37,6 +38,11 @@ function App() {
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/Register" element={<Register />} />
                     <Route path="/Favorite" element={<FavoriteItem />} />
+                    <Route
+                      path="/userProfile"
+                      element={<UserProfileSection />}
+                    />
+
                     <Route
                       path="/category/:categoryId"
                       element={<ItemListContainer />}
