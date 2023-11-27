@@ -60,6 +60,7 @@ const FinalizePurchase = () => {
           (total, item) => total + item.price * item.cantComprar,
           0
         ),
+        estado: "pendiente",
       };
 
       const ordersColUser = collection(db, "usersOrders");
@@ -243,10 +244,15 @@ const FinalizePurchase = () => {
                             </span>
                           </p>
                         </div>
-                        <div className="border-t border-gray-200 pt-5 flex justify-center space-x-5">
+                        <div className="border-t border-gray-200 pt-5 flex justify-center space-x-1">
                           <Link to={"/"}>
-                            <button className="bg-violet-50 px-4 py-2 rounded-md border-0 font-semibold text-violet-700 hover:bg-violet-100">
+                            <button className=" px-4 py-2 rounded-md border-0 font-semibold text-violet-700 hover:bg-violet-100">
                               Continue Shopping
+                            </button>
+                          </Link>
+                          <Link to={"/UserOrders"}>
+                            <button className="bg-violet-50 px-4 py-2 rounded-md border-0 font-semibold text-violet-700 hover:bg-violet-100">
+                              My orders
                             </button>
                           </Link>
                         </div>

@@ -9,10 +9,8 @@ const NavBar = () => {
   const [burgerOpen, setburgerOpen] = useState(false);
   const auth = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
 
   const handleLogOut = async () => {
-    setLoading(true);
     try {
       await auth.logOut();
     } catch (error) {
@@ -22,12 +20,6 @@ const NavBar = () => {
       toggleBurger();
     }
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, [auth.user]);
 
   const toggleBurger = () => {
     setburgerOpen((prevState) => !prevState);

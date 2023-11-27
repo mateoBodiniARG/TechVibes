@@ -35,6 +35,9 @@ export default {
           "sans-serif",
         ],
       },
+      width: {
+        "custom-width": "900px",
+      },
     },
   },
   plugins: [require("flowbite/plugin")],
