@@ -3,7 +3,6 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import Loading from "../Loading/Loading";
-import { set } from "react-hook-form";
 
 const Admin = () => {
   const auth = useAuth();

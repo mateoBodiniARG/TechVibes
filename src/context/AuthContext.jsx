@@ -101,9 +101,36 @@ export function AuthProvider({ children }) {
     try {
       const respuestaGoogle = new GoogleAuthProvider();
       const infoUsuario = await signInWithPopup(auth, respuestaGoogle);
-      const currentUser = infoUsuario.user;
-      setUser(currentUser);
-      return currentUser;
+
+      // Crear un documento en la colección 'users' si no existe
+      const userDocRef = doc(db, `users/${infoUsuario.user.uid}`);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (!userDocSnap.exists()) {
+        // El usuario no existe, crear un nuevo documento con la información del usuario
+        await setDoc(userDocRef, {
+          uid: infoUsuario.user.uid,
+          email: infoUsuario.user.email,
+          name: infoUsuario.user.displayName,
+          admin: false,
+        });
+      }
+
+      // Redirigir según el rol del usuario
+      const adminCheckRef = doc(db, `admin/${infoUsuario.user.uid}`);
+      const adminCheckSnap = await getDoc(adminCheckRef);
+
+      if (adminCheckSnap.exists() && adminCheckSnap.data().admin) {
+        // Si el usuario es administrador, redirige a la ruta de administrador
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+
+      // Establecer el usuario en el contexto
+      setUser(infoUsuario.user);
+
+      return infoUsuario.user;
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
       throw error;

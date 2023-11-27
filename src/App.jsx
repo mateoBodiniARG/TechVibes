@@ -16,6 +16,7 @@ import { FavoritesProvider } from "./context/FavoritesContext";
 import UserProfileSection from "./components/User/UserProfileSection";
 import UserInformation from "./components/User/UserInformation";
 import UserOrders from "./components/User/UserOrders";
+import DeleteOrders from "./components/deleteorders/DeleteOrders";
 function App() {
   return (
     <>
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/UserOrders" element={<UserOrders />} />
                 <Route path="/UserInformation" element={<UserInformation />} />
                 <Route path="/userProfile" element={<UserProfileSection />} />
+                <Route path="/deleteOrders" element={<DeleteOrders />} />
 
                 <Route
                   path="/category/:categoryId"
