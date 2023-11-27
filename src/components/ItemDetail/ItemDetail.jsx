@@ -7,32 +7,8 @@ import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
 const ItemDetail = ({ product }) => {
-  const { addToFavorites, removeFromFavorites, favorites } = useFavorites();
-  const [favorito, setFavorito] = useState(false);
   // Verificar si el usuario esta autenticado, sino mostrar mensaje de que debe loguearse
   const { user } = useAuth();
-
-  useEffect(() => {
-    // Verificar si el producto está en la lista de favoritos al cargar el componente
-    setFavorito(favorites.some((item) => item.id === product.id));
-  }, [favorites, product]);
-
-  const handleToggleFavorito = () => {
-    if (!user) {
-      toast.error("Debe ingresar para poder anadir productos a favorito", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-      });
-      return;
-    }
-
-    if (favorito) {
-      removeFromFavorites(product.id);
-    } else {
-      addToFavorites(product);
-    }
-    setFavorito(!favorito);
-  };
 
   return (
     <div className="flex justify-center items-center lg:h-screen">
@@ -42,21 +18,6 @@ const ItemDetail = ({ product }) => {
             <img className="rounded-2xl w-full" src={product.img} alt="" />
           </div>
           <div className="flex flex-col justify-center items-start">
-            <div className="inline-block">
-              <div className="flex items-end">
-                <button
-                  className="text-white text-2xl mb-4 w-14 h-14 flex justify-center items-center rounded-full bg-gray-900 hover:bg-gray-700 transition duration-300 ease-in-out"
-                  onClick={handleToggleFavorito}
-                >
-                  {favorito ? (
-                    <IoMdHeart className="text-red-500 w-7 h-7" />
-                  ) : (
-                    <IoIosHeartEmpty className="w-8 h-8" />
-                  )}
-                </button>
-              </div>
-            </div>
-
             <span className="text-white font-medium text-base bg-indigo-700 uppercase rounded-md px-3 mb-4">
               {product.categoryId}
             </span>

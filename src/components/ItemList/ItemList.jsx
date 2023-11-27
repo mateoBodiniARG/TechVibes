@@ -4,21 +4,21 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const ItemList = ({ productos }) => {
-  const [copia, setCopia] = useState([]);
+  const [encontrado, setEncontrado] = useState([]);
 
   const filtradoPorNombre = (nombre) => {
     if (nombre) {
-      const copia = productos.filter((producto) =>
+      const encontrado = productos.filter((producto) =>
         producto.nombre.toLowerCase().includes(nombre.toLowerCase())
       );
-      setCopia(copia);
+      setEncontrado(encontrado);
     } else {
-      setCopia(productos);
+      setEncontrado(productos);
     }
   };
 
   useEffect(() => {
-    setCopia(productos);
+    setEncontrado(productos);
   }, [productos]);
 
   return (
@@ -31,15 +31,15 @@ const ItemList = ({ productos }) => {
         />
       </div>
 
-      {copia.length === 0 ? (
+      {encontrado.length === 0 ? (
         <div className="container mx-auto mt-8 p-3 bg-yellow-100 border border-yellow-300 rounded max-w-xs">
           <p className="text-yellow-800 text-lg font-semibold text-center">
             No se han encontrado resultados
           </p>
         </div>
       ) : (
-        <div className="grid smMax:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-screen-xl mm:flex flex-col mm3:flex">
-          {copia.map((producto) => (
+        <div className="grid smMax:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-screen-2xl mm:flex flex-col mm3:flex">
+          {encontrado.map((producto) => (
             <div key={producto.nombre}>
               <Item
                 id={producto.id}

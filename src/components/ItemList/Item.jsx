@@ -12,7 +12,7 @@ const Item = ({ id, nombre, stock, price, img, showButton = true }) => {
           </div>
         </Link>
 
-        <div className="mt-4 px-5 pb-5">
+        <div className="mt-2 px-5 pb-4">
           <h5 className="text-xl text-center tracking-wide text-slate-300 truncate font-medium">
             {nombre}
           </h5>
