@@ -10,37 +10,20 @@ import {
 } from "firebase/firestore";
 
 const UserOrders = () => {
-  const auth = useAuth();
-  const { cart, orders } = useContext(CartContext);
+  const { user } = useAuth();
+  // const { cart } = useContext(CartContext);
   const [userOrders, setUserOrders] = useState([]);
-
-  useEffect(() => {
-    const getOrders = async () => {
-      try {
-        if (auth.user) {
-          const db = getFirestore();
-          const ordersCollection = collection(db, "userOrders");
-          const userOrdersQuery = query(
-            ordersCollection,
-            where("userId", "==", auth.user.uid)
-          );
-
-          const ordersSnapshot = await getDocs(userOrdersQuery);
-          const ordersList = ordersSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setUserOrders(ordersList);
-
-          console.log("userOrders:", userOrders);
-        }
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
-    };
-
-    getOrders();
-  }, [auth]);
+  const getOrder = async () => {
+    const db = getFirestore();
+    const ordersCollection = collection(db, "usersOrders");
+    const q = query(ordersCollection, where("buyer.uid", "==", user.uid));
+    const querySnapshot = await getDocs(q);
+    const orders = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setUserOrders(orders);
+  };
 
   return (
     <div className="p-8 rounded-md w-3/4 mx-auto">
@@ -77,22 +60,22 @@ const UserOrders = () => {
                 <tr key={order.id}>
                   <td className="px-5 py-5 border-b border-gray-600 bg-gray-800 text-sm">
                     <p className="text-gray-300 whitespace-no-wrap">
-                      {order.buyer.email}
+                      {userOrders.buyer.uid}
                     </p>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-600 bg-gray-800 text-sm">
                     <p className="text-gray-300 whitespace-no-wrap">
-                      {order.buyer.name}
+                      {userOrders.buyer.name}
                     </p>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-600 bg-gray-800 text-sm">
                     <p className="text-gray-300 whitespace-no-wrap">
-                      {order.buyer.phone}
+                      {userOrders.buyer.phone}
                     </p>
                   </td>
                   <td className="px-5 py-5 border-b border-gray-600 bg-gray-800 text-sm">
                     <p className="text-gray-300 whitespace-no-wrap">
-                      ${order.total.toFixed(2)}
+                      ${userOrders.total.toFixed(2)}
                     </p>
                   </td>
                 </tr>
