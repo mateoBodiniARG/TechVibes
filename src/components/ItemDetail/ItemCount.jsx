@@ -72,8 +72,8 @@ const ItemCount = ({ producto }) => {
   }, [favorites, producto]);
 
   return (
-    <section className="">
-      <section className="gap-7 items-center flex mm3:flex-col mm3:gap-0">
+    <section>
+      <section className="gap-3 items-center mm:justify-center flex flex-col mm3:gap-0">
         <section className="flex gap-3">
           <div className="bg-indigo-700 border rounded-md grid grid-cols-3 place-items-center h-12 overflow-hidden w-40 border-indigo-600 ">
             <button
@@ -110,7 +110,7 @@ const ItemCount = ({ producto }) => {
           </div>
         </section>
 
-        <section className="bg-slate-900 mm3:bg-slate-950 w-60 rounded-full mm:3rounded-lg px-3 mm3:py-2 mm3:mt-3">
+        <section className="bg-slate-950 py-1 w-full rounded-md px-3 mm3:rounded-md mm3:py-2 mm3:mt-3 mm3:bg-slate-950">
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
