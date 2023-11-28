@@ -39,8 +39,8 @@ const ItemsCart = ({ id, nombre, price, img, cantComprar, stock }) => {
           alt={nombre}
           className="w-28 h-28 object-cover rounded-md mm:w-60 mm:h-60"
         />
-        <div className="ml-4 mm:mt-3 mm:ml-0 mm:flex mm:items-center mm:text-center">
-          <h2 className="text-lg font-semibold text-white">{nombre}</h2>
+        <div className="ml-4 mm:mt-3 mm:ml-0   mm:items-center mm:text-center">
+          <h2 className="text-lg font-semibold text-white mm:mb-2">{nombre}</h2>
           <p className="text-lg text-gray-200 font-medium ml-3">
             ${price}{" "}
             <span className="text-sm text-gray-500 ">x{cantComprar}</span>
