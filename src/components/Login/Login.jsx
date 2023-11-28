@@ -11,25 +11,35 @@ const Login = () => {
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
   const [loading, setLoading] = useState(false);
+
   const handleGoogle = async () => {
+    setLoading(true);
     await auth.loginWithGoogle().then(() => {
       navigate("/");
     });
+    setLoading(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setError(null);
       setLoading(true);
-      await auth.login(emailLogin, passwordLogin);
-      navigate("/");
-    } catch (error) {
-      setError(
-        "Error al iniciar sesión. Verifica tu correo electrónico y contraseña."
-      );
-      console.error("Error al iniciar sesión:", error.message);
-    } finally {
+      await auth.login(emailLogin, passwordLogin).then(() => {
+        navigate("/");
+      });
       setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      if (error.code === "auth/missing-password") {
+        setError("Contraseña incorrecta");
+      }
+      if (error.code === "auth/invalid-login-credentials") {
+        setError("Credenciales incorrectas");
+      }
+      if (error.code === "auth/invalid-email") {
+        setError("Email invalido");
+      }
     }
   };
 
