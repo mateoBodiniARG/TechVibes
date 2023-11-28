@@ -24,33 +24,35 @@ const UserProfileSection = () => {
         ¡Hola, {auth.user ? auth.user.displayName : "Buscando ..."}!
       </h1>
       {auth.user ? (
-        <div className="grid grid-cols-1 gap-4">
-          <Link to="/favorite">
-            <div className="bg-fuchsia-600  p-4 rounded-md shadow-md hover:bg-fuchsia-800 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
-              <MdFavorite className="text-white text-3xl mb-1" />
+        <section className="flex justify-center ">
+          <div className="grid grid-cols-1 w-custom-width gap-4">
+            <Link to="/favorite">
+              <div className="bg-fuchsia-600  p-4 rounded-md shadow-md hover:bg-fuchsia-800 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
+                <MdFavorite className="text-white text-3xl mb-1" />
+                <p className="text-white font-semibold text-lg text-center">
+                  Productos Favoritos
+                </p>
+              </div>
+            </Link>
+            <Link to={auth.user ? "/UserOrders" : "/login"}>
+              <div className="bg-blue-500 p-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
+                <AiOutlineShopping className="text-white text-3xl mb-1" />
+                <p className="text-white font-semibold text-lg text-center">
+                  Mis compras
+                </p>
+              </div>
+            </Link>
+            <div
+              onClick={handleLogOut}
+              className="bg-red-500 p-4 rounded-md shadow-md hover:bg-red-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center"
+            >
+              <AiOutlineLogout className="text-white text-3xl mb-1" />
               <p className="text-white font-semibold text-lg text-center">
-                Productos Favoritos
+                Cerrar Sesión
               </p>
             </div>
-          </Link>
-          <Link to={auth.user ? "/UserOrders" : "/login"}>
-            <div className="bg-blue-500 p-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
-              <AiOutlineShopping className="text-white text-3xl mb-1" />
-              <p className="text-white font-semibold text-lg text-center">
-                Mis compras
-              </p>
-            </div>
-          </Link>
-          <div
-            onClick={handleLogOut}
-            className="bg-red-500 p-4 rounded-md shadow-md hover:bg-red-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center"
-          >
-            <AiOutlineLogout className="text-white text-3xl mb-1" />
-            <p className="text-white font-semibold text-lg text-center">
-              Cerrar Sesión
-            </p>
           </div>
-        </div>
+        </section>
       ) : null}
     </div>
   );

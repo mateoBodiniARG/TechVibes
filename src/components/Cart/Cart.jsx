@@ -49,7 +49,7 @@ const Cart = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <section className="mt-5 text-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mm:place-items-center mx-auto max-w-5xl px-3">
+        <section className="mt-5 text-center grid sm:grid-cols-1 lg:grid-cols-1 mm:grid-cols-1 mm:place-items-center mx-auto max-w-2xl px-3 ">
           {cartEmpty ? (
             <div className="items-center flex justify-center flex-col h-screen">
               <span className="text-indigo-900 text-5xl bg-indigo-300 p-3 rounded-xl">
@@ -75,8 +75,8 @@ const Cart = () => {
             ))
           )}
           {cartEmpty ? null : (
-            <section className="mb-3 flex justify-center mm:text-sm mm:overflow-hidden mm:w-80">
-              <div className="mt-8 p-5 bg-gray-100 rounded-lg w-full">
+            <section className="mb-3 flex justify-center mm:text-sm mm:overflow-hidden mm:w-80 mm:bottom-0 self-end">
+              <div className="mt-8 p-5 bg-gray-100 rounded-lg w-full mm:bottom-0">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-3xl font-semibold">Total:</h2>
                   <span className="text-3xl font-bold">${cartTotal}</span>
