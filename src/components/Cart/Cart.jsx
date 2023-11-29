@@ -28,22 +28,24 @@ const Cart = () => {
         </div>
         <motion.a
           whileHover="hover"
-          className="relative inline-block mm3:text-base text-lg group cursor-pointer"
+          className="relative inline-block mm3:text-base text-lg group cursor-pointer text-white font-semibold"
           onClick={clearCart}
         >
-          <span className="relative z-10 block mm3:px-3 px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
-            <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
-            <span className="absolute left-0 w-48 h-48 -ml-2 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-gray-950 group-hover:-rotate-180 ease"></span>
-            <span className="flex relative items-center gap-2">
-              <MdDeleteForever className="w-5 h-5" /> Delete cart
-            </span>
-          </span>
-          <span
-            className="absolute bottom-0 right-0 w-full h-12 mm3:-mb-0 mm3:-mr-1 -mb-1 -mr-2 transition-all duration-200 ease-linear bg-black rounded-lg group-hover:mb-0 group-hover:mr-0"
-            data-rounded="rounded-lg"
-          ></span>
+          <motion.button
+            variants={{
+              hover: {
+                scale: 1.1,
+                transition: { duration: 0.3 },
+              },
+            }}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all items-center gap-1 mb-4 flex"
+          >
+            <MdDeleteForever className="w-6 h-6" />
+            Clear cart
+          </motion.button>
         </motion.a>
       </div>
+
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
