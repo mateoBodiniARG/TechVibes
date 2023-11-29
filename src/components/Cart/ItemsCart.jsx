@@ -32,15 +32,17 @@ const ItemsCart = ({ id, nombre, price, img, cantComprar, stock }) => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row justify-between items-center bg-gray-800 p-5 mm:p-3 rounded-md shadow-md mb-4">
-      <div className="flex items-center mm:flex-col">
+    <div className="flex mm3:flex-col flex-row justify-between items-center bg-gray-800 p-5 mm3:p-3 rounded-md shadow-md mb-4">
+      <div className="flex items-center mm3:flex-col">
         <img
           src={img}
           alt={nombre}
-          className="w-28 h-28 object-cover rounded-md mm:w-60 mm:h-60"
+          className="w-28 h-28 object-cover rounded-md mm3:w-60 mm3:h-60"
         />
-        <div className="ml-4 mm:mt-3 mm:ml-0   mm:items-center mm:text-center">
-          <h2 className="text-lg font-semibold text-white mm:mb-2">{nombre}</h2>
+        <div className="ml-4 mm3:mt-3 mm3:ml-0   mm3:items-center mm3:text-center">
+          <h2 className="text-lg font-semibold text-white mm3:mb-2">
+            {nombre}
+          </h2>
           <p className="text-lg text-gray-200 font-medium ml-3">
             ${price}{" "}
             <span className="text-sm text-gray-500 ">x{cantComprar}</span>

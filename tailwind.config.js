@@ -37,7 +37,7 @@ export default {
       },
       width: {
         "custom-width": "900px",
-        "100": "28rem",
+        100: "28rem",
       },
     },
   },

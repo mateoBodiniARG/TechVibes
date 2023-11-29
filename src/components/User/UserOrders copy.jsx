@@ -42,8 +42,8 @@ const UserOrders = () => {
   }, [user, db, navigate]);
 
   return (
-    <div className="p-8 mx-auto lg:w-3/4">
-      <div className="flex items-center  justify-between pb-6">
+    <div className="p-8 rounded-md w-3/4 mx-auto">
+      <div className="flex items-center justify-between pb-6">
         <div>
           <h2 className="text-gray-300 font-semibold">Órdenes de Compra</h2>
           <span className="text-xs text-gray-400">
@@ -52,25 +52,27 @@ const UserOrders = () => {
         </div>
         <div className="flex items-center"></div>
       </div>
-      <div className="relative rounded-lg">
-        {loading ? (
-          <LoadingV2 />
-        ) : (
-          <div>
-            {userOrders.length === 0 ? (
-              <div className="flex flex-col items-center justify-center">
-                <p className="text-gray-300 text-xl font-semibold">
-                  No hay órdenes de compra.
-                </p>
-                <Link to="/">
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mt-4">
-                    Ir a la tienda
-                  </button>
-                </Link>
-              </div>
-            ) : (
-              <table className="w-full text-sm text-left rtl:text-right text-white">
-                <thead className="text-xs text-white uppercase bg-gray-50">
+
+      {loading ? (
+        <LoadingV2 />
+      ) : (
+        <div>
+          {userOrders.length === 0 ? (
+            <div className="flex flex-col items-center justify-center">
+              <p className="text-gray-300 text-xl font-semibold">
+                No hay órdenes de compra
+              </p>
+              <Link
+                to="/"
+                className="px-4 py-2 mt-4 bg-gray-700 rounded-md text-white font-semibold"
+              >
+                Ir a comprar
+              </Link>
+            </div>
+          ) : (
+            <div className="inline-block min-w-full overflow-x-auto shadow rounded-lg">
+              <table className="min-w-full  text-white table-auto">
+                <thead>
                   <tr>
                     <th className="px-3 py-3 border-b-2 border-gray-600 bg-gray-700 text-left text-xs font-semibold uppercase tracking-wider">
                       Fecha de compra
@@ -100,7 +102,7 @@ const UserOrders = () => {
                       <td className="px-3 py-3 border-b border-gray-600 bg-gray-800 text-sm">
                         <p className="text-gray-300">{order?.id}</p>
                       </td>
-                      <td className="px-3 py-3 border-b border-gray-600 bg-gray-800 text-sm whitespace-nowrap">
+                      <td className="px-3 py-3 border-b border-gray-600 bg-gray-800 text-sm">
                         <ul className="list-disc list-inside">
                           {order.products.map((product) => (
                             <li key={product?.productName}>
@@ -112,20 +114,19 @@ const UserOrders = () => {
                           ))}
                         </ul>
                       </td>
-
                       <td className="px-3 py-3 border-b border-gray-600 bg-gray-800 text-sm">
                         <p className="text-white font-bold text-lg">
                           ${order?.total}
                         </p>
                       </td>
-                      <td className="border-b border-gray-600 bg-gray-800">
-                        <p className="text-white font-bold text-lg text-center ">
+                      <td className="px-3 py-3 border-b border-gray-600 bg-gray-800 ">
+                        <p className="text-white font-bold text-lg">
                           {order?.estado === "Enviado" ? (
-                            <span className="bg-green-100 text-green-700 text-sm rounded-full shadow-sm px-2 py-1">
+                            <span className="bg-green-100 text-green-700 text-sm rounded-full shadow-sm uppercase p-2 py-1">
                               {order?.estado}
                             </span>
                           ) : (
-                            <span className="bg-red-100 text-red-700 text-sm rounded-full shadow-sm  px-2 py-1">
+                            <span className="bg-red-100 text-red-700 text-sm rounded-full shadow-sm uppercase px-2 py-1">
                               {order?.estado}
                             </span>
                           )}
@@ -135,10 +136,10 @@ const UserOrders = () => {
                   ))}
                 </tbody>
               </table>
-            )}
-          </div>
-        )}
-      </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
