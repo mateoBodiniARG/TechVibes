@@ -20,10 +20,10 @@ const ItemDetail = ({ product }) => {
             <span className="text-white font-medium text-base bg-indigo-700 uppercase rounded-md px-3 mb-4">
               {product.categoryId}
             </span>
-            <h1 className="text-3xl font-bold text-white uppercase mb-4 mdMAX:text-2xl">
+            <h1 className="text-3xl font-bold text-white uppercase mb-4 mdMAX:text-xl">
               {product.nombre}
             </h1>
-            <p className="text-gray-400 font-normal text-lg mb-5 mdMAX:text-center mdMAX:text-base mdMAX:w-100">
+            <p className="text-gray-400 font-normal text-lg mb-5 mdMAX:text-center mdMAX:text-base ">
               {product.description}
             </p>
             <div className="flex items-center mb-2">
