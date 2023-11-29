@@ -38,7 +38,7 @@ const Cart = () => {
                 transition: { duration: 0.3 },
               },
             }}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all items-center gap-1 mb-4 flex"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all items-center gap-1 flex"
           >
             <MdDeleteForever className="w-6 h-6" />
             Clear cart

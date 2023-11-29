@@ -52,11 +52,11 @@ const UserOrders = () => {
         </div>
         <div className="flex items-center"></div>
       </div>
-      <div className="relative rounded-lg">
+      <div className="relative">
         {loading ? (
           <LoadingV2 />
         ) : (
-          <div>
+          <div className="overflow-x-auto rounded-lg">
             {userOrders.length === 0 ? (
               <div className="flex flex-col items-center justify-center">
                 <p className="text-gray-300 text-xl font-semibold">
