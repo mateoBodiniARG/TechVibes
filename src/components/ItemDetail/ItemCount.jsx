@@ -1,14 +1,13 @@
 import { useState, useContext, useEffect } from "react";
 import { IoAddSharp } from "react-icons/io5";
 import { RiSubtractFill } from "react-icons/ri";
-import { motion } from "framer-motion";
 import { CartContext } from "../../context/ShoppingCartContext";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
 import { IoMdHeart } from "react-icons/io";
 import { IoIosHeartEmpty } from "react-icons/io";
-
+import { motion } from "framer-motion";
 const ItemCount = ({ producto }) => {
   const { cart, setCart } = useContext(CartContext);
   const { user } = useAuth();
@@ -17,11 +16,11 @@ const ItemCount = ({ producto }) => {
   const { addToFavorites, removeFromFavorites, favorites } = useFavorites();
 
   const sumar = () => {
-    setContador(contador + 1);
+    setContador((prevContador) => prevContador + 1);
   };
 
   const restar = () => {
-    setContador(contador - 1);
+    setContador((prevContador) => prevContador - 1);
   };
 
   const addToCart = () => {
@@ -32,18 +31,43 @@ const ItemCount = ({ producto }) => {
       });
       return;
     }
+
     const cartAux = [...cart];
     const yaExiste = cartAux.findIndex((item) => item.id === producto.id);
 
     if (yaExiste !== -1) {
       cartAux[yaExiste].cantComprar += contador;
+
+      if (cartAux[yaExiste].cantComprar > producto.stock) {
+        cartAux[yaExiste].cantComprar = producto.stock;
+
+        setCart(cartAux);
+
+        try {
+          localStorage.setItem("cart", JSON.stringify(cartAux));
+        } catch (error) {
+          console.error("Error al guardar en el almacenamiento local:", error);
+        }
+
+        toast.error("Haz llegado al máximo de stock!", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+        return;
+      }
     } else {
       const nuevoItem = { ...producto, cantComprar: contador };
       cartAux.push(nuevoItem);
     }
 
     setCart(cartAux);
-    localStorage.setItem("cart", JSON.stringify(cartAux));
+
+    try {
+      localStorage.setItem("cart", JSON.stringify(cartAux));
+    } catch (error) {
+      console.error("Error al guardar en el almacenamiento local:", error);
+    }
+
     toast.success("Producto agregado con éxito!", {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
