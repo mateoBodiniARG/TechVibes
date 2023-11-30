@@ -39,20 +39,20 @@ const UserOrders = () => {
     };
 
     getOrder();
-  }, [user, db, navigate]);
+  }, [user, db]);
 
   return (
-    <div className="p-8 mx-auto lg:w-3/4">
+    <div className="p-4 mx-auto lg:w-3/4">
       <div className="flex items-center  justify-between pb-6">
         <div>
-          <h2 className="text-gray-300 font-semibold">Órdenes de Compra</h2>
+          <h2 className="text-gray-300 font-semibold text-xl">Tus compras:</h2>
           <span className="text-xs text-gray-400">
-            Se mostrarán todas las órdenes de compra realizadas.
+            Se mostrarán <b>todas</b> las órdenes de compra realizadas.
           </span>
         </div>
         <div className="flex items-center"></div>
       </div>
-      <div className="relative">
+      <div className="">
         {loading ? (
           <LoadingV2 />
         ) : (
@@ -119,13 +119,13 @@ const UserOrders = () => {
                         </p>
                       </td>
                       <td className="border-b border-gray-600 bg-gray-800">
-                        <p className="text-white font-bold text-lg text-center ">
+                        <p className="text-white font-bold text-lg ">
                           {order?.estado === "Enviado" ? (
-                            <span className="bg-green-100 text-green-700 text-sm rounded-full shadow-sm px-2 py-1">
+                            <span className="bg-green-100 text-green-700 text-sm rounded-full shadow-sm px-2 py-1 mx-2">
                               {order?.estado}
                             </span>
                           ) : (
-                            <span className="bg-red-100 text-red-700 text-sm rounded-full shadow-sm  px-2 py-1">
+                            <span className="bg-red-100 text-red-700 text-sm rounded-full shadow-sm  px-2 py-1 mx-2">
                               {order?.estado}
                             </span>
                           )}

@@ -139,7 +139,7 @@ const ItemCount = ({ producto }) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleToggleFavorito}
-            className="flex items-center justify-center text-center w-full h-full"
+            className="flex items-center justify-center text-center w-full h-full "
           >
             {favorito ? (
               <IoMdHeart className="text-4xl text-red-500" />
