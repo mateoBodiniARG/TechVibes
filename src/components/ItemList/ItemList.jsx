@@ -17,8 +17,14 @@ const ItemList = ({ productos }) => {
     }
   };
 
+  const filtradoPorStock = () => {
+    const encontrado = productos.filter((producto) => producto.stock > 0);
+    setEncontrado(encontrado);
+  };
+
   useEffect(() => {
     setEncontrado(productos);
+    filtradoPorStock();
   }, [productos]);
 
   return (
@@ -38,20 +44,23 @@ const ItemList = ({ productos }) => {
           </p>
         </div>
       ) : (
-        <div className="grid smMax:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-screen-2xl mm:flex flex-col mm3:flex">
-          {encontrado.map((producto) => (
-            <div key={producto.nombre}>
-              <Item
-                id={producto.id}
-                nombre={producto.nombre}
-                desc={producto.description}
-                stock={producto.stock}
-                price={producto.price}
-                img={producto.img}
-                categoryId={producto.categoryId}
-              />
-            </div>
-          ))}
+        <div>
+          {productos.stock >= 0 ? () => filtradoPorNombre() : null}
+          <div className="grid smMax:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-screen-2xl mm:flex flex-col mm3:flex">
+            {encontrado.map((producto) => (
+              <div key={producto.nombre}>
+                <Item
+                  id={producto.id}
+                  nombre={producto.nombre}
+                  desc={producto.description}
+                  stock={producto.stock}
+                  price={producto.price}
+                  img={producto.img}
+                  categoryId={producto.categoryId}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

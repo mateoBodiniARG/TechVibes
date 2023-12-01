@@ -17,6 +17,7 @@ import UserProfileSection from "./components/User/UserProfileSection";
 import UserInformation from "./components/User/UserInformation";
 import UserOrders from "./components/User/UserOrders";
 import DeleteOrders from "./components/deleteorders/DeleteOrders";
+import EditProduct from "./components/Admin/EditProduct";
 function App() {
   return (
     <>
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/UserInformation" element={<UserInformation />} />
                 <Route path="/userProfile" element={<UserProfileSection />} />
                 <Route path="/deleteOrders" element={<DeleteOrders />} />
+                <Route path="/editar/:productId" element={<EditProduct />} />
 
                 <Route
                   path="/category/:categoryId"

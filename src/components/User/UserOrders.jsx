@@ -8,7 +8,7 @@ import {
   getDocs,
   Timestamp,
 } from "firebase/firestore";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoadingV2 from "../Loading/LoadingV2";
 
 const UserOrders = () => {
