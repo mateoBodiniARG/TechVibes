@@ -16,7 +16,6 @@ const UserOrders = () => {
   const [userOrders, setUserOrders] = useState([]);
   const db = getFirestore();
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const fechaPedido = Timestamp.fromDate(new Date());
 
   useEffect(() => {

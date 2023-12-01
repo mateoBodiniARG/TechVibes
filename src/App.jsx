@@ -24,7 +24,6 @@ function App() {
         <AuthProvider>
           <FavoritesProvider>
             {" "}
-            {/* Envuelve la App con AuthProvider */}
             <ShoppingCartContext>
               <nav>
                 <NavBar />
@@ -55,7 +54,6 @@ function App() {
             </ShoppingCartContext>
           </FavoritesProvider>
         </AuthProvider>{" "}
-        {/* Cierra AuthProvider */}
       </BrowserRouter>
     </>
   );
