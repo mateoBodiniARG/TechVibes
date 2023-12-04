@@ -18,6 +18,8 @@ import UserInformation from "./components/User/UserInformation";
 import UserOrders from "./components/User/UserOrders";
 import DeleteOrders from "./components/deleteorders/DeleteOrders";
 import EditProduct from "./components/Admin/EditProduct";
+import Agregar from "./components/Admin/Agregar";
+
 function App() {
   return (
     <>
@@ -41,6 +43,7 @@ function App() {
                 <Route path="/userProfile" element={<UserProfileSection />} />
                 <Route path="/deleteOrders" element={<DeleteOrders />} />
                 <Route path="/editar/:productId" element={<EditProduct />} />
+                <Route path="/agregar" element={<Agregar />} />
 
                 <Route
                   path="/category/:categoryId"

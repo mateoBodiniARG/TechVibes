@@ -10,6 +10,8 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import Loading from "../Loading/Loading";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const Admin = () => {
   const auth = useAuth();
@@ -27,11 +29,13 @@ const Admin = () => {
       const encontrados = products.filter((producto) =>
         producto.nombre.toLowerCase().includes(nombre.toLowerCase())
       );
+      encontrados.sort((a, b) => a.stock - b.stock);
       setEncontrado(encontrados);
-    } else {
+    } else if (!nombre) {
       setEncontrado(products);
     }
   };
+
   // Fin de búsqueda de productos
   // ------------------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -70,7 +74,7 @@ const Admin = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        setProducts(allProducts);
+        setProducts(allProducts.sort((a, b) => a.stock - b.stock));
         setEncontrado(allProducts);
         setLoading(false);
         console.log(allProducts);
@@ -87,14 +91,31 @@ const Admin = () => {
   // Eliminar producto
   const handleDeleteProduct = async (productId) => {
     try {
-      const productRef = doc(db, "Productos", productId);
-      await deleteDoc(productRef);
-      setProducts((prevProducts) =>
-        prevProducts.filter((product) => product.id !== productId)
+      const confirmacion = window.confirm(
+        "¿Estás seguro que deseas eliminar el producto?"
       );
-      setEncontrado((prevEncontrado) =>
-        prevEncontrado.filter((product) => product.id !== productId)
-      );
+      //mensaje de confirmación
+      if (confirmacion) {
+        const productRef = doc(db, "Productos", productId);
+        await deleteDoc(productRef);
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product.id !== productId)
+        );
+        setEncontrado((prevEncontrado) =>
+          prevEncontrado.filter((product) => product.id !== productId)
+        );
+        toast.success("Producto eliminado con éxito", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+      } else {
+        toast.error("Se ha cancelado la eliminacion", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        });
+
+        console.log("No se eliminó el producto");
+      }
     } catch (error) {
       console.error("Error al eliminar el producto:", error.message);
     }
@@ -120,12 +141,19 @@ const Admin = () => {
           datos
         </span>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-between">
         <input
           className="border border-gray-300 rounded-md px-4 py-2 mt-4 mb-4 focus:ring-blue-600 font-semibold"
           onChange={(e) => filtradoPorNombre(e.target.value)}
           placeholder="Buscar producto"
         />
+        {/* agregar un nuevo producto */}
+        <button
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2 mt-4 mb-4 flex items-center gap-1 ease-in-out transition-all duration-300"
+          onClick={() => navigate("/agregar")}
+        >
+          <IoIosAddCircleOutline className="h-6 w-6" /> Agregar producto
+        </button>
       </div>
       <table className="w-full text-md text-left text-white bg-slate-950 border border-gray-800 ">
         <thead>

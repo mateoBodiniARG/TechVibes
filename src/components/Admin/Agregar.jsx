@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import {
@@ -13,214 +13,208 @@ import {
 import Loading from "../Loading/Loading";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const EditProduct = () => {
-  const { productId } = useParams();
-  const db = getFirestore();
-  const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(true);
+const Agregar = () => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const db = getFirestore();
+  const [loading, setLoading] = useState(true);
+  const [product, setProduct] = useState({
+    nombre: "",
+    description: "",
+    price: "",
+    img: "",
+    stock: "",
+  });
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+
+  // Obtener todas las categorías
   useEffect(() => {
-    const getProduct = async () => {
+    const obtenerCategorias = async () => {
       try {
-        const productDoc = await getDoc(doc(db, "Productos", productId));
-        if (productDoc.exists()) {
-          console.log("Producto cargado:", productDoc.data());
-          setProduct({ id: productDoc.id, ...productDoc.data() });
-        } else {
-          console.log("No existe el producto");
-        }
-        setLoading(false);
+        const productsCollection = collection(db, "Productos");
+        const productsSnapshot = await getDocs(productsCollection);
+
+        // Obtener categorías únicas
+        const categoriaUnica = new Set();
+        productsSnapshot.forEach((doc) => {
+          const productData = doc.data();
+          if (productData.categoryId) {
+            categoriaUnica.add(productData.categoryId);
+          }
+        });
+
+        setCategories(Array.from(categoriaUnica));
       } catch (error) {
-        console.error("Error al obtener el producto:", error.message);
+        console.error("Error al obtener las categorías:", error.message);
       }
     };
 
-    getProduct();
-  }, [db, productId]);
+    obtenerCategorias();
+  }, [db]);
+
+  // Cargar nuevo producto a la base de datos de firebase
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { nombre, description, price, img, stock } = product;
+    try {
+      const priceToNumber = Number(price);
+      const stockToNumber = Number(stock);
+      await setDoc(doc(db, "Productos", nombre), {
+        nombre,
+        description,
+        price: priceToNumber,
+        categoryId: selectedCategory,
+        img,
+        stock: stockToNumber,
+      });
+      toast.success("Producto agregado con éxito", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+      console.log("Producto agregado");
+      navigate("/admin");
+    } catch (error) {
+      console.error("Error al agregar el producto:", error.message);
+    }
+  };
 
   // Funciones de manejo de cambios
-  const handleNameChange = (e) => {
+  const handleName = (e) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
       nombre: e.target.value,
     }));
   };
 
-  const handleDescriptionChange = (e) => {
+  const handleDescription = (e) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
       description: e.target.value,
     }));
   };
 
-  const handlePriceChange = (e) => {
+  const handlePrice = (e) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
       price: e.target.value,
     }));
   };
 
-  const handleCategoryIdChange = (e) => {
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      categoryId: e.target.value,
-    }));
-  };
-
-  const handleImageChange = (e) => {
+  const handleImage = (e) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
       img: e.target.value,
     }));
   };
 
-  const handleStockChange = (e) => {
+  const handleStock = (e) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
       stock: e.target.value,
     }));
   };
 
-  if (loading) {
-    return <p>Cargando...</p>;
-  }
-
-  // Función para guardar los cambios y que se modifiquen en la base de datos de Firebase
-  const handleSaveChanges = async (e) => {
-    e.preventDefault();
-    try {
-      const docRef = doc(db, "Productos", product.id);
-      await setDoc(docRef, {
-        nombre: product.nombre,
-        description: product.description,
-        price: product.price,
-        categoryId: product.categoryId,
-        img: product.img,
-        stock: product.stock,
-      });
-      console.log("Producto actualizado");
-      navigate("/admin");
-    } catch (error) {
-      console.error("Error al actualizar el producto:", error.message);
-    }
-  };
-
   return (
     <div>
-      <section>
-        <h1 className="text-2xl font-semibold text-white mb-4 text-center">
-          ¡Hola, {auth.user ? auth.user.displayName : "Buscando ..."}!
-        </h1>
+      <section className="flex justify-center items-center h-screen"> 
         {auth.user ? (
           <section className="flex justify-center ">
             <div className="flex flex-col items-center justify-center bg-slate-950 shadow-md rounded px-8 pt-6 pb-8 mb-4">
               <h2 className="text-2xl font-semibold text-white mb-4 text-center">
-                Editar Producto
+                AGREGAR PRODUCTO
               </h2>
               <form className="w-full max-w-lg">
                 <div className="flex flex-wrap -mx-3 mb-6">
                   <div className="w-full px-3 mb-6 md:mb-0">
-                    <label
-                      className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-                      htmlFor="grid-name"
-                    ></label>
+                    <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
+                      {" "}
+                      Nombre del producto{" "}
+                    </label>
                     <input
                       className=" appearance-none block w-full bg-slate-900 text-white border border-slate-700 rounded py-3 px-4 mb-3 leading-tight"
-                      id="grid-name"
                       type="text"
-                      value={product.nombre}
-                      onChange={handleNameChange}
+                      placeholder="Nombre del producto"
+                      onChange={handleName}
                     />
                   </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
                   <div className="w-full px-3 mb-6 md:mb-3">
-                    <label
-                      className="block uppercase tracking-wide text-white text-xs font-bold mb-2 "
-                      htmlFor="grid-description"
-                    >
+                    <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2 ">
                       Descripción
                     </label>
                     <textarea
                       className=" w-full h-full block bg-slate-900 text-white border border-slate-700 rounded py-3 px-4 mb-5 leading-tight"
-                      id="grid-description"
                       type="text"
-                      value={product.description}
-                      onChange={handleDescriptionChange}
+                      placeholder="Descripción"
+                      onChange={handleDescription}
                     />
                   </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
                   <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label
-                      className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-                      htmlFor="grid-price"
-                    >
+                    <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                       Precio
                     </label>
                     <input
                       className=" block w-full bg-slate-900 text-white border border-slate-700 rounded py-3 px-4 leading-tight"
-                      id="grid-price"
                       type="number"
-                      value={product.price}
-                      onChange={handlePriceChange}
+                      placeholder="Precio"
+                      onChange={handlePrice}
                     />
                   </div>
                   <div className="w-full md:w-1/2 px-3">
-                    <label
-                      className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-                      htmlFor="grid-category"
-                    >
+                    <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                       Categoría
                     </label>
-                    <input
+                    <select
                       className="appearance-none block w-full bg-slate-900 text-white border border-slate-700 rounded py-3 px-4 leading-tight"
-                      id="grid-category"
-                      type="text"
-                      value={product.categoryId}
-                      onChange={handleCategoryIdChange}
-                    />
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                      <option value="" disabled>
+                        Selecciona una categoría
+                      </option>
+                      {categories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mb-6">
                   <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label
-                      className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-                      htmlFor="grid-image"
-                    >
+                    <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                       Imagen
                     </label>
                     <input
                       className="appearance-none block w-full bg-slate-900 text-white border border-slate-700 rounded py-3 px-4 leading-tight"
-                      id="grid-image"
                       type="text"
-                      value={product.img}
-                      onChange={handleImageChange}
+                      placeholder="URL de la imagen"
+                      onChange={handleImage}
                     />
                   </div>
                   <div className="w-full md:w-1/2 px-3">
-                    <label
-                      className="block uppercase tracking-wide text-white text-xs font-bold mb-2"
-                      htmlFor="grid-stock"
-                    >
+                    <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                       Stock
                     </label>
                     <input
                       className="appearance-none block w-full bg-slate-900 text-white border border-slate-700 rounded py-3 px-4 leading-tight"
-                      id="grid-stock"
                       type="number"
-                      value={product.stock}
-                      onChange={handleStockChange}
+                      placeholder="Stock"
+                      onChange={handleStock}
                     />
                   </div>
                 </div>
                 <div className="flex flex-col -mx-3 mb-6">
                   <button
-                    onClick={handleSaveChanges}
                     className="mb-3 block text-center py-2 px-4 w-full rounded text-white bg-blue-600 hover:bg-blue-700"
+                    onClick={handleSubmit}
                   >
                     Guardar
                   </button>
@@ -242,4 +236,4 @@ const EditProduct = () => {
   );
 };
 
-export default EditProduct;
+export default Agregar;
