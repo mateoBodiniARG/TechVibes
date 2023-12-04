@@ -120,7 +120,7 @@ const Agregar = () => {
 
   return (
     <div>
-      <section className="flex justify-center items-center h-screen"> 
+      <section className="flex justify-center items-center md:h-screen mm3:my-2 mm3:mx-3">
         {auth.user ? (
           <section className="flex justify-center ">
             <div className="flex flex-col items-center justify-center bg-slate-950 shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -129,7 +129,7 @@ const Agregar = () => {
               </h2>
               <form className="w-full max-w-lg">
                 <div className="flex flex-wrap -mx-3 mb-6">
-                  <div className="w-full px-3 mb-6 md:mb-0">
+                  <div className="w-full px-3 md:mb-0">
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
                       {" "}
                       Nombre del producto{" "}
@@ -229,7 +229,7 @@ const Agregar = () => {
           </section>
         ) : (
           // enviar al usuario a la página de login o a la home
-          <p>Usuario no autenticado</p>
+          navigate("/")
         )}
       </section>
     </div>
