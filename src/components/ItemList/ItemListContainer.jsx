@@ -3,8 +3,7 @@ import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import Loading from "../Loading/Loading";
-import FavoriteItem from "../FavoriteProducts/FavoriteItem";
-
+import { motion } from "framer-motion";
 const ItemListContainer = () => {
   const { categoryId } = useParams();
   const [products, setProducts] = useState([]);
@@ -41,12 +40,16 @@ const ItemListContainer = () => {
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
       <h1 className="text-center text-white font-semibold text-4xl my-3">
         Products available
       </h1>
       <ItemList productos={productByCategory} />
-    </div>
+    </motion.div>
   );
 };
 

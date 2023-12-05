@@ -2,7 +2,7 @@ import React from "react";
 import Item from "./Item";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import { motion } from "framer-motion";
 const ItemList = ({ productos }) => {
   const [encontrado, setEncontrado] = useState([]);
   const [burgerOpen, setburgerOpen] = useState(false);
@@ -30,24 +30,39 @@ const ItemList = ({ productos }) => {
 
   return (
     <div>
-      <div className="flex justify-center">
+      <motion.div
+        className="flex justify-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
         <input
           className="border border-gray-300 rounded-md px-4 py-2 mt-4 mb-4 focus:ring-blue-600 font-semibold"
           onChange={(e) => filtradoPorNombre(e.target.value)}
           placeholder="Buscar producto"
         />
-      </div>
+      </motion.div>
 
       {encontrado.length === 0 ? (
-        <div className="container mx-auto mt-8 p-3 bg-yellow-100 border border-yellow-300 rounded max-w-xs">
+        <motion.div
+          className="container mx-auto mt-8 p-3 bg-yellow-100 border border-yellow-300 rounded max-w-xs"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <p className="text-yellow-800 text-lg font-semibold text-center">
             No se han encontrado resultados
           </p>
-        </div>
+        </motion.div>
       ) : (
         <div>
           {productos.stock >= 0 ? () => filtradoPorNombre() : null}
-          <div className="grid smMax:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-screen-2xl mm:flex flex-col mm3:flex">
+          <motion.div
+            className="grid smMax:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 mx-auto max-w-screen-2xl mm:flex flex-col mm3:flex"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             {encontrado.map((producto) => (
               <div key={producto.nombre}>
                 <Item
@@ -61,7 +76,7 @@ const ItemList = ({ productos }) => {
                 />
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       )}
     </div>

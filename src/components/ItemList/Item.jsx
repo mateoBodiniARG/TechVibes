@@ -1,7 +1,6 @@
 import React from "react";
 import { MdOutlineDescription } from "react-icons/md";
 import { Link } from "react-router-dom";
-
 const Item = ({ id, nombre, stock, price, img, showButton = true }) => {
   return (
     <section className="p-4">

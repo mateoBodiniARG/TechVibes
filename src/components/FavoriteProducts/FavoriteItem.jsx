@@ -28,20 +28,22 @@ const FavoriteItem = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto p-6">
-      <h2 className="text-center text-3xl font-bold mb-4 text-white">
-        PRODUCTOS FAVORITOS
-      </h2>
-      {favorites.length > 0 && (
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all duration-300 mb-4"
-          onClick={clearFavorites}
-        >
-          Clear Favorites
-        </motion.button>
-      )}
+      <div className="flex flex-col items-center justify-center">
+        <h2 className="text-center text-3xl font-bold mb-4 text-white">
+          PRODUCTOS FAVORITOS
+        </h2>
+        {favorites.length > 0 && (
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all duration-300 mb-4"
+            onClick={clearFavorites}
+          >
+            Clear Favorites
+          </motion.button>
+        )}
+      </div>
       <AnimatePresence>
         {loading ? (
           <Loading />

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { GrUserAdmin } from "react-icons/gr";
 import Loading from "../Loading/Loading";
+import { motion } from "framer-motion";
 
 const UserProfileSection = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -57,15 +58,20 @@ const UserProfileSection = () => {
         ¡Hola, {auth.user ? auth.user.displayName : "Buscando ..."}!
       </h1>
       {auth.user ? (
-        <section className="flex justify-center ">
+        <motion.section
+          className="flex justify-center "
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+        >
           <div className="grid grid-cols-1 w-custom-width gap-4">
             <Link to="/favorite">
-              <div className="bg-fuchsia-600  p-4 rounded-md shadow-md hover:bg-fuchsia-800 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
+              <motion.div className="bg-fuchsia-600  p-4 rounded-md shadow-md hover:bg-fuchsia-800 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
                 <MdFavorite className="text-white text-3xl mb-1" />
                 <p className="text-white font-semibold text-lg text-center">
                   Productos Favoritos
                 </p>
-              </div>
+              </motion.div>
             </Link>
             <Link to={auth.user ? "/UserOrders" : "/login"}>
               <div className="bg-blue-500 p-4 rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out cursor-pointer flex flex-col items-center justify-center">
@@ -97,7 +103,7 @@ const UserProfileSection = () => {
               </p>
             </div>
           </div>
-        </section>
+        </motion.section>
       ) : null}
     </div>
   );
