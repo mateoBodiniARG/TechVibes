@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 const ItemList = ({ productos }) => {
   const [encontrado, setEncontrado] = useState([]);
+  const [burgerOpen, setburgerOpen] = useState(false);
 
   const filtradoPorNombre = (nombre) => {
     if (nombre) {

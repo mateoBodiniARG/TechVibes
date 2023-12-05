@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { motion } from "framer-motion";
 import { AiOutlineUser } from "react-icons/ai";
-
+import { AiOutlineMenu } from "react-icons/ai";
 const NavBar = () => {
   const [burgerOpen, setburgerOpen] = useState(false);
   const auth = useAuth();
@@ -17,7 +17,7 @@ const NavBar = () => {
       console.error("Error al cerrar sesión:", error.message);
     } finally {
       navigate("/login");
-      toggleBurger();
+      closeBurger();
     }
   };
 
@@ -25,6 +25,9 @@ const NavBar = () => {
     setburgerOpen((prevState) => !prevState);
   };
 
+  const closeBurger = () => {
+    setburgerOpen(false);
+  };
   return (
     <nav>
       <motion.nav
@@ -38,29 +41,13 @@ const NavBar = () => {
             <motion.button
               type="button"
               onClick={toggleBurger}
-              data-collapse-toggle="navbar-search"
               className="mr-4 bg-slate-800 inline-flex items-center p-2 w-9 h-9 justify-center text-sm text-gray-200 rounded-md m8:hidden"
-              aria-controls="navbar-search"
               aria-expanded={burgerOpen}
             >
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
+              <AiOutlineMenu className="w-5 h-5" />
             </motion.button>
 
-            <Link to={"/"}>
+            <Link to={"/"} onClick={closeBurger}>
               <span className="self-center text-2xl font-semibold whitespace-nowrap text-white m8Max:text-center uppercase">
                 TechVibes
               </span>
@@ -71,6 +58,7 @@ const NavBar = () => {
               <Link
                 to={auth.user ? "/userProfile" : "/login"}
                 className="text-black"
+                onClick={closeBurger}
               >
                 <motion.div whileTap={{ scale: 0.9 }}>
                   <div className="border-gray-900 bg-slate-200 p-2 rounded-xl">
@@ -80,7 +68,7 @@ const NavBar = () => {
               </Link>
             </div>
             <div className="items-center md:flex md:order-2 gap-2 ">
-              <Link to={"/cart"}>
+              <Link to={"/cart"} onClick={closeBurger}>
                 <div className="ml-1">
                   <motion.div whileTap={{ scale: 0.9 }}>
                     <CartWidget />
@@ -128,23 +116,23 @@ const NavBar = () => {
 
               {auth.user ? (
                 <li className="md:hidden w-full">
-                  <button
+                  <Link
                     onClick={() => {
                       handleLogOut();
                     }}
-                    className="md:border-2 border-gray-700 bg-red-500 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-red-600 transition-all duration-300 ease-in-out block"
+                    className="md:border-2 border-gray-700 bg-red-500 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-red-600 transition-all duration-300 ease-in-out block text-base"
                   >
                     Cerrar Sesión
-                  </button>
+                  </Link>
                 </li>
               ) : (
                 <li className="md:hidden w-full">
                   <Link
                     onClick={toggleBurger}
                     to={"/login"}
-                    className="md:border-2 border-gray-700 bg-green-500 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-green-600 transition-all duration-300 ease-in-out block"
+                    className="md:border-2 border-gray-700 bg-green-500 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 hover:text-white hover:bg-green-600 transition-all duration-300 ease-in-out block text-base"
                   >
-                    Inicie sesión
+                    Iniciar sesion
                   </Link>
                 </li>
               )}

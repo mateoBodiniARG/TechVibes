@@ -133,7 +133,7 @@ const Admin = () => {
   return (
     <div className="container mx-auto my-2 mm3:m-0 ">
       <div className="flex justify-center mb-4 flex-col items-center text-center">
-        <h2 className="text-white font-semibold text-3xl mb-2">
+        <h2 className="text-white font-semibold text-3xl mb-2 mt-4">
           Hola! {displayName}
         </h2>
         <span className="text-sm text-gray-400 mm3:mx-2 mm3:text-base">

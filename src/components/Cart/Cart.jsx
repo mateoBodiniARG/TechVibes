@@ -22,29 +22,31 @@ const Cart = () => {
 
   return (
     <div>
-      <div className="flex justify-around mb-3 mt-3 items-center">
-        <div className="mm3:text-2xl text-3xl text-white font-semibold">
-          <h1>Product cart</h1>
-        </div>
-        <motion.a
-          whileHover="hover"
-          className="relative inline-block mm3:text-base text-lg group cursor-pointer text-white font-semibold"
-          onClick={clearCart}
-        >
-          <motion.button
-            variants={{
-              hover: {
-                scale: 1.1,
-                transition: { duration: 0.3 },
-              },
-            }}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all items-center gap-1 flex"
+      {cartEmpty ? null : (
+        <div className="flex justify-around mb-3 mt-3 items-center">
+          <div className="mm3:text-2xl text-3xl text-white font-semibold">
+            <h1>Product cart</h1>
+          </div>
+          <motion.a
+            whileHover="hover"
+            className="relative inline-block mm3:text-base text-lg group cursor-pointer text-white font-semibold"
+            onClick={clearCart}
           >
-            <MdDeleteForever className="w-6 h-6" />
-            Clear cart
-          </motion.button>
-        </motion.a>
-      </div>
+            <motion.button
+              variants={{
+                hover: {
+                  scale: 1.1,
+                  transition: { duration: 0.3 },
+                },
+              }}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all items-center gap-1 flex"
+            >
+              <MdDeleteForever className="w-6 h-6" />
+              Clear cart
+            </motion.button>
+          </motion.a>
+        </div>
+      )}
 
       <motion.section
         initial={{ opacity: 0 }}
