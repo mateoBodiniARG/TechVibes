@@ -1,18 +1,23 @@
 import React, { useState, useContext } from "react";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { collection, addDoc, getFirestore, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  doc,
+  Timestamp,
+  updateDoc,
+} from "firebase/firestore";
 import { CartContext } from "../../context/ShoppingCartContext";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { updateDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 
 const FinalizePurchase = () => {
   const { cart, setCart } = useContext(CartContext);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [phoneValid, setPhoneValid] = useState("");
+  const [adress, setAdress] = useState("");
   const [orderId, setOrderId] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { user } = useAuth();
@@ -35,13 +40,6 @@ const FinalizePurchase = () => {
     setIsModalVisible(false);
   };
 
-  const handlePhone = (e) => {
-    const phoneNumberRegex = /^\d{10}$/;
-    const newPhone = e.target.value;
-    const validPhone = phoneNumberRegex.test(newPhone);
-    setPhoneValid(validPhone);
-  };
-
   const sendOrder = async () => {
     try {
       const orders = {
@@ -49,7 +47,7 @@ const FinalizePurchase = () => {
           uid: user.uid,
           email: userEmail,
           name: displayName,
-          phone: phone,
+          adress: adress,
         },
         products: cart.map((item) => ({
           productName: item.nombre,
@@ -61,6 +59,7 @@ const FinalizePurchase = () => {
           0
         ),
         estado: "pendiente",
+        fechaPedidoUsuario: Timestamp.fromDate(new Date()),
       };
 
       const ordersColUser = collection(db, "usersOrders");
@@ -79,57 +78,64 @@ const FinalizePurchase = () => {
       setOrderId(orderDoc.id);
       return { id: orderDoc.id };
     } catch (error) {
+      console.log("Error al enviar la orden", error);
       throw error;
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (phone === "" || !phoneValid) {
+    if (adress === "") {
       setIsSubmitClicked(true);
+      console.log("No se puede enviar la orden");
       return;
     }
-    sendOrder();
-    setCart([]);
-    setIsSubmitClicked(true);
-    setIsModalVisible(true);
+
+    try {
+      await sendOrder();
+      setCart([]);
+      setIsSubmitClicked(true);
+      setIsModalVisible(true);
+    } catch (error) {
+      console.log("Error al enviar la orden", error);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white py-6 flex flex-col justify-center sm:py-12 ">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-        <div className="relative px-4 py-10 bg-gray-800 mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+        <div className="relative px-4 py-10 bg-gray-800 mx-4 shadow rounded-3xl sm:p-10">
           <div className="max-w-md mx-auto">
             <motion.div
               variants={stepVariants}
               initial="hidden"
               animate="visible"
-              className="flex items-center space-x-5"
+              className="flex items-center space-x-5 mm3:flex-col justify-center mm3:space-x-0 mm3:space-y-2 mm3:text-center"
             >
-              <div className="h-14 w-14 bg-green-400 rounded-full flex flex-shrink-0 justify-center items-center text-green-700 text-2xl font-mono">
+              <div className="h-14 w-14 bg-green-400 rounded-full flex justify-center items-center text-green-700 text-2xl">
                 <IoIosCheckmarkCircleOutline className="w-8 h-8" />
               </div>
-              <div className="block pl-2 font-semibold text-xl self-start">
+              <div className="block pl-2 font-semibold text-xl">
                 <h2 className="leading-relaxed">
-                  You are just one click away!
+                  A un click de finalizar compra!
                 </h2>
                 <p className="text-sm text-gray-500 font-normal leading-relaxed">
-                  Complete the fields to finalize the purchase.
+                  Completa los campos para finalizar.
                 </p>
               </div>
             </motion.div>
 
             <form onSubmit={handleSubmit}>
               <div className="divide-y divide-gray-700">
-                <div className="py-9 space-y-4">
+                <div className="py-5 space-y-4 ">
                   <motion.div
                     variants={stepVariants}
                     initial="hidden"
                     animate="visible"
                   >
                     <div className="flex flex-col">
-                      <label className="leading-loose">Full name</label>
+                      <label className="leading-loose">Nombre completo</label>
                       <motion.input
                         variants={inputVariants}
                         initial="hidden"
@@ -149,36 +155,25 @@ const FinalizePurchase = () => {
                     animate="visible"
                   >
                     <div className="flex flex-col">
-                      <label className="leading-loose">Phone</label>
+                      <label className="leading-loose">Direccion</label>
                       <motion.input
                         variants={inputVariants}
                         initial="hidden"
                         animate="visible"
-                        type="number"
+                        type="text"
                         className="text-black font-semibold rounded-md"
-                        placeholder="1234567890"
+                        placeholder="123 calle principal"
                         onChange={(e) => {
-                          setPhone(e.target.value);
-                          handlePhone(e);
+                          setAdress(e.target.value);
                         }}
                       />
-                      {isSubmitClicked && phone === "" && (
+                      {isSubmitClicked && adress === "" && (
                         <motion.p
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           className="text-red-600 font-bold text-base"
                         >
-                          The PHONE can't be empty
-                        </motion.p>
-                      )}
-
-                      {!phoneValid && isSubmitClicked && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="text-red-600 font-semibold text-base"
-                        >
-                          Please enter a valid phone number (ex, 1234567890)
+                          Porfavor, complete la direccion
                         </motion.p>
                       )}
                     </div>
@@ -215,7 +210,7 @@ const FinalizePurchase = () => {
                     className="bg-blue-500 transition ease-in hover:bg-blue-700 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
                     onClick={handlePurchaseFinalized}
                   >
-                    Finalize purchase
+                    Finalizar compra
                   </motion.button>
 
                   {orderId && isModalVisible && (
@@ -232,13 +227,13 @@ const FinalizePurchase = () => {
                         </div>
                         <div className="text-base text-center">
                           <p className="text-black font-semibold text-lg">
-                            Payment successful
+                            Pago exitoso!
                           </p>
                           <p className="text-black opacity-50 font-medium">
-                            Thank you for shopping at TechVibes!
+                            ¡Gracias por comprar en TechVibes!
                           </p>
                           <p className="text-black mt-3 mb-8 font-semibold">
-                            ORDER ID:{" "}
+                            ID DE LA ORDEN:{" "}
                             <span className="text-indigo-700 bg-gray-100 rounded-md py-1 px-2">
                               {orderId}
                             </span>
@@ -247,12 +242,12 @@ const FinalizePurchase = () => {
                         <div className="border-t border-gray-200 pt-5 flex justify-center space-x-1">
                           <Link to={"/"}>
                             <button className=" px-4 py-2 rounded-md border-0 font-semibold text-violet-700 hover:bg-violet-100">
-                              Continue Shopping
+                              Continuar comprando
                             </button>
                           </Link>
                           <Link to={"/UserOrders"}>
                             <button className="bg-violet-50 px-4 py-2 rounded-md border-0 font-semibold text-violet-700 hover:bg-violet-100">
-                              My orders
+                              Mis ordenes
                             </button>
                           </Link>
                         </div>
@@ -273,7 +268,7 @@ const FinalizePurchase = () => {
                     className="bg-gray-700 transition ease-in hover:bg-gray-600 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
                     onClick={() => window.history.back()}
                   >
-                    Go back
+                    Regresar
                   </motion.button>
                 </motion.div>
               </div>

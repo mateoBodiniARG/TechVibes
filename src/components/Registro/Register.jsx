@@ -15,6 +15,10 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (passwordRegistro.length < 6) {
+      setError("La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
     try {
       setLoading(true);
       await auth.registro(userName, emailRegistro, passwordRegistro);
@@ -51,13 +55,9 @@ const Register = () => {
             )}
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="input-name" className="text-white block mb-1">
-                  Nombre
-                </label>
+                <label className="text-white block mb-1">Nombre</label>
                 <input
                   type="text"
-                  id="input-name"
-                  name="name"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   placeholder="Tu nombre"
@@ -65,13 +65,11 @@ const Register = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="input-email" className="text-white block mb-1">
+                <label className="text-white block mb-1">
                   Correo Electrónico
                 </label>
                 <input
                   type="email"
-                  id="input-email"
-                  name="email"
                   value={emailRegistro}
                   onChange={(e) => setEmailRegistro(e.target.value)}
                   placeholder="Tu correo electrónico"
@@ -79,16 +77,9 @@ const Register = () => {
                 />
               </div>
               <div className="mb-4">
-                <label
-                  htmlFor="input-password"
-                  className="text-white block mb-1"
-                >
-                  Contraseña
-                </label>
+                <label className="text-white block mb-1">Contraseña</label>
                 <input
                   type="password"
-                  id="input-password"
-                  name="password"
                   onChange={(e) => setPasswordRegistro(e.target.value)}
                   value={passwordRegistro}
                   placeholder="Tu contraseña"

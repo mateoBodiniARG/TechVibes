@@ -10,13 +10,11 @@ import {
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import LoadingV2 from "../Loading/LoadingV2";
-
 const UserOrders = () => {
   const { user } = useAuth();
   const [userOrders, setUserOrders] = useState([]);
   const db = getFirestore();
   const [loading, setLoading] = useState(true);
-  const fechaPedido = Timestamp.fromDate(new Date());
 
   useEffect(() => {
     const getOrder = async () => {
@@ -93,7 +91,9 @@ const UserOrders = () => {
                     <tr key={order.id}>
                       <td className="px-3 py-3 border-b border-gray-600 bg-gray-800 text-sm">
                         <p className="text-gray-300">
-                          {fechaPedido.toDate().toLocaleDateString()}
+                          {order?.fechaPedidoUsuario
+                            ?.toDate()
+                            .toLocaleDateString()}
                         </p>
                       </td>
                       <td className="px-3 py-3 border-b border-gray-600 bg-gray-800 text-sm">
@@ -119,7 +119,7 @@ const UserOrders = () => {
                       </td>
                       <td className="border-b border-gray-600 bg-gray-800">
                         <p className="text-white font-bold text-lg ">
-                          {order?.estado === "Enviado" ? (
+                          {order?.estado === "completo" ? (
                             <span className="bg-green-100 text-green-700 text-sm rounded-full shadow-sm px-2 py-1 mx-2">
                               {order?.estado}
                             </span>
