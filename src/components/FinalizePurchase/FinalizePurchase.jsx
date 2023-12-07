@@ -13,7 +13,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
-
+import { toast } from "react-toastify";
 const FinalizePurchase = () => {
   const { cart, setCart } = useContext(CartContext);
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
@@ -85,6 +85,14 @@ const FinalizePurchase = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (cart.length === 0) {
+      toast.error("No hay productos en el carrito", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+      return;
+    }
 
     if (adress === "") {
       setIsSubmitClicked(true);

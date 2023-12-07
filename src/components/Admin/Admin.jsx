@@ -10,8 +10,9 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import Loading from "../Loading/Loading";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoMdAddCircle } from "react-icons/io";
 import { toast } from "react-toastify";
+import { FaChartLine } from "react-icons/fa";
 
 const Admin = () => {
   const auth = useAuth();
@@ -147,11 +148,19 @@ const Admin = () => {
           onChange={(e) => filtradoPorNombre(e.target.value)}
           placeholder="Buscar producto"
         />
+
         <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2 mt-4 mb-4 flex items-center gap-1 ease-in-out transition-all duration-300 mm3:w-full mm3:mb-2 mm3:px-2 mm3:py-2 mm3:ml-0 mm3:mt-2 mm3:mr-0"
+          className=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2 mt-4 mb-4 flex items-center gap-1 ease-in-out transition-all duration-300 mm3:w-full mm3:mb-2 mm3:px-2 mm3:py-2 mm3:ml-0 mm3:mt-2 mm3:mr-0"
           onClick={() => navigate("/agregar")}
         >
-          <IoIosAddCircleOutline className="h-6 w-6" /> Agregar producto
+          <IoMdAddCircle className="h-6 w-6" /> Agregar producto
+        </button>
+
+        <button
+          className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded ml-2 mt-4 mb-4 flex items-center gap-1 ease-in-out transition-all duration-300 mm3:w-full mm3:mb-2 mm3:px-2 mm3:py-2 mm3:ml-0 mm3:mt-2 mm3:mr-0"
+          onClick={() => navigate("/ventas")}
+        >
+          <FaChartLine className="h-6 w-6" /> Ventas
         </button>
       </div>
       <section className="mm3:mx-3 mm3:my-3 ">
