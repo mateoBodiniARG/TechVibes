@@ -20,6 +20,7 @@ import DeleteOrders from "./components/deleteorders/DeleteOrders";
 import EditProduct from "./components/Admin/EditProduct";
 import Agregar from "./components/Admin/Agregar";
 import Ventas from "./components/Admin/Ventas";
+import Estadisticas from "./components/Admin/Estadisticas";
 function App() {
   return (
     <>
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/editar/:productId" element={<EditProduct />} />
                 <Route path="/agregar" element={<Agregar />} />
                 <Route path="/ventas" element={<Ventas />} />
+                <Route path="/estadisticas" element={<Estadisticas />} />
 
                 <Route
                   path="/category/:categoryId"

@@ -51,40 +51,46 @@ const Ventas = () => {
     }
   };
 
-  //realmente vale la pena poner un buscador? Teniendo para filtrar por completado y no completado?
-  const filtradoPorNombre = (nombre) => {};
-
   const filtradoPorEstado = (estado) => {
+    const ventasFiltradas = ventas.filter((venta) => venta.estado === estado);
     if (estado === "completo") {
-      const ventasFiltradas = ventas.filter((venta) => venta.estado === estado);
       setEstadoFiltrado(ventasFiltradas);
     } else if (estado === "pendiente") {
-      const ventasFiltradas = ventas.filter((venta) => venta.estado === estado);
       setEstadoFiltrado(ventasFiltradas);
     } else if (estado === "todos") {
       setEstadoFiltrado(ventas);
     }
   };
-
+  const regresar = () => {
+    window.history.back();
+  };
   return (
     <div>
       {ventas.length === 0 && !loading && (
         <p className="text-center text-2xl">No hay ventas</p>
       )}
-      <div className="text-center">
+      <div className="text-center gap-3">
         {loading ? (
           <p>Cargando...</p>
         ) : (
-          <div>
-            <select
-              className="mt-3 bg-slate-700 border border-slate-600 rounded py-3 px-4 leading-tight text-white cursor-pointer hover:bg-slate-600 ease-in-out transition-all duration-300"
-              onChange={(e) => filtradoPorEstado(e.target.value)}
-              defaultValue={"todos"}
+          <div className="flex justify-center text-center gap-3">
+            <div className="">
+              <select
+                className="mt-3 bg-slate-700 border border-slate-600 rounded py-3 px-4 leading-tight text-white cursor-pointer hover:bg-slate-600 ease-in-out transition-all duration-300"
+                onChange={(e) => filtradoPorEstado(e.target.value)}
+                defaultValue={"todos"}
+              >
+                <option value="todos">Todos</option>
+                <option value="completo">Completos</option>
+                <option value="pendiente">Pendientes</option>
+              </select>
+            </div>
+            <button
+              className="mt-3 bg-red-700 rounded py-3 px-4 leading-tight text-white cursor-pointer hover:bg-red-600 ease-in-out transition-all duration-300 "
+              onClick={regresar}
             >
-              <option value="todos">todos</option>
-              <option value="completo">completos</option>
-              <option value="pendiente">pendientes</option>
-            </select>
+              Regresar
+            </button>
           </div>
         )}
       </div>
@@ -102,6 +108,9 @@ const Ventas = () => {
               </h2>
               <p className="text-white">
                 <strong>Usuario:</strong> {venta.buyer.name}
+              </p>
+              <p className="text-white">
+                <strong>Email:</strong> {venta.buyer.email}
               </p>
               <p className="text-white">
                 <strong>Fecha:</strong>{" "}

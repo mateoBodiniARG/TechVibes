@@ -70,6 +70,7 @@ const FinalizePurchase = () => {
         const docRef = doc(productosCollection, item.id);
         return updateDoc(docRef, {
           stock: item.stock - item.cantComprar,
+          ventas: item.ventas + item.cantComprar,
         });
       });
 

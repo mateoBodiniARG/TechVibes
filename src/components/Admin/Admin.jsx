@@ -13,6 +13,7 @@ import Loading from "../Loading/Loading";
 import { IoMdAddCircle } from "react-icons/io";
 import { toast } from "react-toastify";
 import { FaChartLine } from "react-icons/fa";
+import { IoTicket } from "react-icons/io5";
 
 const Admin = () => {
   const auth = useAuth();
@@ -158,9 +159,16 @@ const Admin = () => {
 
         <button
           className="bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded ml-2 mt-4 mb-4 flex items-center gap-1 ease-in-out transition-all duration-300 mm3:w-full mm3:mb-2 mm3:px-2 mm3:py-2 mm3:ml-0 mm3:mt-2 mm3:mr-0"
+          onClick={() => navigate("/estadisticas")}
+        >
+          <FaChartLine className="h-6 w-6 " /> Estadisticas
+        </button>
+
+        <button
+          className="bg-black hover:bg-white hover:text-black text-white font-bold py-2 px-3 rounded ml-2 mt-4 mb-4 flex items-center gap-2 ease-in-out transition-all duration-300 mm3:w-full mm3:mb-2 mm3:px-2 mm3:py-2 mm3:ml-0 mm3:mt-2 mm3:mr-0"
           onClick={() => navigate("/ventas")}
         >
-          <FaChartLine className="h-6 w-6" /> Ventas
+          <IoTicket className="h-6 w-6 text-yellow-300" /> Tickets de ventas
         </button>
       </div>
       <section className="mm3:mx-3 mm3:my-3 ">
