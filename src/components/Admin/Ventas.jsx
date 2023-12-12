@@ -6,6 +6,7 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+import LoadingV2 from "../Loading/LoadingV2";
 
 const Ventas = () => {
   const [ventas, setVentas] = useState([]);
@@ -44,6 +45,7 @@ const Ventas = () => {
         ...doc.data(),
       }));
       setVentas(ventas);
+      window.location.reload();
     } catch (error) {
       console.error("Error al cambiar el estado del pedido:", error.message);
     }
@@ -67,9 +69,9 @@ const Ventas = () => {
       {ventas.length === 0 && !loading && (
         <p className="text-center text-2xl">No hay ventas</p>
       )}
-      <div className="text-center gap-3">
+      <div className="text-center gap-3 mt-6">
         {loading ? (
-          <p>Cargando...</p>
+          <LoadingV2 />
         ) : (
           <div className="flex justify-center text-center gap-3">
             <div className="">
@@ -94,7 +96,7 @@ const Ventas = () => {
       </div>
       <div className="p-4 mx-auto lg:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {loading ? (
-          <p>Cargando...</p>
+          <LoadingV2 />
         ) : (
           estadoFiltrado.map((venta) => (
             <div

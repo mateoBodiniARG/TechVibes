@@ -25,26 +25,18 @@ const Cart = () => {
       {cartEmpty ? null : (
         <div className="flex justify-around mb-3 mt-3 items-center">
           <div className="mm3:text-2xl text-3xl text-white font-semibold">
-            <h1>Product cart</h1>
+            <h1>Productos del carrito</h1>
           </div>
-          <motion.a
+          <a
             whileHover="hover"
             className="relative inline-block mm3:text-base text-lg group cursor-pointer text-white font-semibold"
             onClick={clearCart}
           >
-            <motion.button
-              variants={{
-                hover: {
-                  scale: 1.1,
-                  transition: { duration: 0.3 },
-                },
-              }}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all items-center gap-1 flex"
-            >
+            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all items-center gap-1 flex">
               <MdDeleteForever className="w-6 h-6" />
-              Clear cart
-            </motion.button>
-          </motion.a>
+              Limpiar carrito
+            </button>
+          </a>
         </div>
       )}
 
@@ -60,11 +52,11 @@ const Cart = () => {
                 <BsCartX />
               </span>
               <p className="font-semibold text-4xl text-indigo-200 mt-4">
-                Sorry {displayName}, your cart is empty{" "}
+                Lo sentimos {displayName}, tu carrito esta vacio{" "}
               </p>
               <Link to={"/"}>
                 <p className="flex items-center gap-2 text-white text-xl mt-5 bg-indigo-600 cursor-pointer px-2 py-2 rounded-xl transition ease-in hover:bg-indigo-400 hover:text-black ">
-                  <AiOutlineHome className="w-6 h-6" /> Back to home
+                  <AiOutlineHome className="w-6 h-6" /> Regresar al inicio
                 </p>
               </Link>
             </div>
@@ -87,7 +79,7 @@ const Cart = () => {
                 </div>
                 <Link to={"/finalizePurchase"}>
                   <button className="w-full py-2 bg-indigo-800 text-white rounded-lg hover:bg-indigo-600 transition ease-in">
-                    Finalize Purchase
+                    Finalizar compra
                   </button>
                 </Link>
               </div>

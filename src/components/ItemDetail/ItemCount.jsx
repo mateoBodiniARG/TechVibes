@@ -129,7 +129,7 @@ const ItemCount = ({ producto }) => {
               className="bg-blue-500 transition ease-in hover:bg-gray-200 hover:text-black text-white font-semibold h-12 w-40 rounded-lg disabled:cursor-not-allowed disabled:hover:bg-slate-500"
               onClick={addToCart}
             >
-              Add to cart
+              Añadir al carrito
             </button>
           </div>
         </section>

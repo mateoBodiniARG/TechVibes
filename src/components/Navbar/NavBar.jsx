@@ -90,7 +90,7 @@ const NavBar = () => {
                   to={"/category/Headsets"}
                   className="md:border-2 border-gray-700 bg-slate-700 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 md:hover:text-white md:hover:bg-slate-800 ease-in-out transition-all duration-300 block"
                 >
-                  Headsets
+                  Auriculares
                 </Link>
               </li>
 
@@ -100,7 +100,7 @@ const NavBar = () => {
                   to={"/category/Keyboards"}
                   className="md:border-2 border-gray-700 bg-slate-700 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 md:hover:text-white md:hover:bg-slate-800 ease-in-out transition-all duration-300 block"
                 >
-                  Keyboards
+                  Teclados
                 </Link>
               </li>
 
@@ -110,7 +110,7 @@ const NavBar = () => {
                   to={"/category/Gaming Chairs"}
                   className="md:border-2 border-gray-700 bg-slate-700 rounded-md m-2 md:py-2 md:px-4 py-3 px-6 md:hover:text-white md:hover:bg-slate-800 ease-in-out transition-all duration-300 block"
                 >
-                  Gaming Chairs
+                  Sillas gamer
                 </Link>
               </li>
 
