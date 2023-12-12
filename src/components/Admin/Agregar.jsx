@@ -5,13 +5,9 @@ import {
   getFirestore,
   doc,
   getDocs,
-  getDoc,
   collection,
-  deleteDoc,
   setDoc,
 } from "firebase/firestore";
-import Loading from "../Loading/Loading";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -19,7 +15,6 @@ const Agregar = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const db = getFirestore();
-  const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState({
     nombre: "",
     description: "",
@@ -57,8 +52,9 @@ const Agregar = () => {
   }, [db]);
 
   // Cargar nuevo producto a la base de datos de firebase
-  const handleSubmit = async (e) => {
+  const manejoSubmit = async (e) => {
     e.preventDefault();
+    // Desestructurar el objeto producto para obtener sus propiedades y valores para poder enviarlos a la base de datos de firebase con setDoc
     const { nombre, description, price, img, stock } = product;
     try {
       const priceToNumber = Number(price);
@@ -214,7 +210,7 @@ const Agregar = () => {
                 <div className="flex flex-col -mx-3 mb-6">
                   <button
                     className="mb-3 block text-center py-2 px-4 w-full rounded text-white bg-blue-600 hover:bg-blue-700"
-                    onClick={handleSubmit}
+                    onClick={manejoSubmit}
                   >
                     Guardar
                   </button>
@@ -228,7 +224,6 @@ const Agregar = () => {
             </div>
           </section>
         ) : (
-          // enviar al usuario a la página de login o a la home
           navigate("/")
         )}
       </section>

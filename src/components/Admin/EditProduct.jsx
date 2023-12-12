@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import {
-  getFirestore,
-  doc,
-  getDocs,
-  getDoc,
-  collection,
-  deleteDoc,
-  setDoc,
-} from "firebase/firestore";
-import Loading from "../Loading/Loading";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -231,7 +222,6 @@ const EditProduct = () => {
             </div>
           </section>
         ) : (
-          // enviar al usuario a la página de login o a la home
           <p>Usuario no autenticado</p>
         )}
       </section>

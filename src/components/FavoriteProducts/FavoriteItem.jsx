@@ -40,7 +40,7 @@ const FavoriteItem = () => {
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ease-in-out transition-all duration-300 mb-4"
             onClick={clearFavorites}
           >
-            Clear Favorites
+            Limpiar favoritos
           </motion.button>
         )}
       </div>

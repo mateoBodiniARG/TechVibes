@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
 import {
   getFirestore,
   collection,
@@ -9,7 +8,6 @@ import {
 } from "firebase/firestore";
 
 const Ventas = () => {
-  const { user } = useAuth();
   const [ventas, setVentas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [estadoFiltrado, setEstadoFiltrado] = useState([]);

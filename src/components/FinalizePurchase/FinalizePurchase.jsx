@@ -209,7 +209,7 @@ const FinalizePurchase = () => {
                   </motion.div>
                 </div>
 
-                {/* ------------------------ BUTTONS FINALIZAR COMPRA REGRESAR ATRAS ---------------------------------------*/}
+                {/* ------------------------ BUTTONS FINALIZAR COMPRA // REGRESAR ATRAS ---------------------------------------*/}
 
                 <div className="pt-4 flex items-center space-x-4">
                   <motion.button

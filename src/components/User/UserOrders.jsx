@@ -6,7 +6,6 @@ import {
   query,
   where,
   getDocs,
-  Timestamp,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import LoadingV2 from "../Loading/LoadingV2";

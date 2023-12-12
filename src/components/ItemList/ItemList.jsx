@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 const ItemList = ({ productos }) => {
   const [encontrado, setEncontrado] = useState([]);
-  const [burgerOpen, setburgerOpen] = useState(false);
 
   const filtradoPorNombre = (nombre) => {
     if (nombre) {

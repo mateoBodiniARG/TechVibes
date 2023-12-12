@@ -7,7 +7,6 @@ import {
   where,
   orderBy,
   limit,
-  getDoc,
 } from "firebase/firestore";
 
 const Estadisticas = () => {
@@ -99,16 +98,16 @@ const Estadisticas = () => {
             where("categoryId", "==", categoryId)
           );
           const querySnapshot = await getDocs(q);
-          // obtenemos el total de ventas de cada categoría y lo sumamos a un total general de ventas de todas las categorías (totalVentas)
+          // se obtiene el total de ventas de cada categoría y lo sumo a un total general de ventas de todas las categorías (totalVentas)
           const totalVentas = querySnapshot.docs.reduce((total, doc) => {
             return total + (doc.data().ventas || 0);
           }, 0);
-          // retornamos un objeto con la categoría y el total de ventas
+          // devolver un objeto con la categoría y el total de ventas de esa categoría
           return { categoria: categoryId, totalVentas };
         });
-        // ejecutamos todas las consultas en paralelo y esperamos a que todas terminen para obtener los resultados
+        // se ejecutan todas las consultas en paralelo y se espera a que todas terminen para obtener los resultados
         const resultados = await Promise.all(consultas);
-        // obtenemos la categoría con más ventas de todas las categorías (categoriaMasVendida)
+        // se obtiene la categoría con más ventas de todas las categorías (categoriaMasVendida)
         const categoriaMasVendida = resultados.reduce((prev, current) =>
           prev.totalVentas > current.totalVentas ? prev : current
         );
@@ -146,7 +145,6 @@ const Estadisticas = () => {
     <div className="m-4 text-white">
       <h2 className="text-2xl font-bold mb-4">Resumen de Estadísticas</h2>
 
-      {/* Panel de Resumen */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="bg-gray-800 p-4 rounded-md shadow-md font-bold">
           <h3 className="text-lg font-semibold mb-2">
@@ -174,7 +172,6 @@ const Estadisticas = () => {
       <div className="m-4 text-white">
         <h2 className="text-2xl font-bold mb-4">Ventas por fecha</h2>
 
-        {/* Campos de fecha y botón de calcular */}
         <div className="flex items-center space-x-4 mb-4 text-black">
           <input
             type="date"
@@ -197,7 +194,6 @@ const Estadisticas = () => {
         </div>
       </div>
 
-      {/* Mensaje con el total de ventas seleccionadas o mensaje de error */}
       <div className="bg-gray-800 p-4 rounded-md shadow-md">
         {error ? (
           <p className="text-red-500">{error}</p>

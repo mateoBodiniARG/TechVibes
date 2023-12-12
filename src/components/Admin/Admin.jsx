@@ -49,7 +49,7 @@ const Admin = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          // Revisa si el documento existe
+          // Revisar si el documento existe
           const isAdmin = docSnap.data().admin;
           console.log("Valor de admin:", isAdmin);
 
@@ -220,7 +220,11 @@ const Admin = () => {
                     Editar
                   </button>
                   <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mm3:px-2 mm3:py-1"
+                    className={`${
+                      product.activo
+                        ? "bg-red-500 hover:bg-red-700"
+                        : "bg-green-500 hover:bg-green-700"
+                    } text-white font-bold py-2 px-4 rounded mm3:px-2 mm3:py-1 mm3:mb-2`}
                     onClick={() =>
                       handleToggleProduct(product.id, product.activo)
                     }

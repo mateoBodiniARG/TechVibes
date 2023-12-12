@@ -83,9 +83,8 @@ export function AuthProvider({ children }) {
       if (docSnap.exists() && docSnap.data().admin) {
         // Si el usuario es administrador, redirige a la ruta de administrador
         setUser(currentUser);
-        navigate("/admin");
       } else {
-        // Si no es administrador, redirige a otra ruta (puedes ajustar esto según tus necesidades)
+        // Si no es administrador, redirige a otra ruta 
         setUser(currentUser);
         navigate("/");
       }
