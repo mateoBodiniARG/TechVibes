@@ -1,7 +1,7 @@
 import React from "react";
 import { MdOutlineDescription } from "react-icons/md";
 import { Link } from "react-router-dom";
-const Item = ({ id, nombre, stock, price, img, showButton = true }) => {
+const Item = ({ id, nombre, stock, price, img }) => {
   return (
     <section className="p-4">
       <div className="mt-1 flex flex-col border border-gray-600 bg-gray-800 rounded-xl">
@@ -29,15 +29,13 @@ const Item = ({ id, nombre, stock, price, img, showButton = true }) => {
             </span>
           </div>
 
-          {showButton && (
-            <Link
-              to={`/item/${id}`}
-              className="gap-1 flex items-center justify-center rounded-md bg-indigo-600 py-2.5 text-center text-base font-medium text-white transition ease-in hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-4 focus:ring-blue-300"
-            >
-              <MdOutlineDescription className="h-4 w-4" />
-              <button>See description</button>
-            </Link>
-          )}
+          <Link
+            to={`/item/${id}`}
+            className="gap-1 flex items-center justify-center rounded-md bg-indigo-600 py-2.5 text-center text-base font-medium text-white transition ease-in hover:bg-gray-200 hover:text-black focus:outline-none focus:ring-4 focus:ring-blue-300"
+          >
+            <MdOutlineDescription className="h-4 w-4" />
+            <button>Descripción</button>
+          </Link>
         </div>
       </div>
     </section>

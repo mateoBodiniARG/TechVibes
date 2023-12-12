@@ -46,7 +46,7 @@ const ItemListContainer = () => {
       transition={{ duration: 0.5, delay: 0.2 }}
     >
       <h1 className="text-center text-white font-semibold text-4xl my-3">
-        Products available
+        Productos disponibles
       </h1>
       <ItemList productos={productByCategory} />
     </motion.div>

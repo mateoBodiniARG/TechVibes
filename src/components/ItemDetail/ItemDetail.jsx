@@ -10,7 +10,7 @@ const ItemDetail = ({ product }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
-      <div className="max-w-7xl mx-auto px-4 py-5 lg:rounded-2xl shadow-2xl bg-gray-800 mdMAX:shadow-none lg3:bg-transparent xl2:max-w-6xl lg2:max-w-5xl">
+      <div className="max-w-6xl px-4 py-5 lg:rounded-2xl shadow-2xl bg-gray-800 mdMAX:shadow-none lg3:bg-transparent xl2:max-w-6xl xl2:mx-7 lg2:max-w-5xl">
         <div className="grid lg3:grid-cols-1 md:grid-cols-2 gap-6 mdMAX:gap-3">
           <div className="flex justify-center">
             <div className="md:bg-gray-900 lg:bg-transparent p-4 rounded-2xl max-w-xl ">

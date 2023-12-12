@@ -7,7 +7,7 @@ import {
   getDocs,
   getDoc,
   collection,
-  deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import Loading from "../Loading/Loading";
 import { IoMdAddCircle } from "react-icons/io";
@@ -91,37 +91,43 @@ const Admin = () => {
   // ------------------------------------------------------------------------------------------------------------------------------------------------------//
 
   // Eliminar producto
-  const handleDeleteProduct = async (productId) => {
+  const handleToggleProduct = async (productId, currentStatus) => {
     try {
-      const confirmacion = window.confirm(
-        "¿Estás seguro que deseas eliminar el producto?"
-      );
-      //mensaje de confirmación
-      if (confirmacion) {
-        const productRef = doc(db, "Productos", productId);
-        await deleteDoc(productRef);
-        setProducts((prevProducts) =>
-          prevProducts.filter((product) => product.id !== productId)
-        );
-        setEncontrado((prevEncontrado) =>
-          prevEncontrado.filter((product) => product.id !== productId)
-        );
-        toast.success("Producto eliminado con éxito", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-        });
-      } else {
-        toast.error("Se ha cancelado la eliminacion", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-        });
+      const productRef = doc(db, "Productos", productId);
 
-        console.log("No se eliminó el producto");
-      }
+      // Cambiar el estado del campo 'activo'
+      await updateDoc(productRef, {
+        activo: !currentStatus,
+      });
+
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === productId
+            ? { ...product, activo: !currentStatus }
+            : product
+        )
+      );
+
+      setEncontrado((prevEncontrado) =>
+        prevEncontrado.map((product) =>
+          product.id === productId
+            ? { ...product, activo: !currentStatus }
+            : product
+        )
+      );
+
+      toast.success(
+        `Producto ${currentStatus ? "desactivado" : "activado"} con éxito`,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        }
+      );
     } catch (error) {
-      console.error("Error al eliminar el producto:", error.message);
+      console.error("Error al cambiar el estado del producto:", error.message);
     }
   };
+
   // Fin de eliminar producto
   // ------------------------------------------------------------------------------------------------------------------------------------------------------//
   if (loading) {
@@ -185,7 +191,10 @@ const Admin = () => {
           </thead>
           <tbody>
             {encontrado.map((product) => (
-              <tr key={product.id}>
+              <tr
+                key={product.id}
+                className={`${!product.activo && "opacity-50"}`}
+              >
                 <td className="py-2 px-4 border-b border-b-gray-700">
                   {product.nombre}
                 </td>
@@ -212,9 +221,11 @@ const Admin = () => {
                   </button>
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mm3:px-2 mm3:py-1"
-                    onClick={() => handleDeleteProduct(product.id)}
+                    onClick={() =>
+                      handleToggleProduct(product.id, product.activo)
+                    }
                   >
-                    Eliminar
+                    {product.activo ? "Desactivar" : "Activar"}
                   </button>
                 </td>
               </tr>
