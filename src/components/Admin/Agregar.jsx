@@ -55,10 +55,11 @@ const Agregar = () => {
   const manejoSubmit = async (e) => {
     e.preventDefault();
     // Desestructurar el objeto producto para obtener sus propiedades y valores para poder enviarlos a la base de datos de firebase con setDoc
-    const { nombre, description, price, img, stock } = product;
+    const { nombre, description, price, img, stock, activo } = product;
     try {
       const priceToNumber = Number(price);
       const stockToNumber = Number(stock);
+      const currentEstate = product.activo || true;
       await setDoc(doc(db, "Productos", nombre), {
         nombre,
         description,
@@ -66,6 +67,7 @@ const Agregar = () => {
         categoryId: selectedCategory,
         img,
         stock: stockToNumber,
+        activo: currentEstate,
       });
       toast.success("Producto agregado con éxito", {
         position: toast.POSITION.TOP_CENTER,

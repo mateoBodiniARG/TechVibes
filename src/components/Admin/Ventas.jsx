@@ -23,6 +23,7 @@ const Ventas = () => {
           id: doc.id,
           ...doc.data(),
         }));
+        ventas.sort((a, b) => b.fechaPedidoUsuario - a.fechaPedidoUsuario);
         setVentas(ventas);
         setEstadoFiltrado(ventas);
         setLoading(false);
@@ -54,8 +55,14 @@ const Ventas = () => {
   const filtradoPorEstado = (estado) => {
     const ventasFiltradas = ventas.filter((venta) => venta.estado === estado);
     if (estado === "completo") {
+      ventasFiltradas.sort(
+        (a, b) => b.fechaPedidoUsuario - a.fechaPedidoUsuario
+      );
       setEstadoFiltrado(ventasFiltradas);
     } else if (estado === "pendiente") {
+      ventasFiltradas.sort(
+        (a, b) => b.fechaPedidoUsuario - a.fechaPedidoUsuario
+      );
       setEstadoFiltrado(ventasFiltradas);
     } else if (estado === "todos") {
       setEstadoFiltrado(ventas);

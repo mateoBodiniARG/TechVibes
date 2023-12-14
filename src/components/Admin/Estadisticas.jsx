@@ -198,9 +198,9 @@ const Estadisticas = () => {
         {error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <p className="text-white text-lg">
+          <p className="text-white text-xl">
             {totalVentasSeleccionadas
-              ? `$${totalVentasSeleccionadas}`
+              ? `El total de ventas en el rango de la fecha seleccionada es de: $${totalVentasSeleccionadas}`
               : "Seleccione una fecha"}
           </p>
         )}

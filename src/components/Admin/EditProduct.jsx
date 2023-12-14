@@ -82,6 +82,7 @@ const EditProduct = () => {
   // Función para guardar los cambios y que se modifiquen en la base de datos de Firebase
   const handleSaveChanges = async (e) => {
     e.preventDefault();
+    const estadoActual = product.activo;
     try {
       const docRef = doc(db, "Productos", product.id);
       await setDoc(docRef, {
@@ -91,6 +92,7 @@ const EditProduct = () => {
         categoryId: product.categoryId,
         img: product.img,
         stock: product.stock,
+        activo: estadoActual,
       });
       console.log("Producto actualizado");
       navigate("/admin");

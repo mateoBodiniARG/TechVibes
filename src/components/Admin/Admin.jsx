@@ -11,7 +11,6 @@ import {
 } from "firebase/firestore";
 import Loading from "../Loading/Loading";
 import { IoMdAddCircle } from "react-icons/io";
-import { toast } from "react-toastify";
 import { FaChartLine } from "react-icons/fa";
 import { IoTicket } from "react-icons/io5";
 
@@ -90,43 +89,27 @@ const Admin = () => {
   // Fin de obtener todos los productos
   // ------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-  // Eliminar producto
-  const handleToggleProduct = async (productId, currentStatus) => {
+  // Cambiar estado de producto (activar/desactivar)
+  const handleToggleProduct = async (id, estado) => {
     try {
-      const productRef = doc(db, "Productos", productId);
+      const productDoc = doc(db, "Productos", id);
+      await updateDoc(productDoc, { activo: !estado });
 
-      // Cambiar el estado del campo 'activo'
-      await updateDoc(productRef, {
-        activo: !currentStatus,
-      });
+      const ordersCollection = collection(db, "Productos");
+      const querySnapshot = await getDocs(ordersCollection);
+      const allProducts = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.id === productId
-            ? { ...product, activo: !currentStatus }
-            : product
-        )
-      );
-
-      setEncontrado((prevEncontrado) =>
-        prevEncontrado.map((product) =>
-          product.id === productId
-            ? { ...product, activo: !currentStatus }
-            : product
-        )
-      );
-
-      toast.success(
-        `Producto ${currentStatus ? "desactivado" : "activado"} con éxito`,
-        {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-        }
-      );
+      setProducts(allProducts.sort((a, b) => a.stock - b.stock));
+      setEncontrado(allProducts);
     } catch (error) {
       console.error("Error al cambiar el estado del producto:", error.message);
     }
   };
+  // Fin de cambiar estado de producto
+  // ------------------------------------------------------------------------------------------------------------------------------------------------------//
 
   // Fin de eliminar producto
   // ------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -230,6 +213,7 @@ const Admin = () => {
                     }
                   >
                     {product.activo ? "Desactivar" : "Activar"}
+                    {console.log(product.activo)}
                   </button>
                 </td>
               </tr>
